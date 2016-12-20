@@ -23,6 +23,11 @@ Transform: use RST and mat4, dirty flag
 
 Graph traversal: does traversal algo make any difference?
 
+Basic functionality:
+Render depth to texture
+Render colour to texture: MRTs.
+
+Load/compile shader. We want to be able to reload any time.
 Load/draw mesh
 Load texture
 Animation
