@@ -32,8 +32,11 @@ void Mandel::Draw()
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
+
+    teapot_scene_node tp;
+    tp.render(0, frustum());
     
-    glutPostRedisplay();
+    glutSwapBuffers();
 }
 
 void reshape(int x, int y)
