@@ -2,13 +2,11 @@
 // glboiler - Jason Colman 2016 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
-#include <gtest/gtest.h>
-#include "test_scene_node.h"
-#include "frustum.h"
+#pragma once
 
-TEST(scene_node, render)
+class frustum
 {
-    test_scene_node n;
-    n.render(0, frustum());
-}
+public:
+
+};
 
