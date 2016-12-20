@@ -2,16 +2,11 @@
 // glboiler - Jason Colman 2016 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
-// clang++ *.cpp ../*.cpp -I .. -std=c++11 -DMACOSX -framework OpenGL -framework GLUT
+// clang++ *.cpp ../*.cpp -I .. -std=c++11 -DMACOSX -framework OpenGL -framework GLUT  -Wno-deprecated-declarations
 
 #include <stdio.h>
-#ifdef WIN32
-#include <GL/glut.h>
-#endif
-#ifdef MACOSX
-#include <OpenGL/gl.h>
-#include <GLUT/glut.h>
-#endif
+#include "opengl_includes.h"
+#include "teapot_scene_node.h" // TODO TEMP TEST
 
 static int WIN_X = 500;
 static int WIN_Y = 500;
