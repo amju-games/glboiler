@@ -1,0 +1,37 @@
+Renderer: use "policies"? We want to mix and match:
+ - Thread-safe/multithreaded -> message queue
+ - Forward/deferred: these are 2 subclasses of renderer base class
+ - Mono/stereo: have the idea of rendering one view, then the final render is comprised of 1 or more views.
+
+Turn on and off features to trade off performance for quality.
+ - PCSS for best shadows, then PCF, then no filtering? Lightmaps
+ - Normal mapping/parallax displacement mapping -> calc tangents
+
+Other features
+ - Build lightmaps once at load time
+ - Conditioning pass: binarify assets
+ - GPU/CPU skinning
+ - Different vertex types
+
+Render flags, so we can just render depth, etc - don't do unnecessary stuff for depth pass etc.
+
+Geom classes
+Matrix: mat3, mat4, vec3
+Frustum
+Quat
+Transform: use RST and mat4, dirty flag
+
+Graph traversal: does traversal algo make any difference?
+
+Load/draw mesh
+Load texture
+Animation
+
+Frame time
+Each feature separately timed. Have a stack of timers, so we can show % of parent task. Create timer on stack, ctor/dtor add/remove from stack.
+
+GFX features
+ - Reflection probes
+ - Screen space reflection, vs geometry-based reflection plane
+
+
