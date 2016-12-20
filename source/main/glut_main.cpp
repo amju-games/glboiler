@@ -55,9 +55,34 @@ void key(unsigned char c, int x, int y)
 int main(int argc, char** argv)
 {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);   
+
+    // https://pleiades.ucsc.edu/hyades/OpenGL_on_OS_X
+    glutInitDisplayMode(GLUT_3_2_CORE_PROFILE | GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+
     glutInitWindowSize(WIN_X, WIN_Y);
     glutCreateWindow("Hello"); 
+
+    const GLubyte* renderer = glGetString(GL_RENDERER);
+    const GLubyte* version = glGetString(GL_VERSION);
+
+    if (renderer)
+    {
+        printf("Renderer: %s\n", renderer);
+    }
+    else
+    {
+        printf("glGetString failed!\n");
+    }
+
+    if (version)
+    {
+        printf("OpenGL version supported: %s\n", version);
+    }
+    else
+    {
+        printf("glGetString failed!\n");
+    }
+  
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutMouseFunc(mouse);
