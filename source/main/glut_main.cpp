@@ -2,7 +2,7 @@
 // glboiler - Jason Colman 2016 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
-// clang++ *.cpp ../*.cpp -I .. -std=c++11 -DMACOSX -framework OpenGL -framework GLUT  -Wno-deprecated-declarations
+// clang++  -I .. -I ../thirdparty/googletest/include  -std=c++11   -I../geom -DMACOSX ../*.cpp glut_main.cpp -I ../thirdparty/lpng1626/ -framework OpenGL -framework GLUT -Wno-deprecated-declarations ../thirdparty/lpng1626/libpng.a -lz
 
 #include <stdio.h>
 #include "opengl_includes.h"
