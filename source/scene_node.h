@@ -5,9 +5,8 @@
 #pragma once
 
 #include <memory>
+#include "frustum.h"
 #include "object.h"
-
-class frustum;
 
 class scene_node : public object
 {
