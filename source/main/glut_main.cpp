@@ -2,10 +2,14 @@
 // glboiler - Jason Colman 2016 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
+// Build libpng: 
+//  in libpng, cp scripts/makefile.darwin .. ; make -f makefile.darwin
+// That builds libpng.a in the libpng dir.
 // clang++  -I .. -I ../thirdparty/googletest/include  -std=c++11   -I../geom -DMACOSX ../*.cpp glut_main.cpp -I ../thirdparty/lpng1626/ -framework OpenGL -framework GLUT -Wno-deprecated-declarations ../thirdparty/lpng1626/libpng.a -lz
 
 #include <stdio.h>
 #include "gl_includes.h"
+#include "gl_shader.h"
 #include "teapot_scene_node.h" // TODO TEMP TEST
 
 static int WIN_X = 500;
@@ -31,7 +35,15 @@ void Mandel::Draw()
 
 void display()
 {
+    printf("Rendering...\n");
+
+    glClearColor(1, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
+
+    gl_shader sh;
+    sh.load("shaders/test_v.txt", "shaders/test_f.txt");
+    sh.compile_on_gl_thread();
+    sh.use_on_gl_thread();
 
     teapot_scene_node tp;
     tp.render(0, frustum());
@@ -60,7 +72,9 @@ int main(int argc, char** argv)
     glutInit(&argc, argv);
 
     // https://pleiades.ucsc.edu/hyades/OpenGL_on_OS_X
-    glutInitDisplayMode(GLUT_3_2_CORE_PROFILE | GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+    glutInitDisplayMode(
+        //GLUT_3_2_CORE_PROFILE | 
+        GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
 
     glutInitWindowSize(WIN_X, WIN_Y);
     glutCreateWindow("Hello"); 

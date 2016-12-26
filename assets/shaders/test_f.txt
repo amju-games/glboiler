@@ -1,0 +1,13 @@
+// Test frag shader
+
+varying vec3 v_normal;
+
+void main()
+{
+  vec3 light_pos = vec3(10, 10, 3);
+  float n_dot_l = max(0.0, dot(normalize(v_normal), normalize(light_pos)));
+
+  gl_FragColor = vec4(n_dot_l, n_dot_l, n_dot_l, 1);
+}
+
+
