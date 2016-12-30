@@ -3,11 +3,11 @@
 // -----------------------------------------------------------------------------
 
 #include <gtest/gtest.h>
-#include "basic_renderer.h"
+#include "forward_renderer.h"
 
 TEST(basic_renderer, create)
 {
-    basic_renderer r;
+    forward_renderer r;
     const render_stats& stats = r.get_render_stats();
     ASSERT_EQ(0, stats.num_nodes_rendered);
 }
