@@ -2,17 +2,21 @@
 // glboiler - Jason Colman 2016 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
-#pragma once
+#include "aabb.h"
 
-#include "mat4.h"
-
-class frustum
+cull_result aabb::calc_cull_result(const frustum& fr) const
 {
-public:
-  frustum();
-  void set_from_matrix(mat4 m);
+  return cull_result::FRUSTUM_INSIDE;
+}
 
-private:
-  float m_planes[6][4];
-};
+vec3 aabb::get_min() const
+{
+  return m_min;
+}
+
+vec3 aabb::get_max() const
+{
+  return m_max;
+}
+
 

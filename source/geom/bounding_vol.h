@@ -4,15 +4,14 @@
 
 #pragma once
 
-#include "mat4.h"
+#include "cull_result.h"
+#include "frustum.h"
+#include "object.h"
 
-class frustum
+class bounding_vol : public object
 {
 public:
-  frustum();
-  void set_from_matrix(mat4 m);
-
-private:
-  float m_planes[6][4];
+  virtual ~bounding_vol() {}
+  virtual cull_result calc_cull_result(const frustum& fr) const = 0;
 };
 
