@@ -6,7 +6,10 @@
 
 struct viewport
 {
+  viewport() = default;
   viewport(int x_, int y_, int w_, int h_) : x(x_), y(y_), w(w_), h(h_) {}
+
+  void set_gl_viewport() const;
 
   int x = 0;
   int y = 0;
