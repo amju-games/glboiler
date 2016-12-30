@@ -4,13 +4,10 @@
 
 #pragma once
 
-#include "scene_node.h"
-
-class test_scene_node : public scene_node
+enum class cull_result
 {
-public:
-    virtual void render() const override
-    {
-    }
+  FRUSTUM_INSIDE,
+  FRUSTUM_INSIDE_AND_OUTSIDE,
+  FRUSTUM_OUTSIDE
 };
 

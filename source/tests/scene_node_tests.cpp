@@ -9,6 +9,6 @@
 TEST(scene_node, render)
 {
     test_scene_node n;
-    n.render(0, frustum());
+    n.render();
 }
 

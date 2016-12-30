@@ -9,6 +9,7 @@
 class teapot_scene_node : public scene_node
 {
 public:
-    virtual void render(int render_flags, const frustum& f) const override;
+  teapot_scene_node();
+  virtual void render() const override;
 };
 

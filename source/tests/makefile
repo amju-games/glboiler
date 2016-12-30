@@ -1,5 +1,53 @@
-all: glboiler_tests
+all:glboiler_tests_exe
 
-glboiler_tests:
-	clang++  -I .. -I ../thirdparty/googletest/include  -std=c++11   -I../geom -DMACOSX ../*.cpp *.cpp -I ../thirdparty/lpng1626/ -framework OpenGL -framework GLUT -Wno-deprecated-declarations ../thirdparty/lpng1626/libpng.a -lz -o glboiler_tests ../thirdparty/googletest/make/gtest.a
+clean:
+	rm glboiler_tests *.o ../*.o ../geom/*.o ../macosx/*.o
+
+run:
+	./glboiler_tests
+
+CC=clang++
+
+WARNINGS=-Wall -Wno-deprecated-declarations
+
+INCLUDES=-I.. -I../thirdparty/googletest/include  -I../thirdparty/lpng1626/ -I../geom -I../macosx
+
+CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11   -DMACOSX
+
+LDFLAGS=../thirdparty/googletest/make/gtest.a -framework OpenGL -framework GLUT ../thirdparty/lpng1626/libpng.a -lz
+
+SOURCES=test_main.cpp \
+scene_graph_tests.cpp \
+scene_node_tests.cpp \
+viewport_tests.cpp \
+geom/aabb_tests.cpp \
+geom/frustum_tests.cpp \
+geom/mat4_tests.cpp \
+geom/vec3_tests.cpp \
+../forward_renderer.cpp \
+../gl_system.cpp \
+../gl_shader.cpp \
+../load_png.cpp \
+../renderer.cpp \
+../render_to_texture.cpp \
+../scene_description.cpp \
+../scene_graph.cpp \
+../teapot_scene_node.cpp \
+../view.cpp \
+../geom/aabb.cpp \
+../geom/camera.cpp \
+../geom/frustum.cpp \
+../macosx/timer.cpp \
+../log.cpp
+
+OBJECTS=$(SOURCES:.cpp=.o)
+EXECUTABLE=glboiler_tests
+
+glboiler_tests_exe: $(SOURCES) $(EXECUTABLE)
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@
 

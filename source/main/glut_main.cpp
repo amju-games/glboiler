@@ -2,51 +2,63 @@
 // glboiler - Jason Colman 2016 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
-// Build libpng: 
-//  in libpng, cp scripts/makefile.darwin .. ; make -f makefile.darwin
-// That builds libpng.a in the libpng dir.
-// clang++  -I .. -I ../thirdparty/googletest/include  -std=c++11   -I../geom -DMACOSX ../*.cpp glut_main.cpp -I ../thirdparty/lpng1626/ -framework OpenGL -framework GLUT -Wno-deprecated-declarations ../thirdparty/lpng1626/libpng.a -lz
+// Build libpng: in libpng, 
+//   cp scripts/makefile.darwin .. ; make -f makefile.darwin
+// That builds libpng.a in the libpng dir. Then in source/main/
+//   make clean ; make ; make run
 
+#include <iostream>
 #include <stdio.h>
+#include <unistd.h>
+
+#include "forward_renderer.h"
 #include "gl_includes.h"
 #include "gl_shader.h"
+#include "gl_system.h"
 #include "teapot_scene_node.h" // TODO TEMP TEST
+#include "timer.h"
 
-static int WIN_X = 500;
-static int WIN_Y = 500;
-
-/*
-void Mandel::Draw()
-{
-    char buf[1000];
-
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluOrtho2D(0, m_winX, 0, m_winY);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    //glutSetWindowTitle(buf);
-}
-*/
+static int WIN_X = 700;
+static int WIN_Y = 350;
 
 void display()
 {
-    printf("Rendering...\n");
-
-    glClearColor(1, 0, 0, 1);
-    glClear(GL_COLOR_BUFFER_BIT);
+    // TODO TEMP TEST
+    GL_CHECK(glMatrixMode(GL_PROJECTION));
+    GL_CHECK(glLoadIdentity());
+    gluPerspective(45, 1, 0.1, 100);
+    GL_CHECK(glMatrixMode(GL_MODELVIEW));
+    GL_CHECK(glLoadIdentity());
 
     gl_shader sh;
     sh.load("shaders/test_v.txt", "shaders/test_f.txt");
     sh.compile_on_gl_thread();
     sh.use_on_gl_thread();
 
-    teapot_scene_node tp;
-    tp.render(0, frustum());
+    time_this_block("Rendering");
+
+    GL_CHECK(glClearColor(1, 0, 0, 1));
+    GL_CHECK(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+    GL_CHECK(glEnable(GL_DEPTH_TEST));
+
+    forward_renderer rend;
+    rend.init_on_gl_thread();
+
+    camera left_cam, right_cam;
+    float eye_sep = 0.5f;
+    float z_dist = 3.0f;
+    vec3 left(-eye_sep, 0, z_dist);
+    vec3 right(eye_sep, 0, z_dist);
+    vec3 up(0, 1, 0);
+    left_cam.set_look_at(look_at(left, -left, up));
+    right_cam.set_look_at(look_at(right, -right, up));
+
+    rend.set_view(0, view(viewport(0, 0, WIN_X / 2, WIN_Y), left_cam));
+    rend.set_view(1, view(viewport(WIN_X / 2, 0, WIN_X / 2, WIN_Y), right_cam));
+
+    scene_description sd;
+    sd.set_root_node(std::make_shared<teapot_scene_node>());
+    rend.render_on_gl_thread(sd);
     
     glutSwapBuffers();
 }
@@ -79,27 +91,8 @@ int main(int argc, char** argv)
     glutInitWindowSize(WIN_X, WIN_Y);
     glutCreateWindow("Hello"); 
 
-    const GLubyte* renderer = glGetString(GL_RENDERER);
-    const GLubyte* version = glGetString(GL_VERSION);
+    // log_gl_info();
 
-    if (renderer)
-    {
-        printf("Renderer: %s\n", renderer);
-    }
-    else
-    {
-        printf("glGetString failed!\n");
-    }
-
-    if (version)
-    {
-        printf("OpenGL version supported: %s\n", version);
-    }
-    else
-    {
-        printf("glGetString failed!\n");
-    }
-  
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutMouseFunc(mouse);
