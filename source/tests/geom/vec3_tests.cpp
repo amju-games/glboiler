@@ -83,4 +83,14 @@ TEST(vec3, sub)
   ASSERT_EQ(vec3( 0, -1, -2), vec3(1, 1, 1) - vec3(1, 2, 3));
 }
 
+TEST(vec3, unary_minus)
+{
+  ASSERT_EQ(-vec3(0, 0, 0), vec3( 0,  0,  0)); 
+  ASSERT_EQ(-vec3(1, 0, 0), vec3(-1,  0,  0)); 
+  ASSERT_EQ(-vec3(0, 1, 0), vec3( 0, -1,  0)); 
+  ASSERT_EQ(-vec3(0, 0, 1), vec3( 0,  0, -1)); 
+  ASSERT_EQ(-vec3(4, 5, 6), vec3(-4, -5, -6)); 
+  ASSERT_EQ(-vec3(-4, -5, -6), vec3(4, 5, 6)); 
+}
+
 
