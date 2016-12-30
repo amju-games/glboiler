@@ -2,12 +2,11 @@
 // glboiler - Jason Colman 2016 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
-#ifdef WIN32
-#include <GL/glut.h>
-#endif
+#pragma once
 
-#ifdef MACOSX
+#include "gl_system.h"
+
+// Mac OS X 
 #include <OpenGL/gl.h>
 #include <GLUT/glut.h>
-#endif
 
