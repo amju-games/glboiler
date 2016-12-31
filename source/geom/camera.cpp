@@ -4,30 +4,6 @@
 
 #include "camera.h"
 
-void look_at::set_matrix(mat4 m) const
-{
-  // up and dir are normalised in ctor
-  vec3 right = normalise(cross(dir, up)); // so this normalise unnecessary?
-  vec3 up = normalise(cross(right, dir)); // new orthogonal up vec
- 
-  load_identity(m);
-  m[0] = right.x;  
-  m[1] = right.y;  
-  m[2] = right.z;  
-
-  m[4] = up.x;
-  m[5] = up.y;
-  m[6] = up.z;
-
-  m[8]  = -dir.x;
-  m[9]  = -dir.y;
-  m[10] = -dir.z;
-
-  m[12] = -eye.x;
-  m[13] = -eye.y;
-  m[14] = -eye.z;
-}
-
 frustum camera::calc_frustum() const
 {
   return frustum();

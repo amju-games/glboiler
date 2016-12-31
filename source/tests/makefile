@@ -37,6 +37,7 @@ geom/vec3_tests.cpp \
 ../geom/aabb.cpp \
 ../geom/camera.cpp \
 ../geom/frustum.cpp \
+../geom/look_at.cpp \
 ../macosx/timer.cpp \
 ../log.cpp
 

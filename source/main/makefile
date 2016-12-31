@@ -31,6 +31,7 @@ SOURCES=glut_main.cpp \
 ../geom/aabb.cpp \
 ../geom/camera.cpp \
 ../geom/frustum.cpp \
+../geom/look_at.cpp \
 ../log.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)

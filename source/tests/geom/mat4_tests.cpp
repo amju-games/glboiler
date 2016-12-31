@@ -2,9 +2,23 @@
 // glboiler - Jason Colman 2016 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
+#include <iostream>
 #include <gtest/gtest.h>
 #include "gl_includes.h"
+#include "look_at.h"
 #include "mat4.h"
+#include "vec3.h"
+
+void log(mat4 m)
+{
+  std::string t = "\t";
+  std::string n = "\n";
+  std::cout 
+    << m[0] << t << m[4] << t << m[8]  << t << m[12] << n
+    << m[1] << t << m[5] << t << m[9]  << t << m[13] << n
+    << m[2] << t << m[6] << t << m[10] << t << m[14] << n
+    << m[3] << t << m[7] << t << m[11] << t << m[15] << n;
+}
 
 void assert_identity(mat4 m)
 {
@@ -28,22 +42,23 @@ void assert_identity(mat4 m)
 
 void assert_equal(mat4 m1, mat4 m2)
 {
-  ASSERT_EQ(m1[0],  m2[0]);
-  ASSERT_EQ(m1[1],  m2[1]);
-  ASSERT_EQ(m1[2],  m2[2]);
-  ASSERT_EQ(m1[3],  m2[3]);
-  ASSERT_EQ(m1[4],  m2[4]);
-  ASSERT_EQ(m1[5],  m2[5]);
-  ASSERT_EQ(m1[6],  m2[6]);
-  ASSERT_EQ(m1[7],  m2[7]);
-  ASSERT_EQ(m1[8],  m2[8]);
-  ASSERT_EQ(m1[9],  m2[9]);
-  ASSERT_EQ(m1[10], m2[10]);
-  ASSERT_EQ(m1[11], m2[11]);
-  ASSERT_EQ(m1[12], m2[12]);
-  ASSERT_EQ(m1[13], m2[13]);
-  ASSERT_EQ(m1[14], m2[14]);
-  ASSERT_EQ(m1[15], m2[15]);
+  float e = 0.00001f;
+  ASSERT_NEAR(m1[0],  m2[0],  e);
+  ASSERT_NEAR(m1[1],  m2[1],  e);
+  ASSERT_NEAR(m1[2],  m2[2],  e);
+  ASSERT_NEAR(m1[3],  m2[3],  e);
+  ASSERT_NEAR(m1[4],  m2[4],  e);
+  ASSERT_NEAR(m1[5],  m2[5],  e);
+  ASSERT_NEAR(m1[6],  m2[6],  e);
+  ASSERT_NEAR(m1[7],  m2[7],  e);
+  ASSERT_NEAR(m1[8],  m2[8],  e);
+  ASSERT_NEAR(m1[9],  m2[9],  e);
+  ASSERT_NEAR(m1[10], m2[10], e);
+  ASSERT_NEAR(m1[11], m2[11], e);
+  ASSERT_NEAR(m1[12], m2[12], e);
+  ASSERT_NEAR(m1[13], m2[13], e);
+  ASSERT_NEAR(m1[14], m2[14], e);
+  ASSERT_NEAR(m1[15], m2[15], e);
 }
 
 TEST(mat4, create)
@@ -139,5 +154,32 @@ TEST(mat4, same_as_opengl)
 
   assert_equal(result, ogl_result);
 }
+
+TEST(look_at, same_as_glu_look_at)
+{
+  // Requires OpenGL context to be created  
+  // Get gluLookAt matrix
+  glMatrixMode(GL_MODELVIEW_MATRIX); 
+  glLoadIdentity();
+  vec3 eye(4, 5, 6);
+  vec3 dir(7, 8, 9);
+  vec3 up(1, 2, 3);
+  vec3 target(eye + dir);
+  gluLookAt(eye.x, eye.y, eye.z,  target.x, target.y, target.z,  up.x, up.y, up.z);
+  mat4 ogl_result;
+  glGetFloatv(GL_MODELVIEW_MATRIX, ogl_result);
+  
+  mat4 look_at_result;
+  look_at look(eye, dir, up);
+  look.set_matrix(look_at_result);
+
+  std::cout << "gluLookAt:\n";
+  log(ogl_result);
+  std::cout << "look_at:\n";
+  log(look_at_result);
+
+  assert_equal(look_at_result, ogl_result);
+}
+
 
 
