@@ -23,13 +23,6 @@ static int WIN_Y = 350;
 
 void display()
 {
-    // TODO TEMP TEST
-    GL_CHECK(glMatrixMode(GL_PROJECTION));
-    GL_CHECK(glLoadIdentity());
-    gluPerspective(45, 1, 0.1, 100);
-    GL_CHECK(glMatrixMode(GL_MODELVIEW));
-    GL_CHECK(glLoadIdentity());
-
     gl_shader sh;
     sh.load("shaders/test_v.txt", "shaders/test_f.txt");
     sh.compile_on_gl_thread();
@@ -47,7 +40,7 @@ void display()
     camera left_cam, right_cam;
     float eye_sep = 0.5f;
     float z_dist = 3.0f;
-    vec3 left(-eye_sep, 0, z_dist);
+    vec3 left(-eye_sep, 1, z_dist);
     vec3 right(eye_sep, 0, z_dist);
     vec3 up(0, 1, 0);
     left_cam.set_look_at(look_at(left, -left, up));

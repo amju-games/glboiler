@@ -17,12 +17,32 @@ void forward_renderer::render_on_gl_thread(const scene_description& sd)
   clear_blended_nodes();
 
   // Render shadow map, used for both eyes
-  view& this_view = m_view[0];
-  this_view.set_gl_viewport();
+
+  // TODO TEMP TEST
+  GL_CHECK(glMatrixMode(GL_PROJECTION));
+  GL_CHECK(glLoadIdentity());
+  gluPerspective(45, 1, 1, 10);
+  GL_CHECK(glMatrixMode(GL_MODELVIEW));
+  GL_CHECK(glLoadIdentity());
+
+  // Set light dir/frustum
+  vec3 light_pos(2, 0, 2);
+  camera light_cam;
+  light_cam.set_look_at(look_at(light_pos, -light_pos, vec3(0, 1, 0)));
+  view light_view(viewport(0, 0, 1024, 1024), light_cam);
+  light_view.set_gl_viewport();
+  
   shadow_map_pass(sd);
 
   for (int eye = 0; eye < 2; eye++)
   {
+    // TODO TEMP TEST
+    GL_CHECK(glMatrixMode(GL_PROJECTION));
+    GL_CHECK(glLoadIdentity());
+    gluPerspective(45, 1, 0.1, 100);
+    GL_CHECK(glMatrixMode(GL_MODELVIEW));
+    GL_CHECK(glLoadIdentity());
+
     view& this_view = m_view[eye];
     this_view.set_gl_viewport();
 
