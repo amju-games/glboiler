@@ -7,6 +7,7 @@
 #include "gl_includes.h"
 #include "look_at.h"
 #include "mat4_test_utils.h"
+#include "projection.h"
 #include "vec3.h"
 
 TEST(mat4, create)
@@ -108,6 +109,7 @@ TEST(look_at, same_as_glu_look_at)
   // Requires OpenGL context to be created  
   // Get gluLookAt matrix
   glMatrixMode(GL_MODELVIEW_MATRIX); 
+  glPushMatrix();
   glLoadIdentity();
   vec3 eye(4, 5, 6);
   vec3 dir(7, 8, 9);
@@ -116,7 +118,8 @@ TEST(look_at, same_as_glu_look_at)
   gluLookAt(eye.x, eye.y, eye.z,  target.x, target.y, target.z,  up.x, up.y, up.z);
   mat4 ogl_result;
   glGetFloatv(GL_MODELVIEW_MATRIX, ogl_result);
-  
+  glPopMatrix();
+ 
   mat4 look_at_result;
   look_at look(eye, dir, up);
   look.set_matrix(look_at_result);
@@ -129,5 +132,27 @@ TEST(look_at, same_as_glu_look_at)
   assert_equal(look_at_result, ogl_result);
 }
 
+TEST(perspective, same_as_glu_perspective)
+{
+  // Requires OpenGL context to be created  
 
+  mat4 persp_result;
+  perspective p(5, 6, 7, 8);
+  p.set_matrix(persp_result);
+
+  glMatrixMode(GL_MODELVIEW_MATRIX);
+  glPushMatrix();
+  glLoadIdentity();
+  gluPerspective(5, 6, 7, 8);
+  mat4 ogl_result;
+  glGetFloatv(GL_MODELVIEW_MATRIX, ogl_result);
+  glPopMatrix();
+
+  std::cout << "gluPerspective:\n";
+  log(ogl_result);
+  std::cout << "perspective:\n";
+  log(persp_result);
+
+  assert_equal(persp_result, ogl_result);
+}
 

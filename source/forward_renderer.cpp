@@ -5,6 +5,7 @@
 #include "forward_renderer.h"
 #include "gl_includes.h"
 #include "gl_shader.h"
+#include "projection.h"
 
 const int shadow_map_size = 2048;
 
@@ -22,14 +23,11 @@ void forward_renderer::render_on_gl_thread(const scene_description& sd)
   // Render shadow map, used for both eyes
 
   // TODO TEMP TEST
-  // Temporarily set up projection transform using gluPerspective
   GL_CHECK(glMatrixMode(GL_PROJECTION));
-  GL_CHECK(glLoadIdentity());
-  gluPerspective(45, 1, 1, 10); // short frustum for light
-
-  // Temporarily get projection matrix this way
   mat4 proj;
-  glGetFloatv(GL_PROJECTION_MATRIX, proj);
+  perspective p(45, 1, 1, 10);
+  p.set_matrix(proj);
+  glLoadMatrixf(proj);
 
   GL_CHECK(glMatrixMode(GL_MODELVIEW));
   GL_CHECK(glLoadIdentity());
@@ -50,25 +48,18 @@ void forward_renderer::render_on_gl_thread(const scene_description& sd)
   glGetFloatv(GL_MODELVIEW_MATRIX, modl);
 
   // Mult projection and modelview matrices: this is the light matrix, which
-  //  we use in the second pass.
+  //  we use in the second pass. Bias transforms (-1, 1) to (0, 1) space.
   mat4 light_matrix;
-//  mult(proj, modl, light_matrix);
-
-  glPushMatrix();
-  const GLfloat bias[16] =
+  mat4 bias = 
   {
     0.5, 0.0, 0.0, 0.0,
     0.0, 0.5, 0.0, 0.0,
     0.0, 0.0, 0.5, 0.0,
     0.5, 0.5, 0.5, 1.0
   };
-  glLoadIdentity();
-  glLoadMatrixf(bias);
-  // concatating all matrices into one.
-  glMultMatrixf(proj);
-  glMultMatrixf(modl);
-  glGetFloatv(GL_MODELVIEW_MATRIX, light_matrix);
-  glPopMatrix();
+  mat4 m;
+  mult(modl, proj, m); 
+  mult(m, bias, light_matrix);
 
   glUseProgram(0); // no fancy shader - TODO fancy shader that just writes depth
   shadow_map_pass(sd);
@@ -84,8 +75,11 @@ void forward_renderer::render_on_gl_thread(const scene_description& sd)
   {
     // TODO TEMP TEST
     GL_CHECK(glMatrixMode(GL_PROJECTION));
-    GL_CHECK(glLoadIdentity());
-    gluPerspective(45, 1, 0.1, 100);
+    mat4 proj;
+    perspective p(45, 1, 0.1, 100);
+    p.set_matrix(proj);
+    glLoadMatrixf(proj);
+
     GL_CHECK(glMatrixMode(GL_MODELVIEW));
     GL_CHECK(glLoadIdentity());
 
