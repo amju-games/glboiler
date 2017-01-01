@@ -1,5 +1,8 @@
 // test vertex shader
 
+uniform mat4 world_matrix;
+uniform mat4 look_at_matrix;
+uniform mat4 proj_matrix;
 uniform mat4 light_matrix;
 
 varying vec3 v_normal;
@@ -10,6 +13,8 @@ void main()
   v_normal = gl_Normal;
   v_shadow_coord = light_matrix *  gl_Vertex;
 
-  gl_Position = ftransform();
+  mat4 m = proj_matrix * look_at_matrix; 
+
+  gl_Position =  m * gl_Vertex;
 }
 

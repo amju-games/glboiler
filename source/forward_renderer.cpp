@@ -5,6 +5,7 @@
 #include "forward_renderer.h"
 #include "gl_includes.h"
 #include "gl_shader.h"
+#include "look_at.h"
 #include "projection.h"
 
 const int shadow_map_size = 2048;
@@ -30,12 +31,13 @@ void forward_renderer::render_on_gl_thread(const scene_description& sd)
   glLoadMatrixf(proj);
 
   GL_CHECK(glMatrixMode(GL_MODELVIEW));
-  GL_CHECK(glLoadIdentity());
 
   // Set light dir/frustum
   vec3 light_pos(0, 2, 3);
   camera light_cam;
-  light_cam.set_look_at(look_at(light_pos, -light_pos, vec3(0, 1, 0)));
+  //light_cam.set_look_at(look_at(light_pos, -light_pos, vec3(0, 1, 0)));
+  look_at(light_pos, -light_pos, vec3(0, 1, 0)).set_matrix(light_cam.look_at_matrix);
+  GL_CHECK(glLoadMatrixf(light_cam.look_at_matrix));
   view light_view(viewport(0, 0, shadow_map_size, shadow_map_size), light_cam);
   light_view.set_gl_viewport();
     
@@ -73,18 +75,15 @@ void forward_renderer::render_on_gl_thread(const scene_description& sd)
 
   for (int eye = 0; eye < 2 ; eye++)
   {
-    // TODO TEMP TEST
-    GL_CHECK(glMatrixMode(GL_PROJECTION));
     mat4 proj;
     perspective p(45, 1, 0.1, 100);
     p.set_matrix(proj);
-    glLoadMatrixf(proj);
-
-    GL_CHECK(glMatrixMode(GL_MODELVIEW));
-    GL_CHECK(glLoadIdentity());
+    sh.set_mat4_on_gl_thread("proj_matrix", proj);
 
     view& this_view = m_view[eye];
     this_view.set_gl_viewport();
+    const camera& cam = this_view.get_camera();
+    sh.set_mat4_on_gl_thread("look_at_matrix", cam.look_at_matrix);
 
     frustum frust = this_view.calc_frustum();
   
