@@ -163,10 +163,12 @@ TEST(look_at, same_as_glu_look_at)
   look_at look(eye, dir, up);
   look.set_matrix(look_at_result);
 
+#ifdef LOG_MATRICES
   std::cout << "gluLookAt:\n";
   log(ogl_result);
   std::cout << "look_at:\n";
   log(look_at_result);
+#endif // LOG_MATRICES
 
   assert_equal(look_at_result, ogl_result);
 }
@@ -187,10 +189,12 @@ TEST(perspective, same_as_glu_perspective)
   glGetFloatv(GL_MODELVIEW_MATRIX, ogl_result);
   glPopMatrix();
 
+#ifdef LOG_MATRICES
   std::cout << "gluPerspective:\n";
   log(ogl_result);
   std::cout << "perspective:\n";
   log(persp_result);
+#endif // LOG_MATRICES
 
   assert_equal(persp_result, ogl_result);
 }
