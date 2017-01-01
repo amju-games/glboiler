@@ -75,15 +75,12 @@ void forward_renderer::render_on_gl_thread(const scene_description& sd)
 
   for (int eye = 0; eye < 2 ; eye++)
   {
-    mat4 proj;
-    perspective p(45, 1, 0.1, 100);
-    p.set_matrix(proj);
-    sh.set_mat4_on_gl_thread("proj_matrix", proj);
-
     view& this_view = m_view[eye];
     this_view.set_gl_viewport();
     const camera& cam = this_view.get_camera();
+
     sh.set_mat4_on_gl_thread("look_at_matrix", cam.look_at_matrix);
+    sh.set_mat4_on_gl_thread("proj_matrix", cam.proj_matrix);
 
     frustum frust = this_view.calc_frustum();
   

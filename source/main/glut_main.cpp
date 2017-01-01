@@ -17,6 +17,7 @@
 #include "gl_shader.h"
 #include "gl_system.h"
 #include "look_at.h"
+#include "projection.h"
 #include "teapot_scene_node.h" // TODO TEMP TEST
 #include "timer.h"
 
@@ -40,10 +41,12 @@ void display()
     vec3 left(-eye_sep, 3, z_dist);
     vec3 right(eye_sep, 3, z_dist);
     vec3 up(0, 1, 0);
-    //left_cam.set_look_at(look_at(left, -left, up));
-    //right_cam.set_look_at(look_at(right, -right, up));
     look_at(left, -left, up).set_matrix(left_cam.look_at_matrix);
     look_at(right, -right, up).set_matrix(right_cam.look_at_matrix);
+
+    perspective p(45, 1, 0.1, 100);
+    p.set_matrix(left_cam.proj_matrix);
+    p.set_matrix(right_cam.proj_matrix);
 
     rend.set_view(0, view(viewport(0, 0, WIN_X / 2, WIN_Y), left_cam));
     rend.set_view(1, view(viewport(WIN_X / 2, 0, WIN_X / 2, WIN_Y), right_cam));
