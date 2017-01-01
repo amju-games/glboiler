@@ -9,7 +9,7 @@
 #include "gl_shader.h"
 #include "log.h"
 
-void gl_shader::set_mat4_on_gl_thread(const std::string& name, mat4 m)
+void gl_shader::set_mat4_on_gl_thread(const std::string& name, const mat4 m)
 {
   GL_CHECK(GLint loc = glGetUniformLocation(m_program_id, name.c_str()));
   if (loc == -1)
