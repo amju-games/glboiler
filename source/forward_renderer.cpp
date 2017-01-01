@@ -15,40 +15,39 @@ void forward_renderer::init_on_gl_thread()
   m_shadow_map.set_render_flags(render_to_texture::RENDER_DEPTH);
   m_shadow_map.set_size(shadow_map_size, shadow_map_size); 
   m_shadow_map.init_on_gl_thread(); 
+
+  // Render shadow map, used for both eyes
+  m_depth_shader.load("shaders/test_v.txt", "shaders/test_f.txt");
+  m_depth_shader.compile_on_gl_thread();
+  m_depth_shader.use_on_gl_thread();
 }
 
 void forward_renderer::render_on_gl_thread(const scene_description& sd)
 {
   clear_blended_nodes();
 
-  // Render shadow map, used for both eyes
-  gl_shader depth_shader;
-  depth_shader.load("shaders/test_v.txt", "shaders/test_f.txt");
-  depth_shader.compile_on_gl_thread();
-  depth_shader.use_on_gl_thread();
-
+  // Set light dir/frustum
   mat4 proj;
   perspective p(45, 1, 1, 10);
   p.set_matrix(proj);
-  depth_shader.set_mat4_on_gl_thread("proj_matrix", proj);
+  m_depth_shader.set_mat4_on_gl_thread("proj_matrix", proj);
 
-  // Set light dir/frustum
   vec3 light_pos(0, 2, 3);
   camera light_cam;
   look_at(light_pos, -light_pos, vec3(0, 1, 0)).set_matrix(light_cam.look_at_matrix);
   view light_view(viewport(0, 0, shadow_map_size, shadow_map_size), light_cam);
   light_view.set_gl_viewport();
-    
+  
+  // Rotate the light  
   static float a = 0;
   a += 0.1f;
   mat4 rot;
   load_identity(rot);
-  rotate_y(rot, a);
+  rotate_y_radians(rot, a);
   
-  // Temporarily get modelview matrix this way
   mat4 modl;
   mult(rot, light_cam.look_at_matrix, modl);
-  depth_shader.set_mat4_on_gl_thread("look_at_matrix", 
+  m_depth_shader.set_mat4_on_gl_thread("look_at_matrix", 
     light_cam.look_at_matrix);
 
   // Mult projection and modelview matrices: this is the light matrix, which

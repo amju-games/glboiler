@@ -2,6 +2,7 @@
 // glboiler - Jason Colman 2016 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
+#include "gl_shader.h"
 #include "renderer.h"
 #include "render_to_texture.h"
 
@@ -21,5 +22,6 @@ private:
 
 private:
   render_to_texture m_shadow_map;
+  gl_shader m_depth_shader;
 };
 
