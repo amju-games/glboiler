@@ -5,6 +5,7 @@
 #pragma once
 
 #include <string>
+#include "mat4.h"
 
 class gl_shader
 {
@@ -16,6 +17,7 @@ public:
 
   void set_float_on_gl_thread(const std::string& name, float f);
   void set_int_on_gl_thread(const std::string& name, int i);
+  void set_mat4_on_gl_thread(const std::string& name, mat4 m);
 
 private:
   unsigned int m_program_id = 0;

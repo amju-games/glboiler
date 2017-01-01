@@ -9,6 +9,17 @@
 #include "gl_shader.h"
 #include "log.h"
 
+void gl_shader::set_mat4_on_gl_thread(const std::string& name, mat4 m)
+{
+  GL_CHECK(GLint loc = glGetUniformLocation(m_program_id, name.c_str()));
+  if (loc == -1)
+  {
+    return;
+  }
+
+  GL_CHECK(glUniformMatrix4fv(loc, 1, false, m));
+}
+
 void gl_shader::set_float_on_gl_thread(const std::string& name, float f)
 {
   GL_CHECK(GLint loc = glGetUniformLocation(m_program_id, name.c_str()));
@@ -28,7 +39,7 @@ void gl_shader::set_int_on_gl_thread(const std::string& name, int i)
     return;
   }
 
-  GL_CHECK(glUniform1f(loc, i));
+  GL_CHECK(glUniform1i(loc, i));
 }
 
 static bool read_file(const std::string& filename, std::string* result)
