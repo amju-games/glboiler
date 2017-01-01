@@ -88,6 +88,45 @@ TEST(mat4, mult)
   assert_equal(result, expected);
 }
 
+TEST(mat4, rotate_y_1)
+{
+  mat4 m;
+  load_identity(m);
+  rotate_y_radians(m, 0);
+  assert_identity(m);
+}
+
+TEST(mat4, rotate_y_2)
+{
+  mat4 m1;
+  load_identity(m1);
+  float a = M_PI * 1.3;
+  rotate_y_radians(m1, a);
+  mat4 m2;
+  load_identity(m2);
+  rotate_y_radians(m2, -a);
+  mat4 i;
+  load_identity(i);
+  mat4 m;
+  mult(m1, m2, m);
+  assert_equal(m, i);
+}
+
+TEST(mat4, rotate_y_3)
+{
+  mat4 m;
+  load_identity(m);
+  float a = M_PI * 0.73;
+  rotate_y_radians(m, a);
+  const mat4 expected = { 
+    cosf(a),  0, -sinf(a), 0,  
+    0,        1,  0,       0,
+    sinf(a),  0,  cosf(a), 0,
+    0,        0,  0,       1
+  };
+  assert_equal(m, expected);
+}
+
 TEST(mat4, same_as_opengl)
 {
   mat4 result;
