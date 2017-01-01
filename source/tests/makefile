@@ -10,7 +10,7 @@ CC=clang++
 
 WARNINGS=-Wall -Wno-deprecated-declarations
 
-INCLUDES=-I.. -I../thirdparty/googletest/include  -I../thirdparty/lpng1626/ -I../geom -I../macosx
+INCLUDES=-I.. -I../thirdparty/googletest/include  -I../thirdparty/lpng1626/ -I../geom -I../macosx -Igeom
 
 CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11   -DMACOSX
 
@@ -23,6 +23,7 @@ viewport_tests.cpp \
 geom/aabb_tests.cpp \
 geom/frustum_tests.cpp \
 geom/mat4_tests.cpp \
+geom/mat4_test_utils.cpp \
 geom/vec3_tests.cpp \
 ../forward_renderer.cpp \
 ../gl_system.cpp \
