@@ -18,17 +18,12 @@
 #include "teapot_scene_node.h" // TODO TEMP TEST
 #include "timer.h"
 
-static int WIN_X = 700;
-static int WIN_Y = 350;
+static int WIN_X = 1000;
+static int WIN_Y = 500;
 
 void display()
 {
-    gl_shader sh;
-    sh.load("shaders/test_v.txt", "shaders/test_f.txt");
-    sh.compile_on_gl_thread();
-    sh.use_on_gl_thread();
-
-    time_this_block("Rendering");
+    //time_this_block("Rendering");
 
     GL_CHECK(glClearColor(1, 0, 0, 1));
     GL_CHECK(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
@@ -39,9 +34,9 @@ void display()
 
     camera left_cam, right_cam;
     float eye_sep = 0.5f;
-    float z_dist = 3.0f;
-    vec3 left(-eye_sep, 1, z_dist);
-    vec3 right(eye_sep, 0, z_dist);
+    float z_dist = 8.0f;
+    vec3 left(-eye_sep, 3, z_dist);
+    vec3 right(eye_sep, 3, z_dist);
     vec3 up(0, 1, 0);
     left_cam.set_look_at(look_at(left, -left, up));
     right_cam.set_look_at(look_at(right, -right, up));
@@ -54,6 +49,8 @@ void display()
     rend.render_on_gl_thread(sd);
     
     glutSwapBuffers();
+    usleep(10000); // to stop my mac melting :(
+    glutPostRedisplay();
 }
 
 void reshape(int x, int y)

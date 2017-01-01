@@ -1,13 +1,23 @@
 // Test frag shader
 
+uniform sampler2D shadow_map;
+
 varying vec3 v_normal;
+varying vec4 v_shadow_coord;
 
 void main()
 {
-  vec3 light_pos = vec3(10, 10, 3);
-  float n_dot_l = max(0.0, dot(normalize(v_normal), normalize(light_pos)));
+  vec4 shadowCoordinateWdivide = v_shadow_coord / v_shadow_coord.w; 
+  shadowCoordinateWdivide.z -= 0.05;
 
-  gl_FragColor = vec4(n_dot_l, n_dot_l, n_dot_l, 1);
+  float distanceFromLight = texture2D(shadow_map, shadowCoordinateWdivide.st).z;
+  float shadow = 0.5;
+  if (v_shadow_coord.w > 0.0)
+    shadow = distanceFromLight < shadowCoordinateWdivide.z ? 0.2 : 0.8;
+    
+  float n = shadow; 
+
+  gl_FragColor = vec4(n, n, n, 1);
 }
 
 

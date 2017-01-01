@@ -4,11 +4,14 @@
 
 #include "forward_renderer.h"
 #include "gl_includes.h"
+#include "gl_shader.h"
+
+const int shadow_map_size = 2048;
 
 void forward_renderer::init_on_gl_thread()
 {
   m_shadow_map.set_render_flags(render_to_texture::RENDER_DEPTH);
-  m_shadow_map.set_size(1024, 1024); // test
+  m_shadow_map.set_size(shadow_map_size, shadow_map_size); 
   m_shadow_map.init_on_gl_thread(); 
 }
 
@@ -19,22 +22,65 @@ void forward_renderer::render_on_gl_thread(const scene_description& sd)
   // Render shadow map, used for both eyes
 
   // TODO TEMP TEST
+  // Temporarily set up projection transform using gluPerspective
   GL_CHECK(glMatrixMode(GL_PROJECTION));
   GL_CHECK(glLoadIdentity());
-  gluPerspective(45, 1, 1, 10);
+  gluPerspective(45, 1, 1, 10); // short frustum for light
+
+  // Temporarily get projection matrix this way
+  mat4 proj;
+  glGetFloatv(GL_PROJECTION_MATRIX, proj);
+
   GL_CHECK(glMatrixMode(GL_MODELVIEW));
   GL_CHECK(glLoadIdentity());
 
   // Set light dir/frustum
-  vec3 light_pos(2, 0, 2);
+  vec3 light_pos(0, 2, 3);
   camera light_cam;
   light_cam.set_look_at(look_at(light_pos, -light_pos, vec3(0, 1, 0)));
-  view light_view(viewport(0, 0, 1024, 1024), light_cam);
+  view light_view(viewport(0, 0, shadow_map_size, shadow_map_size), light_cam);
   light_view.set_gl_viewport();
+    
+    static float a = 0;
+    a += 1.0f;
+    glRotatef(a, 0, 1, 0);
   
+  // Temporarily get modelview matrix this way
+  mat4 modl;
+  glGetFloatv(GL_MODELVIEW_MATRIX, modl);
+
+  // Mult projection and modelview matrices: this is the light matrix, which
+  //  we use in the second pass.
+  mat4 light_matrix;
+//  mult(proj, modl, light_matrix);
+
+  glPushMatrix();
+  const GLfloat bias[16] =
+  {
+    0.5, 0.0, 0.0, 0.0,
+    0.0, 0.5, 0.0, 0.0,
+    0.0, 0.0, 0.5, 0.0,
+    0.5, 0.5, 0.5, 1.0
+  };
+  glLoadIdentity();
+  glLoadMatrixf(bias);
+  // concatating all matrices into one.
+  glMultMatrixf(proj);
+  glMultMatrixf(modl);
+  glGetFloatv(GL_MODELVIEW_MATRIX, light_matrix);
+  glPopMatrix();
+
+  glUseProgram(0); // no fancy shader - TODO fancy shader that just writes depth
   shadow_map_pass(sd);
 
-  for (int eye = 0; eye < 2; eye++)
+  gl_shader sh;
+  sh.load("shaders/test_v.txt", "shaders/test_f.txt");
+  sh.compile_on_gl_thread();
+  sh.use_on_gl_thread();
+  sh.set_int_on_gl_thread("shadow_map", 0);
+  sh.set_mat4_on_gl_thread("light_matrix", light_matrix);
+
+  for (int eye = 0; eye < 2 ; eye++)
   {
     // TODO TEMP TEST
     GL_CHECK(glMatrixMode(GL_PROJECTION));
@@ -47,6 +93,8 @@ void forward_renderer::render_on_gl_thread(const scene_description& sd)
     this_view.set_gl_viewport();
 
     frustum frust = this_view.calc_frustum();
+  
+    m_shadow_map.use_texture_on_gl_thread();
 
     // Render opaque geom, for each eye
     opaque_pass(sd, frust);

@@ -44,12 +44,10 @@ void render_to_texture::use_texture_on_gl_thread()
   GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 
   GL_CHECK(glEnable(GL_TEXTURE_2D));
-  GL_CHECK(glEnable(GL_TEXTURE_2D));
 
   if (m_flags == RENDER_DEPTH)
   {
     // Only 1 texture, so use texture0, right?
-    //GL_CHECK(glActiveTexture(GL_TEXTURE1));
     GL_CHECK(glActiveTexture(GL_TEXTURE0));
     GL_CHECK(glBindTexture(GL_TEXTURE_2D, m_tex[1]));
   }
@@ -77,7 +75,7 @@ bool render_to_texture::init_depth()
   GL_CHECK(glBindTexture(GL_TEXTURE_2D, m_tex[1]));
 
   GL_CHECK(glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,
-    m_width, m_height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0));
+    m_width, m_height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0));
 
   GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
   GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
@@ -94,10 +92,6 @@ bool render_to_texture::init_depth()
   GL_CHECK(glFramebufferTexture2D(
     GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,GL_TEXTURE_2D, m_tex[1], 0));
 
-  // NOT required
-//  GL_CHECK(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
-//    GL_TEXTURE_2D, m_tex[1], 0));
-  
   return true;
 }
 

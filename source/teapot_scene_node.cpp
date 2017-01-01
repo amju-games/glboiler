@@ -13,6 +13,7 @@ teapot_scene_node::teapot_scene_node()
 
 void teapot_scene_node::render() const
 {
-    glutSolidTeapot(0.5);
+    glutSolidSphere(1, 100, 100);
+//    glutSolidTeapot(1);
 }
 
