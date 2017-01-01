@@ -31,7 +31,7 @@ inline void load_identity(mat4 m)
   m[15] = 1; 
 }
 
-inline void rotate_y(mat4 m, float radians)
+inline void rotate_y_radians(mat4 m, float radians)
 {
   float c = cos(radians);
   float s = sin(radians);
