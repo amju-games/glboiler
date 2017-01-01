@@ -21,6 +21,8 @@ public:
 
 private:
   unsigned int m_program_id = 0;
+  std::string m_vert_shader_filename;
+  std::string m_frag_shader_filename;
   std::string m_vert_shader_source;
   std::string m_frag_shader_source;
 };

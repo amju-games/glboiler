@@ -62,15 +62,18 @@ static bool read_file(const std::string& filename, std::string* result)
   return true;
 }
 
-bool gl_shader::load(const std::string& vertFilename, const std::string& fragFilename)
+bool gl_shader::load(const std::string& vert_filename, const std::string& frag_filename)
 {
-  if (!read_file(vertFilename, &m_vert_shader_source))
+  m_vert_shader_filename = vert_filename;
+  m_frag_shader_filename = frag_filename;
+
+  if (!read_file(vert_filename, &m_vert_shader_source))
   {
     std::cout << "Failed to read vertex shader from file\n";
     return false;
   }
 
-  if (!read_file(fragFilename, &m_frag_shader_source))
+  if (!read_file(frag_filename, &m_frag_shader_source))
   {
     std::cout << "Failed to read fragment shader from file\n";
     return false;
@@ -99,7 +102,7 @@ bool gl_shader::compile_on_gl_thread()
   if (!compiled)
   {
     GL_CHECK(glGetShaderInfoLog(vertSh, ERROR_BUF_SIZE, 0, buf));
-    log(buf);
+    log(msg() << m_vert_shader_filename << ": " << buf);
     return false;
   }
 
@@ -109,7 +112,7 @@ bool gl_shader::compile_on_gl_thread()
   if (!compiled)
   {
     GL_CHECK(glGetShaderInfoLog(fragSh, ERROR_BUF_SIZE, 0, buf));
-    log(buf);
+    log(msg() << m_frag_shader_filename << ": " << buf);
     return false;
   }
 
