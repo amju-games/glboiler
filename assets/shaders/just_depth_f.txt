@@ -1,0 +1,7 @@
+// Just depth frag shader
+
+void main()
+{
+}
+
+

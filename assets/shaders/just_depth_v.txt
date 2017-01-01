@@ -1,0 +1,12 @@
+// Just depth vertex shader
+
+uniform mat4 world_matrix;
+uniform mat4 look_at_matrix;
+uniform mat4 proj_matrix;
+
+void main()
+{
+  mat4 m = proj_matrix * look_at_matrix; 
+  gl_Position =  m * gl_Vertex;
+}
+
