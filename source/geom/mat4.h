@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <math.h>
+
 using mat4 = float[16];
 
 inline void load_identity(mat4 m)
@@ -27,6 +29,24 @@ inline void load_identity(mat4 m)
   m[13] = 0; 
   m[14] = 0; 
   m[15] = 1; 
+}
+
+inline void rotate_y(mat4 m, float radians)
+{
+  float c = cos(radians);
+  float s = sin(radians);
+ 
+  m[0]  = c; 
+  m[1]  = 0; 
+  m[2]  = -s; 
+
+  m[4]  = 0; 
+  m[5]  = 1; 
+  m[6]  = 0; 
+
+  m[8]  = s; 
+  m[9]  = 0; 
+  m[10] = c; 
 }
 
 inline void mult(mat4 m1, mat4 m2, mat4 res)

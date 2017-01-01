@@ -22,32 +22,34 @@ void forward_renderer::render_on_gl_thread(const scene_description& sd)
   clear_blended_nodes();
 
   // Render shadow map, used for both eyes
+  gl_shader depth_shader;
+  depth_shader.load("shaders/test_v.txt", "shaders/test_f.txt");
+  depth_shader.compile_on_gl_thread();
+  depth_shader.use_on_gl_thread();
 
-  // TODO TEMP TEST
-  GL_CHECK(glMatrixMode(GL_PROJECTION));
   mat4 proj;
   perspective p(45, 1, 1, 10);
   p.set_matrix(proj);
-  glLoadMatrixf(proj);
-
-  GL_CHECK(glMatrixMode(GL_MODELVIEW));
+  depth_shader.set_mat4_on_gl_thread("proj_matrix", proj);
 
   // Set light dir/frustum
   vec3 light_pos(0, 2, 3);
   camera light_cam;
-  //light_cam.set_look_at(look_at(light_pos, -light_pos, vec3(0, 1, 0)));
   look_at(light_pos, -light_pos, vec3(0, 1, 0)).set_matrix(light_cam.look_at_matrix);
-  GL_CHECK(glLoadMatrixf(light_cam.look_at_matrix));
   view light_view(viewport(0, 0, shadow_map_size, shadow_map_size), light_cam);
   light_view.set_gl_viewport();
     
-    static float a = 0;
-    a += 1.0f;
-    glRotatef(a, 0, 1, 0);
+  static float a = 0;
+  a += 0.1f;
+  mat4 rot;
+  load_identity(rot);
+  rotate_y(rot, a);
   
   // Temporarily get modelview matrix this way
   mat4 modl;
-  glGetFloatv(GL_MODELVIEW_MATRIX, modl);
+  mult(rot, light_cam.look_at_matrix, modl);
+  depth_shader.set_mat4_on_gl_thread("look_at_matrix", 
+    light_cam.look_at_matrix);
 
   // Mult projection and modelview matrices: this is the light matrix, which
   //  we use in the second pass. Bias transforms (-1, 1) to (0, 1) space.
@@ -63,7 +65,6 @@ void forward_renderer::render_on_gl_thread(const scene_description& sd)
   mult(modl, proj, m); 
   mult(m, bias, light_matrix);
 
-  glUseProgram(0); // no fancy shader - TODO fancy shader that just writes depth
   shadow_map_pass(sd);
 
   gl_shader sh;
