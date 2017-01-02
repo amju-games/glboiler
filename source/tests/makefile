@@ -19,6 +19,7 @@ LDFLAGS=../thirdparty/googletest/make/gtest.a -framework OpenGL -framework GLUT 
 SOURCES=test_main.cpp \
 scene_graph_tests.cpp \
 scene_node_tests.cpp \
+vertex_tests.cpp \
 viewport_tests.cpp \
 geom/aabb_tests.cpp \
 geom/frustum_tests.cpp \
