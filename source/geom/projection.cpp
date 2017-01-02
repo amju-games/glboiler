@@ -27,5 +27,14 @@ void perspective::set_matrix(mat4 m) const
   m[15] = 0;
 }
 
-
+void ortho::set_matrix(mat4 m) const
+{
+  load_identity(m);
+  m[0] = 2.0f / (right - left);
+  m[5] = 2.0f / (top - bottom);
+  m[10] = -2.0f / (far_distance - near_distance);
+  m[12] = -(right + left) / (right - left);
+  m[13] = -(top + bottom) / (top - bottom);
+  m[14] = -(far_distance + near_distance) / (far_distance - near_distance);
+}
 

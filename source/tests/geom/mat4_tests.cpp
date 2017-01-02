@@ -199,3 +199,38 @@ TEST(perspective, same_as_glu_perspective)
   assert_equal(persp_result, ogl_result);
 }
 
+TEST(ortho, ctor)
+{
+  ortho o(4, 5, 6, 7, 8, 9);
+  ASSERT_EQ(o.left, 4);
+  ASSERT_EQ(o.right, 5);
+  ASSERT_EQ(o.bottom, 6);
+  ASSERT_EQ(o.top, 7);
+  ASSERT_EQ(o.near_distance, 8);
+  ASSERT_EQ(o.far_distance, 9);
+}
+
+TEST(ortho, same_as_gl_ortho)
+{
+  mat4 ortho_result;
+  ortho o(3, 4, 5, 6, 7, 8);
+  o.set_matrix(ortho_result);
+
+  glMatrixMode(GL_MODELVIEW_MATRIX);
+  glPushMatrix();
+  glLoadIdentity();
+  glOrtho(3, 4, 5, 6, 7, 8);
+  mat4 ogl_result;
+  glGetFloatv(GL_MODELVIEW_MATRIX, ogl_result);
+  glPopMatrix();
+
+#ifdef LOG_MATRICES
+  std::cout << "glOrtho:\n";
+  log(ogl_result);
+  std::cout << "ortho:\n";
+  log(ortho_result);
+#endif
+
+  assert_equal(ortho_result, ogl_result);
+}
+
