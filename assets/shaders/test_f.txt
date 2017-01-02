@@ -5,18 +5,16 @@ uniform sampler2D shadow_map;
 varying vec3 v_normal;
 varying vec4 v_shadow_coord;
 
+#define YES_PCF
+
 void main()
 {
   vec4 shadow_coords = v_shadow_coord / v_shadow_coord.w; 
 
   // Bias: TODO adjust based on normal
-  shadow_coords.z -= 0.05;
+  shadow_coords.z += 0.005;
 
-  // No PCF
-//  float distanceFromLight = texture2D(shadow_map, shadowCoordinateWdivide.st).z;
-//  float shadow = 0.5;
-//  if (v_shadow_coord.w > 0.0)
-//    shadow = distanceFromLight < shadowCoordinateWdivide.z ? 0.2 : 0.8;
+#ifdef YES_PCF
 
   // PCF
   // TODO Hardware pcf
@@ -28,12 +26,22 @@ void main()
   {
     for(int y = -1; y <= 1; ++y)
     {
-      float pcfDepth = texture2D(shadow_map, shadow_coords.xy + vec2(x, y) * texelSize).r; 
-      shadow += shadow_coords.z > pcfDepth  ? 1.0 : 0.0;        
+      float depth = texture2D(shadow_map, shadow_coords.xy + vec2(x, y) * texelSize).r; 
+      shadow += depth < shadow_coords.z ? 0.2 : 0.8;        
     }    
   }
   shadow /= 9.0;
-    
+
+#else // YES_PCF
+
+  // No PCF
+  float depth = texture2D(shadow_map, shadow_coords.st).z;
+  float shadow = 0.5;
+  if (v_shadow_coord.w > 0.0)
+    shadow = depth < shadow_coords.z ? 0.2 : 0.8;
+
+#endif // YES_PCF
+
   float n = shadow; 
 
   gl_FragColor = vec4(n, n, n, 1);
