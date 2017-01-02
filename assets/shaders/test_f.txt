@@ -7,13 +7,32 @@ varying vec4 v_shadow_coord;
 
 void main()
 {
-  vec4 shadowCoordinateWdivide = v_shadow_coord / v_shadow_coord.w; 
-  shadowCoordinateWdivide.z -= 0.05;
+  vec4 shadow_coords = v_shadow_coord / v_shadow_coord.w; 
 
-  float distanceFromLight = texture2D(shadow_map, shadowCoordinateWdivide.st).z;
-  float shadow = 0.5;
-  if (v_shadow_coord.w > 0.0)
-    shadow = distanceFromLight < shadowCoordinateWdivide.z ? 0.2 : 0.8;
+  // Bias: TODO adjust based on normal
+  shadow_coords.z -= 0.05;
+
+  // No PCF
+//  float distanceFromLight = texture2D(shadow_map, shadowCoordinateWdivide.st).z;
+//  float shadow = 0.5;
+//  if (v_shadow_coord.w > 0.0)
+//    shadow = distanceFromLight < shadowCoordinateWdivide.z ? 0.2 : 0.8;
+
+  // PCF
+  // TODO Hardware pcf
+  float shadow = 0.0;
+  // Note hard-coded texture size. Can only use textureSize() in OpenGL 4 :(
+//  float texelSize = 1.0 / textureSize(shadow_map, 0);
+  float texelSize = 1.0 / 16.0; 
+  for(int x = -1; x <= 1; ++x)
+  {
+    for(int y = -1; y <= 1; ++y)
+    {
+      float pcfDepth = texture2D(shadow_map, shadow_coords.xy + vec2(x, y) * texelSize).r; 
+      shadow += shadow_coords.z > pcfDepth  ? 1.0 : 0.0;        
+    }    
+  }
+  shadow /= 9.0;
     
   float n = shadow; 
 

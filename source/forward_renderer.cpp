@@ -8,7 +8,7 @@
 #include "look_at.h"
 #include "projection.h"
 
-const int shadow_map_size = 2048;
+const int shadow_map_size = 16;
 
 void forward_renderer::init_on_gl_thread()
 {
