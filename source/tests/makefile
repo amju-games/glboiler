@@ -24,6 +24,7 @@ geom/aabb_tests.cpp \
 geom/frustum_tests.cpp \
 geom/mat4_tests.cpp \
 geom/mat4_test_utils.cpp \
+geom/vec2_tests.cpp \
 geom/vec3_tests.cpp \
 ../forward_renderer.cpp \
 ../gl_system.cpp \
