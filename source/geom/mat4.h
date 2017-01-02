@@ -49,7 +49,7 @@ inline void rotate_y_radians(mat4 m, float radians)
   m[10] = c; 
 }
 
-inline void mult(mat4 m1, mat4 m2, mat4 res)
+inline void mult(const mat4 m1, const mat4 m2, mat4 res)
 {
   res[ 0] = m1[ 0] * m2[ 0] + m1[ 1] * m2[ 4] + m1[ 2] * m2[ 8] + m1[ 3] * m2[12];
   res[ 1] = m1[ 0] * m2[ 1] + m1[ 1] * m2[ 5] + m1[ 2] * m2[ 9] + m1[ 3] * m2[13];
