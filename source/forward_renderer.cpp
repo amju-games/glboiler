@@ -20,7 +20,7 @@ void forward_renderer::init_on_gl_thread()
   m_shadow_map.init_on_gl_thread(); 
 
   // shader for shadow map
-  m_depth_shader.load("shaders/test_v.txt", "shaders/test_f.txt");
+  m_depth_shader.load("shaders/just_depth_v.txt", "shaders/just_depth_f.txt");
   m_depth_shader.compile_on_gl_thread();
   m_depth_shader.use_on_gl_thread();
 }
@@ -72,13 +72,14 @@ void forward_renderer::clear_blended_nodes()
 
 void forward_renderer::shadow_map_pass(const scene_description& sd)
 {
+  m_depth_shader.use_on_gl_thread();
+
   // Set light dir/frustum
   mat4 proj;
   ortho o(-2, 2, -2, 2, 1, 10);
   o.set_matrix(proj);
 //  perspective p(45, 1, 1, 10);
 //  p.set_matrix(proj);
-  m_depth_shader.set_mat4_on_gl_thread("proj_matrix", proj);
 
   vec3 light_pos(0, 2, 3);
   camera light_cam;
@@ -96,11 +97,14 @@ void forward_renderer::shadow_map_pass(const scene_description& sd)
 
   mat4 modl;
   mult(rot, light_cam.look_at_matrix, modl);
-  m_depth_shader.set_mat4_on_gl_thread("look_at_matrix",
-    modl);
 
   // Mult projection and modelview matrices: this is the light matrix, which
-  //  we use in the second pass. Bias transforms (-1, 1) to (0, 1) space.
+  //  we use in the second pass. 
+  mat4 m;
+  mult(modl, proj, m);
+  m_depth_shader.set_mat4_on_gl_thread("view_proj_matrix", m);
+
+  //  Bias transforms (-1, 1) to (0, 1) space.
   const mat4 bias =
   {
     0.5, 0.0, 0.0, 0.0,
@@ -108,8 +112,6 @@ void forward_renderer::shadow_map_pass(const scene_description& sd)
     0.0, 0.0, 0.5, 0.0,
     0.5, 0.5, 0.5, 1.0
   };
-  mat4 m;
-  mult(modl, proj, m);
   mult(m, bias, m_light_matrix);
 
   m_shadow_map.begin_on_gl_thread();
