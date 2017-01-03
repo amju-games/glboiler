@@ -8,12 +8,15 @@
 #include "look_at.h"
 #include "projection.h"
 
-const int shadow_map_size = 16;
+forward_renderer::forward_renderer()
+{
+  m_shadow_map_size = 1024;
+}
 
 void forward_renderer::init_on_gl_thread()
 {
   m_shadow_map.set_render_flags(render_to_texture::RENDER_DEPTH);
-  m_shadow_map.set_size(shadow_map_size, shadow_map_size); 
+  m_shadow_map.set_size(m_shadow_map_size, m_shadow_map_size); 
   m_shadow_map.init_on_gl_thread(); 
 
   // Render shadow map, used for both eyes
@@ -35,6 +38,7 @@ void forward_renderer::render_on_gl_thread(const scene_description& sd)
   sh.compile_on_gl_thread();
   sh.use_on_gl_thread();
   sh.set_int_on_gl_thread("shadow_map", 0);
+  sh.set_int_on_gl_thread("shadow_map_size", m_shadow_map_size);
   sh.set_mat4_on_gl_thread("light_matrix", m_light_matrix);
 
   for (int eye = 0; eye < 2 ; eye++)
@@ -80,7 +84,7 @@ void forward_renderer::shadow_map_pass(const scene_description& sd)
   camera light_cam;
   look_at(light_pos, -light_pos, vec3(0, 1, 0)).set_matrix(light_cam.look_at_matrix
 );
-  view light_view(viewport(0, 0, shadow_map_size, shadow_map_size), light_cam);
+  view light_view(viewport(0, 0, m_shadow_map_size, m_shadow_map_size), light_cam);
   light_view.set_gl_viewport();
 
   // Rotate the light

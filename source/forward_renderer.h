@@ -9,6 +9,8 @@
 class forward_renderer : public renderer
 {
 public:
+  forward_renderer();
+
   void init_on_gl_thread() override;
   void render_on_gl_thread(const scene_description&) override;
 
@@ -24,5 +26,6 @@ private:
   render_to_texture m_shadow_map;
   gl_shader m_depth_shader;
   mat4 m_light_matrix;
+  int m_shadow_map_size;
 };
 
