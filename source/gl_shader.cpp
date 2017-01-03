@@ -2,9 +2,9 @@
 // glboiler - Jason Colman 2016 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
-#include <iostream>
-#include <fstream>
 #include <assert.h>
+#include <fstream>
+#include <iostream>
 #include "gl_includes.h"
 #include "gl_shader.h"
 #include "log.h"
@@ -14,6 +14,7 @@ void gl_shader::set_mat4_on_gl_thread(const std::string& name, const mat4 m)
   GL_CHECK(GLint loc = glGetUniformLocation(m_program_id, name.c_str()));
   if (loc == -1)
   {
+    log(msg() << m_frag_shader_filename << ": no uniform: " << name);
     return;
   }
 
@@ -25,6 +26,7 @@ void gl_shader::set_float_on_gl_thread(const std::string& name, float f)
   GL_CHECK(GLint loc = glGetUniformLocation(m_program_id, name.c_str()));
   if (loc == -1)
   {
+    log(msg() << m_frag_shader_filename << ": no uniform: " << name);
     return;
   }
 
@@ -36,6 +38,7 @@ void gl_shader::set_int_on_gl_thread(const std::string& name, int i)
   GL_CHECK(GLint loc = glGetUniformLocation(m_program_id, name.c_str()));
   if (loc == -1)
   {
+    log(msg() << m_frag_shader_filename << ": no uniform: " << name);
     return;
   }
 
