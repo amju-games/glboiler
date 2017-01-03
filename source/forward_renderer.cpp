@@ -70,8 +70,10 @@ void forward_renderer::shadow_map_pass(const scene_description& sd)
 {
   // Set light dir/frustum
   mat4 proj;
-  perspective p(45, 1, 1, 10);
-  p.set_matrix(proj);
+  ortho o(-2, 2, -2, 2, 1, 10);
+  o.set_matrix(proj);
+//  perspective p(45, 1, 1, 10);
+//  p.set_matrix(proj);
   m_depth_shader.set_mat4_on_gl_thread("proj_matrix", proj);
 
   vec3 light_pos(0, 2, 3);
