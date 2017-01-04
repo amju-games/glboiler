@@ -20,6 +20,7 @@ SOURCES=glut_main.cpp \
 ../forward_renderer.cpp \
 ../gl_system.cpp \
 ../gl_shader.cpp \
+../int_graph.cpp \
 ../load_png.cpp \
 ../renderer.cpp \
 ../render_to_texture.cpp \

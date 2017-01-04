@@ -18,6 +18,7 @@ LDFLAGS=../thirdparty/googletest/make/gtest.a -framework OpenGL -framework GLUT 
 
 SOURCES=test_main.cpp \
 colour_tests.cpp \
+int_graph_tests.cpp \
 light_tests.cpp \
 scene_graph_tests.cpp \
 scene_node_tests.cpp \
@@ -32,6 +33,7 @@ geom/vec3_tests.cpp \
 ../forward_renderer.cpp \
 ../gl_system.cpp \
 ../gl_shader.cpp \
+../int_graph.cpp \
 ../light.cpp \
 ../load_png.cpp \
 ../log.cpp \
