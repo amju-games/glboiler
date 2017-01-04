@@ -17,6 +17,7 @@ CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11   -DMACOSX
 LDFLAGS=../thirdparty/googletest/make/gtest.a -framework OpenGL -framework GLUT ../thirdparty/lpng1626/libpng.a -lz
 
 SOURCES=test_main.cpp \
+light_tests.cpp \
 scene_graph_tests.cpp \
 scene_node_tests.cpp \
 vertex_tests.cpp \
@@ -30,7 +31,9 @@ geom/vec3_tests.cpp \
 ../forward_renderer.cpp \
 ../gl_system.cpp \
 ../gl_shader.cpp \
+../light.cpp \
 ../load_png.cpp \
+../log.cpp \
 ../renderer.cpp \
 ../render_to_texture.cpp \
 ../scene_description.cpp \
@@ -42,8 +45,7 @@ geom/vec3_tests.cpp \
 ../geom/frustum.cpp \
 ../geom/look_at.cpp \
 ../geom/projection.cpp \
-../macosx/timer.cpp \
-../log.cpp
+../macosx/timer.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=glboiler_tests
