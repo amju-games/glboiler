@@ -5,8 +5,18 @@
 #include "forward_renderer.h"
 #include "gl_includes.h"
 #include "gl_shader.h"
+#include "light.h"
 #include "look_at.h"
 #include "projection.h"
+
+// Bias transforms (-1, 1) to (0, 1) space.
+static const mat4 BIAS_MATRIX =
+{
+  0.5, 0.0, 0.0, 0.0,
+  0.0, 0.5, 0.0, 0.0,
+  0.0, 0.0, 0.5, 0.0,
+  0.5, 0.5, 0.5, 1.0
+};
 
 forward_renderer::forward_renderer()
 {
@@ -74,45 +84,18 @@ void forward_renderer::shadow_map_pass(const scene_description& sd)
 {
   m_depth_shader.use_on_gl_thread();
 
-  // Set light dir/frustum
-  mat4 proj;
-  ortho o(-2, 2, -2, 2, 1, 10);
-  o.set_matrix(proj);
-//  perspective p(45, 1, 1, 10);
-//  p.set_matrix(proj);
-
-  vec3 light_pos(0, 2, 3);
-  camera light_cam;
-  look_at(light_pos, -light_pos, vec3(0, 1, 0)).set_matrix(light_cam.look_at_matrix
-);
-  view light_view(viewport(0, 0, m_shadow_map_size, m_shadow_map_size), light_cam);
-  light_view.set_gl_viewport();
-
-  // Rotate the light
+  // Orbiting light
   static float a = 0;
   a += 0.05f;
-  mat4 rot;
-  load_identity(rot);
-  rotate_y_radians(rot, a);
-
-  mat4 modl;
-  mult(rot, light_cam.look_at_matrix, modl);
-
-  // Mult projection and modelview matrices: this is the light matrix, which
-  //  we use in the second pass. 
-  mat4 m;
-  mult(modl, proj, m);
+  vec3 light_pos(3.0f * cos(a), 2, 3.0f * sin(a));
+  directional_light light(light_pos, -light_pos);
+  light.calc_matrix(8.0, 1.0, 10.0);
+  const mat4& m = light.get_matrix();
+  
   m_depth_shader.set_mat4_on_gl_thread("view_proj_matrix", m);
 
-  //  Bias transforms (-1, 1) to (0, 1) space.
-  const mat4 bias =
-  {
-    0.5, 0.0, 0.0, 0.0,
-    0.0, 0.5, 0.0, 0.0,
-    0.0, 0.0, 0.5, 0.0,
-    0.5, 0.5, 0.5, 1.0
-  };
-  mult(m, bias, m_light_matrix);
+  // Transform with bias and store for second pass
+  mult(m, BIAS_MATRIX, m_light_matrix);
 
   m_shadow_map.begin_on_gl_thread();
 
