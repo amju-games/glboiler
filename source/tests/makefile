@@ -17,6 +17,7 @@ CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11   -DMACOSX
 LDFLAGS=../thirdparty/googletest/make/gtest.a -framework OpenGL -framework GLUT ../thirdparty/lpng1626/libpng.a -lz
 
 SOURCES=test_main.cpp \
+colour_tests.cpp \
 light_tests.cpp \
 scene_graph_tests.cpp \
 scene_node_tests.cpp \
