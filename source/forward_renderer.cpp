@@ -2,10 +2,12 @@
 // glboiler - Jason Colman 2016 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
+#include <stack>
 #include "forward_renderer.h"
 #include "gl_includes.h"
 #include "gl_shader.h"
 #include "light.h"
+#include "log.h"
 #include "look_at.h"
 #include "projection.h"
 
@@ -17,6 +19,47 @@ static const mat4 BIAS_MATRIX =
   0.0, 0.0, 0.5, 0.0,
   0.5, 0.5, 0.5, 1.0
 };
+
+struct traversal_node
+{
+  traversal_node() = default;
+  traversal_node(int id_) : id(id_) {}
+  traversal_node(int id_, const mat4& m) : id(id_) 
+  {
+    copy_matrix(m, combined_matrix);
+  }
+
+  int id = -1;
+  mat4 combined_matrix;
+};
+
+void forward_renderer::traverse(
+  const scene_graph& sg, 
+  const frustum& fr, 
+  gl_shader* override_shader)
+{
+  std::stack<traversal_node> to_visit;
+  int root = 0;
+  to_visit.push(root);
+  load_identity(to_visit.top().combined_matrix);
+
+  while (!to_visit.empty())
+  {
+    const auto& tn = to_visit.top();
+    to_visit.pop();
+
+    const scene_node& node = sg.get_node(tn.id);
+    mat4 m;
+    mult(tn.combined_matrix, node.get_world_xform(), m);
+    draw_node(node, fr, override_shader, m);
+  
+    auto child_ids = sg.get_connections(tn.id);
+    for (int ch_id : child_ids)
+    {
+      to_visit.push(traversal_node(ch_id, m));
+    }
+  }
+}
 
 forward_renderer::forward_renderer()
 {
@@ -35,7 +78,7 @@ void forward_renderer::init_on_gl_thread()
   m_depth_shader.use_on_gl_thread();
 }
 
-void forward_renderer::render_on_gl_thread(const scene_description& sd)
+void forward_renderer::render_on_gl_thread(const scene_graph& sd)
 {
   clear_blended_nodes();
 
@@ -80,7 +123,7 @@ void forward_renderer::clear_blended_nodes()
   m_blended_nodes.clear();
 }
 
-void forward_renderer::shadow_map_pass(const scene_description& sd)
+void forward_renderer::shadow_map_pass(const scene_graph& sg)
 {
   m_depth_shader.use_on_gl_thread();
 
@@ -104,33 +147,22 @@ void forward_renderer::shadow_map_pass(const scene_description& sd)
 
   GL_CHECK(glCullFace(GL_FRONT));
 
-  const scene_node& node = sd.get_root_node();
-  cull_result cr = node.get_bounding_vol().calc_cull_result(light_frustum);
-  if (cr != cull_result::FRUSTUM_OUTSIDE)
-  {
-    draw_node(node, light_frustum, &m_depth_shader);
-    draw_children(node, light_frustum);
-  }
+  traverse(sg, light_frustum, &m_depth_shader);
 
   m_shadow_map.end_on_gl_thread();
 }
 
-void forward_renderer::opaque_pass(const scene_description& sd, const frustum& fr, gl_shader* override_shader)
+void forward_renderer::opaque_pass(const scene_graph& sg, const frustum& fr, gl_shader* override_shader)
 {
   GL_CHECK(glCullFace(GL_BACK));
-
-  const scene_node& node = sd.get_root_node();
-  cull_result cr = node.get_bounding_vol().calc_cull_result(fr);
-  if (cr != cull_result::FRUSTUM_OUTSIDE)
-  {
-    draw_node(node, fr, override_shader);
-    draw_children(node, fr);
-  }
+  traverse(sg, fr, override_shader);
 }
 
-void forward_renderer::draw_node(const scene_node& node, const frustum& fr, gl_shader* override_shader)
+void forward_renderer::draw_node(const scene_node& node, const frustum& fr, gl_shader* override_shader, const mat4& xform)
 {
-/*
+  gl_shader* sh = override_shader;
+
+/* TODO use override shader if set, otherwise use material/shader for node
   if (override_shader)
   {
     override_shader->use_this_shader();
@@ -140,12 +172,10 @@ void forward_renderer::draw_node(const scene_node& node, const frustum& fr, gl_s
     node.use_material();
   }
 */
+
+  sh->set_mat4_on_gl_thread("world_matrix", xform);
   node.render();
   m_render_stats.num_nodes_rendered++;
-}
-
-void forward_renderer::draw_children(const scene_node& node, const frustum& fr, gl_shader* override_shader)
-{
 }
 
 void forward_renderer::draw_blended_nodes(const frustum& fr)

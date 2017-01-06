@@ -37,9 +37,9 @@ void display()
 
     camera left_cam, right_cam;
     float eye_sep = 0.5f;
-    float z_dist = 8.0f;
-    vec3 left(-eye_sep, 3, z_dist);
-    vec3 right(eye_sep, 3, z_dist);
+    float z_dist = 12.0f;
+    vec3 left(-eye_sep, 6, z_dist);
+    vec3 right(eye_sep, 6, z_dist);
     vec3 up(0, 1, 0);
     look_at(left, -left, up).set_matrix(left_cam.look_at_matrix);
     look_at(right, -right, up).set_matrix(right_cam.look_at_matrix);
@@ -51,9 +51,23 @@ void display()
     rend.set_view(0, view(viewport(0, 0, WIN_X / 2, WIN_Y), left_cam));
     rend.set_view(1, view(viewport(WIN_X / 2, 0, WIN_X / 2, WIN_Y), right_cam));
 
-    scene_description sd;
-    sd.set_root_node(std::make_shared<teapot_scene_node>());
-    rend.render_on_gl_thread(sd);
+    scene_graph sg;
+    auto root = std::make_shared<teapot_scene_node>();
+    auto child = std::make_shared<teapot_scene_node>();
+    translate(child->get_world_xform(), vec3(2.5f, 0, 0));
+    auto gchild = std::make_shared<teapot_scene_node>();
+    translate(gchild->get_world_xform(), vec3(0, 0, 2.5f));
+    auto ggchild = std::make_shared<teapot_scene_node>();
+    translate(ggchild->get_world_xform(), vec3(2.5f, 0, 0));
+    sg.add_node(root);
+    sg.add_node(child);
+    sg.add_node(gchild);
+    sg.add_node(ggchild);
+    sg.add_connection(root->get_id(), child->get_id());
+    sg.add_connection(child->get_id(), gchild->get_id());
+    sg.add_connection(gchild->get_id(), ggchild->get_id());
+
+    rend.render_on_gl_thread(sg);
     
     glutSwapBuffers();
     usleep(10000); // to stop my mac melting :(

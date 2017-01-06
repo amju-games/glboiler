@@ -2,28 +2,30 @@
 // glboiler - Jason Colman 2016 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
+#include <assert.h>
 #include "scene_graph.h"
 
 int scene_graph::add_node(p_scene_node node)
 {
-    m_nodes.push_back(node);
-    return m_nodes.size();
+  int id = m_nodes.size();
+  m_nodes.push_back(node);
+  node->set_id(id);
+  return id;
 }
 
-void scene_graph::add_connection(int node_1, int node_2)
+void scene_graph::add_connection(int from_node, int to_node)
 {
-    if (m_connections.size() <= node_1)
-    {
-        // When we resize, increase by more than the bare minimum necessary,
-        //  as we are likely to want to add more nodes. I.e. same reasoning
-        //  as when we resize in vector::push_back.
-        const float RESIZE_FACTOR = 1.5f;  
+  m_int_graph.add_connection(from_node, to_node);
+}
 
-        // Add 1: if node_1 is zero, we want to have space for at least 
-        //  1 element.
-        int new_size = static_cast<int>(node_1 * RESIZE_FACTOR) + 1; 
-        m_connections.resize(new_size);
-    }
-    m_connections[node_1].push_back(node_2);
+const scene_node& scene_graph::get_node(int i) const
+{
+  assert(i < m_nodes.size());
+  return *m_nodes[i];
+}
+
+std::vector<int> scene_graph::get_connections(int from_node) const
+{
+  return m_int_graph.get_connections(from_node);
 }
 

@@ -5,7 +5,7 @@
 #pragma once
 
 #include "object.h"
-#include "scene_description.h"
+#include "scene_graph.h"
 #include "view.h"
 
 struct render_stats
@@ -19,7 +19,7 @@ public:
   virtual ~renderer() = 0;
   
   virtual void init_on_gl_thread() {}
-  virtual void render_on_gl_thread(const scene_description& sd) = 0;
+  virtual void render_on_gl_thread(const scene_graph& sg) = 0;
 
   const render_stats& get_render_stats() const { return m_render_stats; }
 

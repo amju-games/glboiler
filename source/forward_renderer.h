@@ -12,15 +12,15 @@ public:
   forward_renderer();
 
   void init_on_gl_thread() override;
-  void render_on_gl_thread(const scene_description&) override;
+  void render_on_gl_thread(const scene_graph&) override;
 
 private:
   void clear_blended_nodes();
   void draw_blended_nodes(const frustum& fr);
-  void shadow_map_pass(const scene_description& sg);
-  void opaque_pass(const scene_description& sg, const frustum& fr, gl_shader* override_shader = nullptr);
-  void draw_node(const scene_node& node, const frustum& fr, gl_shader* override_shaderi = nullptr);
-  void draw_children(const scene_node& node, const frustum& fr, gl_shader* override_shader = nullptr);
+  void shadow_map_pass(const scene_graph& sg);
+  void opaque_pass(const scene_graph& sg, const frustum& fr, gl_shader* override_shader = nullptr);
+  void traverse(const scene_graph& sg, const frustum& fr, gl_shader* override_shader);
+  void draw_node(const scene_node& node, const frustum& fr, gl_shader* override_shader, const mat4& xform);
 
 private:
   render_to_texture m_shadow_map;
