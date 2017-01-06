@@ -5,6 +5,6 @@ uniform mat4 view_proj_matrix;
 
 void main()
 {
-  gl_Position =  view_proj_matrix * gl_Vertex;
+  gl_Position = view_proj_matrix * world_matrix * gl_Vertex;
 }
 

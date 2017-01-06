@@ -11,10 +11,10 @@ varying vec4 v_shadow_coord;
 void main()
 {
   v_normal = gl_Normal;
-  v_shadow_coord = light_matrix *  gl_Vertex;
+  v_shadow_coord = light_matrix * world_matrix * gl_Vertex;
 
   mat4 m = proj_matrix * look_at_matrix; 
 
-  gl_Position =  m * gl_Vertex;
+  gl_Position = m * world_matrix * gl_Vertex;
 }
 
