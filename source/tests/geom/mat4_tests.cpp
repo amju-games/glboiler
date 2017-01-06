@@ -17,6 +17,17 @@ TEST(mat4, create)
   assert_identity(m);
 }
 
+TEST(mat4, copy)
+{
+  mat4 dest;
+  load_identity(dest);
+
+  mat4 src = { 1, 2, 3, 4,  5, 6, 7, 8,  9, 10, 11, 12,  13, 14, 15, 16 };
+
+  copy_matrix(src, dest);  
+  assert_equal(dest, src);
+}
+
 TEST(mat4, mult_identity_1)
 {
   mat4 m1;
@@ -124,6 +135,14 @@ TEST(mat4, rotate_y_3)
     sinf(a),  0,  cosf(a), 0,
     0,        0,  0,       1
   };
+  assert_equal(m, expected);
+}
+
+TEST(mat4, translate)
+{
+  mat4 m;
+  translate(m, vec3(5, 6, 7));
+  mat4 expected = { 1, 0, 0, 0,    0, 1, 0, 0,    0, 0, 1, 0,    5, 6, 7, 1 };
   assert_equal(m, expected);
 }
 

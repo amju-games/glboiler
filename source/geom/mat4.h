@@ -5,8 +5,15 @@
 #pragma once
 
 #include <math.h>
+#include <string.h> // memcpy
+#include "vec3.h"
 
 using mat4 = float[16];
+
+inline void copy_matrix(const mat4& src, mat4& dest)
+{
+  memcpy(dest, src, 16 * sizeof(float));
+}
 
 inline void load_identity(mat4 m)
 {
@@ -29,6 +36,14 @@ inline void load_identity(mat4 m)
   m[13] = 0; 
   m[14] = 0; 
   m[15] = 1; 
+}
+
+inline void translate(mat4 m, const vec3& tr)
+{
+  load_identity(m);
+  m[12] = tr.x;  
+  m[13] = tr.y;  
+  m[14] = tr.z;  
 }
 
 inline void rotate_y_radians(mat4 m, float radians)
