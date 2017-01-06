@@ -13,11 +13,14 @@
 class scene_node : public object
 {
 public:
-  scene_node()
+  scene_node() : m_id(-1)
   {
     load_identity(m_xform);
     m_has_changed = false;
   }
+
+  void set_id(int id_) { m_id = id_; }
+  int get_id() const { return m_id; }
 
   bool has_changed() const { return m_has_changed; }
 
@@ -32,6 +35,7 @@ public:
   mat4& get_world_xform() { m_has_changed = true; return m_xform; }
 
 protected:
+  int m_id;
   mat4 m_xform;
   std::unique_ptr<bounding_vol> m_bounding_vol;
   bool m_has_changed;
