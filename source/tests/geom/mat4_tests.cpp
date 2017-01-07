@@ -2,7 +2,6 @@
 // glboiler - Jason Colman 2016 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
-#include <iostream>
 #include <gtest/gtest.h>
 #include "gl_includes.h"
 #include "look_at.h"
@@ -183,9 +182,9 @@ TEST(look_at, same_as_glu_look_at)
   look.set_matrix(look_at_result);
 
 #ifdef LOG_MATRICES
-  std::cout << "gluLookAt:\n";
+  log("gluLookAt:");
   log(ogl_result);
-  std::cout << "look_at:\n";
+  log("look_at:)";
   log(look_at_result);
 #endif // LOG_MATRICES
 
@@ -209,9 +208,9 @@ TEST(perspective, same_as_glu_perspective)
   glPopMatrix();
 
 #ifdef LOG_MATRICES
-  std::cout << "gluPerspective:\n";
+  log("gluPerspective:");
   log(ogl_result);
-  std::cout << "perspective:\n";
+  log("perspective:");
   log(persp_result);
 #endif // LOG_MATRICES
 
@@ -244,9 +243,9 @@ TEST(ortho, same_as_gl_ortho)
   glPopMatrix();
 
 #ifdef LOG_MATRICES
-  std::cout << "glOrtho:\n";
+  log("glOrtho:");
   log(ogl_result);
-  std::cout << "ortho:\n";
+  log("ortho:");
   log(ortho_result);
 #endif
 

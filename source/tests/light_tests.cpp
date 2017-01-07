@@ -4,6 +4,7 @@
 
 #include <gtest/gtest.h>
 #include "light.h"
+#include "log.h"
 #include "look_at.h"
 #include "mat4_test_utils.h"
 #include "projection.h"
@@ -26,6 +27,11 @@ TEST(directional_light, matrix)
   light.calc_matrix(size, near_dist, far_dist);
   const mat4& m = light.get_matrix();
 
+#ifdef LOG_MATRICES
+  log("light matrix:");
+  log(m);
+#endif // LOG_MATRICES
+
   // Create matrix which should be the same
   mat4 look_matrix;
   look_at look(pos, dir, vec3(0, 1, 0));
@@ -35,6 +41,11 @@ TEST(directional_light, matrix)
   o.set_matrix(proj);
   mat4 expected;
   mult(look_matrix, proj, expected);
+
+#ifdef LOG_MATRICES
+  log("expected:");
+  log(expected);
+#endif // LOG_MATRICES
 
   assert_equal(m, expected);  
 }
