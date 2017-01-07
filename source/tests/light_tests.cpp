@@ -40,7 +40,7 @@ TEST(directional_light, matrix)
   ortho o(-size, size, -size, size, near_dist, far_dist);
   o.set_matrix(proj);
   mat4 expected;
-  mult(look_matrix, proj, expected);
+  expected = mult(look_matrix, proj);
 
 #ifdef LOG_MATRICES
   log("expected:");

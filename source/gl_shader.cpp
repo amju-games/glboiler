@@ -18,7 +18,7 @@ void gl_shader::set_mat4_on_gl_thread(const std::string& name, const mat4 m)
     return;
   }
 
-  GL_CHECK(glUniformMatrix4fv(loc, 1, false, m));
+  GL_CHECK(glUniformMatrix4fv(loc, 1, false, m.data()));
 }
 
 void gl_shader::set_float_on_gl_thread(const std::string& name, float f)

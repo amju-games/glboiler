@@ -24,10 +24,7 @@ struct traversal_node
 {
   traversal_node() = default;
   traversal_node(int id_) : id(id_) {}
-  traversal_node(int id_, const mat4& m) : id(id_) 
-  {
-    copy_matrix(m, combined_matrix);
-  }
+  traversal_node(int id_, const mat4& m) : id(id_), combined_matrix(m) {}
 
   int id = -1;
   mat4 combined_matrix;
@@ -41,7 +38,6 @@ void forward_renderer::traverse(
   std::stack<traversal_node> to_visit;
   int root = 0;
   to_visit.push(root);
-  load_identity(to_visit.top().combined_matrix);
 
   while (!to_visit.empty())
   {
@@ -49,8 +45,7 @@ void forward_renderer::traverse(
     to_visit.pop();
 
     const scene_node& node = sg.get_node(tn.id);
-    mat4 m;
-    mult(tn.combined_matrix, node.get_world_xform(), m);
+    mat4 m = mult(tn.combined_matrix, node.get_xform());
     draw_node(node, fr, override_shader, m);
   
     auto child_ids = sg.get_connections(tn.id);
@@ -138,7 +133,7 @@ void forward_renderer::shadow_map_pass(const scene_graph& sg)
   m_depth_shader.set_mat4_on_gl_thread("view_proj_matrix", m);
 
   // Transform with bias and store for second pass
-  mult(m, BIAS_MATRIX, m_light_matrix);
+  m_light_matrix = mult(m, BIAS_MATRIX);
 
   m_shadow_map.begin_on_gl_thread();
 

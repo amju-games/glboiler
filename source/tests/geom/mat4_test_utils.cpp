@@ -6,7 +6,7 @@
 #include <gtest/gtest.h>
 #include "mat4_test_utils.h"
 
-void log(const mat4 m)
+void log(const mat4& m)
 {
   std::string t = "\t";
   std::string n = "\n";
@@ -17,7 +17,7 @@ void log(const mat4 m)
     << m[3] << t << m[7] << t << m[11] << t << m[15] << n;
 }
 
-void assert_identity(const mat4 m)
+void assert_identity(const mat4& m)
 {
   ASSERT_EQ(m[0],  1);
   ASSERT_EQ(m[1],  0);
@@ -38,7 +38,7 @@ void assert_identity(const mat4 m)
   ASSERT_EQ(m[15], 1);
 }
 
-void assert_equal(const mat4 m1, const mat4 m2)
+void assert_equal(const mat4& m1, const mat4& m2)
 {
   float e = 0.00001f;
   ASSERT_NEAR(m1[0],  m2[0],  e);

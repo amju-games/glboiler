@@ -12,49 +12,40 @@
 TEST(mat4, create)
 {
   mat4 m;
-  load_identity(m);
   assert_identity(m);
 }
 
-TEST(mat4, copy)
+TEST(mat4, assign)
 {
   mat4 dest;
-  load_identity(dest);
 
   mat4 src = { 1, 2, 3, 4,  5, 6, 7, 8,  9, 10, 11, 12,  13, 14, 15, 16 };
 
-  copy_matrix(src, dest);  
+  dest = src;
   assert_equal(dest, src);
 }
 
 TEST(mat4, mult_identity_1)
 {
   mat4 m1;
-  load_identity(m1);
   mat4 m2;
-  load_identity(m2);
-  mat4 result;
-  mult(m1, m2, result);
+  mat4 result = mult(m1, m2);
   assert_identity(result);
 }
 
 TEST(mat4, mult_identity_2)
 {
   mat4 i;
-  load_identity(i);
   mat4 m2 = { 1, 2, 3, 4,  5, 6, 7, 8,  9, 10, 11, 12,  13, 14, 15, 16 };
-  mat4 result;
-  mult(i, m2, result);
+  mat4 result = mult(i, m2);
   assert_equal(result, m2);
 }
 
 TEST(mat4, mult_identity_3)
 {
   mat4 i;
-  load_identity(i);
   mat4 m2 = { 1, 2, 3, 4,  5, 6, 7, 8,  9, 10, 11, 12,  13, 14, 15, 16 };
-  mat4 result;
-  mult(m2, i, result);
+  mat4 result = mult(m2, i);
   assert_equal(result, m2);
 }
 
@@ -72,8 +63,7 @@ static mat4 m2 = {
 
 TEST(mat4, mult)
 {
-  mat4 result;
-  mult(m1, m2, result);
+  mat4 result = mult(m1, m2);
   mat4 expected = {
     1 * 101 + 2 * 105 + 3 * 109 + 4 * 113,
     1 * 102 + 2 * 106 + 3 * 110 + 4 * 114, 
@@ -101,33 +91,27 @@ TEST(mat4, mult)
 TEST(mat4, rotate_y_1)
 {
   mat4 m;
-  load_identity(m);
-  rotate_y_radians(m, 0);
+  m.rotate_y_radians(0);
   assert_identity(m);
 }
 
 TEST(mat4, rotate_y_2)
 {
   mat4 m1;
-  load_identity(m1);
   float a = M_PI * 1.3;
-  rotate_y_radians(m1, a);
+  m1.rotate_y_radians(a);
   mat4 m2;
-  load_identity(m2);
-  rotate_y_radians(m2, -a);
+  m2.rotate_y_radians(-a);
   mat4 i;
-  load_identity(i);
-  mat4 m;
-  mult(m1, m2, m);
+  mat4 m = mult(m1, m2);
   assert_equal(m, i);
 }
 
 TEST(mat4, rotate_y_3)
 {
   mat4 m;
-  load_identity(m);
   float a = M_PI * 0.73;
-  rotate_y_radians(m, a);
+  m.rotate_y_radians(a);
   const mat4 expected = { 
     cosf(a),  0, -sinf(a), 0,  
     0,        1,  0,       0,
@@ -140,23 +124,23 @@ TEST(mat4, rotate_y_3)
 TEST(mat4, translate)
 {
   mat4 m;
-  translate(m, vec3(5, 6, 7));
+  m.translate(vec3(5, 6, 7));
   mat4 expected = { 1, 0, 0, 0,    0, 1, 0, 0,    0, 0, 1, 0,    5, 6, 7, 1 };
   assert_equal(m, expected);
 }
 
 TEST(mat4, same_as_opengl)
 {
-  mat4 result;
-  mult(m1, m2, result);
+  mat4 result = mult(m1, m2);
 
   // Requires OpenGL context to be created  
   glMatrixMode(GL_MODELVIEW_MATRIX); 
  
-  glLoadMatrixf(m2); // note order!
-  glMultMatrixf(m1);
-  mat4 ogl_result;
-  glGetFloatv(GL_MODELVIEW_MATRIX, ogl_result);
+  glLoadMatrixf(m2.data()); // note order!
+  glMultMatrixf(m1.data());
+  float f[16];
+  glGetFloatv(GL_MODELVIEW_MATRIX, f);
+  mat4 ogl_result = f;
 
   assert_equal(result, ogl_result);
 }
@@ -173,8 +157,9 @@ TEST(look_at, same_as_glu_look_at)
   vec3 up(1, 2, 3);
   vec3 target(eye + dir);
   gluLookAt(eye.x, eye.y, eye.z,  target.x, target.y, target.z,  up.x, up.y, up.z);
-  mat4 ogl_result;
-  glGetFloatv(GL_MODELVIEW_MATRIX, ogl_result);
+  float f[16];
+  glGetFloatv(GL_MODELVIEW_MATRIX, f);
+  mat4 ogl_result = f;
   glPopMatrix();
  
   mat4 look_at_result;
@@ -203,8 +188,9 @@ TEST(perspective, same_as_glu_perspective)
   glPushMatrix();
   glLoadIdentity();
   gluPerspective(5, 6, 7, 8);
-  mat4 ogl_result;
-  glGetFloatv(GL_MODELVIEW_MATRIX, ogl_result);
+  float f[16];
+  glGetFloatv(GL_MODELVIEW_MATRIX, f);
+  mat4 ogl_result = f;
   glPopMatrix();
 
 #ifdef LOG_MATRICES
@@ -238,8 +224,9 @@ TEST(ortho, same_as_gl_ortho)
   glPushMatrix();
   glLoadIdentity();
   glOrtho(3, 4, 5, 6, 7, 8);
-  mat4 ogl_result;
-  glGetFloatv(GL_MODELVIEW_MATRIX, ogl_result);
+  float f[16];  
+  glGetFloatv(GL_MODELVIEW_MATRIX, f);
+  mat4 ogl_result = f;
   glPopMatrix();
 
 #ifdef LOG_MATRICES

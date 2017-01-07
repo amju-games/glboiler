@@ -5,7 +5,7 @@
 #include <math.h>
 #include "projection.h"
 
-void perspective::set_matrix(mat4 m) const
+void perspective::set_matrix(mat4& m) const
 {
   double sine, cotangent, deltaZ;
   double radians = fov_y_degs / 2 * M_PI / 180;
@@ -18,7 +18,7 @@ void perspective::set_matrix(mat4 m) const
 
   cotangent = cos(radians) / sine;
 
-  load_identity(m);
+  m.load_identity();
   m[0] = cotangent / aspect_ratio;
   m[5] = cotangent;
   m[10] = -(far_distance + near_distance) / deltaZ;
@@ -27,9 +27,9 @@ void perspective::set_matrix(mat4 m) const
   m[15] = 0;
 }
 
-void ortho::set_matrix(mat4 m) const
+void ortho::set_matrix(mat4& m) const
 {
-  load_identity(m);
+  m.load_identity();
   m[0] = 2.0f / (right - left);
   m[5] = 2.0f / (top - bottom);
   m[10] = -2.0f / (far_distance - near_distance);

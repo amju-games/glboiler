@@ -17,7 +17,7 @@ void directional_light::calc_matrix(float size, float near_dist, float far_dist)
   mat4 view;
   look.set_matrix(view);
 
-  mult(view, proj, m_matrix);
+  m_matrix = mult(view, proj);
 }
 
 

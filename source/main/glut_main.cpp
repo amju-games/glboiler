@@ -54,11 +54,11 @@ void display()
     scene_graph sg;
     auto root = std::make_shared<teapot_scene_node>();
     auto child = std::make_shared<teapot_scene_node>();
-    translate(child->get_world_xform(), vec3(2.5f, 0, 0));
+    child->get_xform().translate(vec3(2.5f, 0, 0));
     auto gchild = std::make_shared<teapot_scene_node>();
-    translate(gchild->get_world_xform(), vec3(0, 0, 2.5f));
+    gchild->get_xform().translate(vec3(0, 0, 2.5f));
     auto ggchild = std::make_shared<teapot_scene_node>();
-    translate(ggchild->get_world_xform(), vec3(2.5f, 0, 0));
+    ggchild->get_xform().translate(vec3(2.5f, 0, 0));
     sg.add_node(root);
     sg.add_node(child);
     sg.add_node(gchild);

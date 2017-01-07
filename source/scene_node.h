@@ -15,7 +15,6 @@ class scene_node : public object
 public:
   scene_node() : m_id(-1)
   {
-    load_identity(m_xform);
     m_has_changed = false;
   }
 
@@ -31,8 +30,8 @@ public:
 
   virtual void render() const = 0;
 
-  const mat4& get_world_xform() const { return m_xform; }
-  mat4& get_world_xform() { m_has_changed = true; return m_xform; }
+  const mat4& get_xform() const { return m_xform; }
+  mat4& get_xform() { m_has_changed = true; return m_xform; }
 
 protected:
   int m_id;
