@@ -1,7 +1,7 @@
 all:glboiler_tests_exe
 
 clean:
-	rm glboiler_tests *.o ../*.o ../geom/*.o ../macosx/*.o
+	rm glboiler_tests *.o ../*.o geom/*.o ../geom/*.o ../macosx/*.o
 
 run:
 	./glboiler_tests
