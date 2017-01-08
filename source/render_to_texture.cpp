@@ -17,6 +17,10 @@ render_to_texture::render_to_texture()
   
 render_to_texture::~render_to_texture()
 {
+}
+
+void render_to_texture::destroy_on_gl_thread()
+{
   // TODO clean up framebuffer etc
 
   for (int i = 0; i < 2; i++)

@@ -69,6 +69,7 @@ void display()
 
     rend.render_on_gl_thread(sg);
     
+    rend.destroy_on_gl_thread();
     glutSwapBuffers();
     usleep(10000); // to stop my mac melting :(
     glutPostRedisplay();

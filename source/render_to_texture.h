@@ -22,6 +22,8 @@ public:
   // Create texture render target
   bool init_on_gl_thread();
 
+  void destroy_on_gl_thread();
+
   // Draw scene between Begin() and End() calls. Then you can use the texture.
   // Switch to texture render target
   bool begin_on_gl_thread();

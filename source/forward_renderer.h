@@ -13,6 +13,7 @@ public:
 
   void init_on_gl_thread() override;
   void render_on_gl_thread(const scene_graph&) override;
+  void destroy_on_gl_thread() override;
 
 private:
   void clear_blended_nodes();

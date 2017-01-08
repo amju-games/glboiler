@@ -20,6 +20,7 @@ public:
   
   virtual void init_on_gl_thread() {}
   virtual void render_on_gl_thread(const scene_graph& sg) = 0;
+  virtual void destroy_on_gl_thread() {}
 
   const render_stats& get_render_stats() const { return m_render_stats; }
 

@@ -61,6 +61,12 @@ forward_renderer::forward_renderer()
   m_shadow_map_size = 1024;
 }
 
+void forward_renderer::destroy_on_gl_thread()
+{
+  m_depth_shader.destroy_on_gl_thread();
+  m_shadow_map.destroy_on_gl_thread();
+}
+
 void forward_renderer::init_on_gl_thread()
 {
   m_shadow_map.set_render_flags(render_to_texture::RENDER_DEPTH);
@@ -111,6 +117,8 @@ void forward_renderer::render_on_gl_thread(const scene_graph& sd)
 
   m_shadow_map.use_texture_on_gl_thread();
   m_shadow_map.debug_draw_on_gl_thread();
+
+  sh.destroy_on_gl_thread();
 }
 
 void forward_renderer::clear_blended_nodes()

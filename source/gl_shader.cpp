@@ -9,7 +9,15 @@
 #include "gl_shader.h"
 #include "log.h"
 
-void gl_shader::set_mat4_on_gl_thread(const std::string& name, const mat4 m)
+gl_shader::~gl_shader()
+{
+  if (m_compiled_ok)
+  {
+    assert(m_destroy_called);
+  }
+}
+
+void gl_shader::set_mat4_on_gl_thread(const std::string& name, const mat4& m)
 {
   GL_CHECK(GLint loc = glGetUniformLocation(m_program_id, name.c_str()));
   if (loc == -1)
@@ -65,7 +73,18 @@ static bool read_file(const std::string& filename, std::string* result)
   return true;
 }
 
-bool gl_shader::load(const std::string& vert_filename, const std::string& frag_filename)
+void gl_shader::destroy_on_gl_thread()
+{
+  if (m_compiled_ok)
+  {  
+    GL_CHECK(glDeleteProgram(m_program_id));
+    m_destroy_called = true;
+  }
+}
+
+bool gl_shader::load(
+  const std::string& vert_filename, 
+  const std::string& frag_filename)
 {
   m_vert_shader_filename = vert_filename;
   m_frag_shader_filename = frag_filename;
@@ -119,7 +138,7 @@ bool gl_shader::compile_on_gl_thread()
     return false;
   }
 
-  m_program_id = glCreateProgram();
+  GL_CHECK(m_program_id = glCreateProgram());
   GL_CHECK(glAttachShader(m_program_id, vertSh));
   GL_CHECK(glAttachShader(m_program_id, fragSh));
   GL_CHECK(glLinkProgram(m_program_id));
@@ -131,6 +150,7 @@ bool gl_shader::compile_on_gl_thread()
     log(buf);
     return false;
   }
+  m_compiled_ok = true;
 
   use_on_gl_thread(); // bind shader so we can set uniforms
 
@@ -139,6 +159,7 @@ bool gl_shader::compile_on_gl_thread()
 
 void gl_shader::use_on_gl_thread()
 {
+  assert(m_compiled_ok);
   GL_CHECK(glUseProgram(m_program_id));
 }
 
