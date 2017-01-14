@@ -12,7 +12,8 @@ void perspective::set_matrix(mat4& m) const
 
   deltaZ = far_distance - near_distance; 
   sine = sin(radians);
-  if ((deltaZ == 0) || (sine == 0) || (aspect_ratio == 0)) {
+  if ((deltaZ == 0) || (sine == 0) || (aspect_ratio == 0)) 
+  {
     return;
   }
 
