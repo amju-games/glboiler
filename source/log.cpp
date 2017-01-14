@@ -5,9 +5,9 @@
 #include <iostream>
 #include "log.h"
 
-void log(const msg& m)
+void log(const os& m)
 {
-  log(m.str());
+  log((dynamic_cast<const std::stringstream&>(m)).str());
 }
 
 void log(const std::string& s)
