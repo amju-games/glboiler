@@ -20,7 +20,7 @@ void scene_graph::add_connection(int from_node, int to_node)
 
 const scene_node& scene_graph::get_node(int i) const
 {
-  assert(i < m_nodes.size());
+  assert(i < static_cast<int>(m_nodes.size()));
   return *m_nodes[i];
 }
 

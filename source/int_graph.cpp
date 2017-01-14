@@ -6,7 +6,7 @@
 
 void int_graph::add_connection(int node_1, int node_2)
 {
-  if (m_connections.size() <= node_1)
+  if (static_cast<int>(m_connections.size()) <= node_1)
   {
     // When we resize, increase by more than the bare minimum necessary,
     //  as we are likely to want to add more nodes. I.e. same reasoning
@@ -23,7 +23,7 @@ void int_graph::add_connection(int node_1, int node_2)
 
 std::vector<int> int_graph::get_connections(int node) const
 {
-  if (m_connections.size() <= node)
+  if (static_cast<int>(m_connections.size()) <= node)
   {
     return std::vector<int>();
   }

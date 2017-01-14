@@ -7,8 +7,8 @@
 
 void perspective::set_matrix(mat4& m) const
 {
-  double sine, cotangent, deltaZ;
-  double radians = fov_y_degs / 2 * M_PI / 180;
+  float sine, cotangent, deltaZ;
+  float radians = fov_y_degs / 2.0f * static_cast<float>(M_PI) / 180.0f;
 
   deltaZ = far_distance - near_distance; 
   sine = sin(radians);
