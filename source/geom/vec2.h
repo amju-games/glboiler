@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include <assert.h>
 #include <math.h>
+#include "boiler_assert.h"
 
 struct vec2
 {

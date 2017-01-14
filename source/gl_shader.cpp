@@ -2,9 +2,9 @@
 // glboiler - Jason Colman 2016-2017 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
-#include <assert.h>
 #include <fstream>
 #include <iostream>
+#include "boiler_assert.h"
 #include "gl_includes.h"
 #include "gl_shader.h"
 #include "log.h"

@@ -2,7 +2,7 @@
 // glboiler - Jason Colman 2016-2017 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
-#include <assert.h>
+#include "boiler_assert.h"
 #include "scene_graph.h"
 
 int scene_graph::add_node(p_scene_node node)
