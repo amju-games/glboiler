@@ -15,4 +15,6 @@ void boiler_assert(T expr, const char* expr_str, const char* file, int line)
   }
 }
 
+#ifndef assert
 #define assert(expr) boiler_assert(expr, #expr, __FILE__, __LINE__)
+#endif

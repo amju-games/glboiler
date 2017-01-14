@@ -25,6 +25,12 @@
     <Filter Include="source\thirdparty\glew">
       <UniqueIdentifier>{1ee3d4a2-e54f-42e2-8529-f487a3d46d29}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\tests">
+      <UniqueIdentifier>{f3d4c7cb-14d8-45c3-9ff3-67f5c1519fa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\tests\geom">
+      <UniqueIdentifier>{32623f14-0a2e-48ff-a9e3-601fb657f4bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\source\colour.h">
@@ -173,6 +179,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\boiler_assert.h">
       <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\tests\test_scene_node.h">
+      <Filter>source\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\tests\geom\mat4_test_utils.h">
+      <Filter>source\tests\geom</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -326,8 +338,54 @@
     <ClCompile Include="..\..\..\..\source\thirdparty\glew-2.0.0\src\glew.c">
       <Filter>source\thirdparty\glew</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\colour_tests.cpp">
+      <Filter>source\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\forward_renderer_tests.cpp">
+      <Filter>source\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\int_graph_tests.cpp">
+      <Filter>source\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\light_tests.cpp">
+      <Filter>source\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\scene_graph_tests.cpp">
+      <Filter>source\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\scene_node_tests.cpp">
+      <Filter>source\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\test_main.cpp">
+      <Filter>source\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\vertex_tests.cpp">
+      <Filter>source\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\viewport_tests.cpp">
+      <Filter>source\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\geom\aabb_tests.cpp">
+      <Filter>source\tests\geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\geom\frustum_tests.cpp">
+      <Filter>source\tests\geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\geom\mat4_test_utils.cpp">
+      <Filter>source\tests\geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\geom\mat4_tests.cpp">
+      <Filter>source\tests\geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\geom\vec2_tests.cpp">
+      <Filter>source\tests\geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\geom\vec3_tests.cpp">
+      <Filter>source\tests\geom</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\source\thirdparty\glut\glut32.lib" />
+    <Library Include="..\..\..\..\source\thirdparty\googletest\msvc\gtest\Debug\gtestd.lib" />
   </ItemGroup>
 </Project>
