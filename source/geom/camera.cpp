@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// glboiler - Jason Colman 2016 - OpenGL experiments
+// glboiler - Jason Colman 2016-2017 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
 #include "camera.h"
