@@ -27,6 +27,7 @@ SOURCES=glut_main.cpp \
 ../scene_description.cpp \
 ../scene_graph.cpp \
 ../teapot_scene_node.cpp \
+../texture.cpp \
 ../view.cpp \
 ../macosx/timer.cpp \
 ../geom/aabb.cpp \
