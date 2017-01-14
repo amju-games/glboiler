@@ -103,6 +103,8 @@ int main(int argc, char** argv)
     glutInitWindowSize(WIN_X, WIN_Y);
     glutCreateWindow("Hello"); 
 
+	glewInit();
+
     // log_gl_info();
 
     glutDisplayFunc(display);
