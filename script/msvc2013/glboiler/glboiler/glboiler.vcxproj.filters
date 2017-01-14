@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{53654929-09ec-4475-9289-9663026afdfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\geom">
+      <UniqueIdentifier>{fb47b358-8fb2-44a6-9177-6e20fc433454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\main">
+      <UniqueIdentifier>{fe343946-2ca6-4072-b7a1-67c0aceae8e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\thirdparty">
+      <UniqueIdentifier>{ca3433e0-39d0-4bcd-9077-9c8f622bfabb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\thirdparty\lpng1626">
+      <UniqueIdentifier>{0cccd958-cc27-46f1-b3f7-845207e8cbac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\windows">
+      <UniqueIdentifier>{f306f181-6893-46e9-a7c8-844f9b177932}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\thirdparty\zlib">
+      <UniqueIdentifier>{04fee2a3-e758-42d2-b3bc-f3727f555d77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\thirdparty\glew">
+      <UniqueIdentifier>{1ee3d4a2-e54f-42e2-8529-f487a3d46d29}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\source\colour.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\forward_renderer.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\gl_shader.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\gl_system.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\int_graph.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\light.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\load_png.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\log.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\object.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render_to_texture.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\renderer.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\scene_description.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\scene_graph.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\scene_node.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\teapot_scene_node.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\vertex.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\view.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\viewport.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\geom\aabb.h">
+      <Filter>source\geom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\geom\bounding_vol.h">
+      <Filter>source\geom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\geom\camera.h">
+      <Filter>source\geom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\geom\cull_result.h">
+      <Filter>source\geom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\geom\frustum.h">
+      <Filter>source\geom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\geom\look_at.h">
+      <Filter>source\geom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\geom\mat4.h">
+      <Filter>source\geom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\geom\projection.h">
+      <Filter>source\geom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\geom\stereo_camera.h">
+      <Filter>source\geom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\geom\vec2.h">
+      <Filter>source\geom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\geom\vec3.h">
+      <Filter>source\geom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\png.h">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pngconf.h">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pngdebug.h">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pnginfo.h">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pngpriv.h">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pngstruct.h">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\windows\gl_includes.h">
+      <Filter>source\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\windows\timer.h">
+      <Filter>source\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\crc32.h">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\deflate.h">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\inffast.h">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\inffixed.h">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\inflate.h">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\inftrees.h">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\trees.h">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\zconf.h">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\zconf.in.h">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\zlib.h">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\zutil.h">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\boiler_assert.h">
+      <Filter>source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\forward_renderer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\gl_shader.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\gl_system.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\int_graph.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\light.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\load_png.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\log.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render_to_texture.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\renderer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene_description.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene_graph.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\teapot_scene_node.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\view.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\geom\aabb.cpp">
+      <Filter>source\geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\geom\camera.cpp">
+      <Filter>source\geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\geom\frustum.cpp">
+      <Filter>source\geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\geom\look_at.cpp">
+      <Filter>source\geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\geom\projection.cpp">
+      <Filter>source\geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\main\glut_main.cpp">
+      <Filter>source\main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\example.c">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\png.c">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngerror.c">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngget.c">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngmem.c">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngpread.c">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngread.c">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngrio.c">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngrtran.c">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngrutil.c">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngset.c">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngtrans.c">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngwio.c">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngwrite.c">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngwtran.c">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngwutil.c">
+      <Filter>source\thirdparty\lpng1626</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\windows\timer.cpp">
+      <Filter>source\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\adler32.c">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\compress.c">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\crc32.c">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\deflate.c">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\gzio.c">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\infback.c">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\inffast.c">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\inflate.c">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\inftrees.c">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\minigzip.c">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\trees.c">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\uncompr.c">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\zutil.c">
+      <Filter>source\thirdparty\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\glew-2.0.0\src\glew.c">
+      <Filter>source\thirdparty\glew</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\..\..\source\thirdparty\glut\glut32.lib" />
+  </ItemGroup>
+</Project>
