@@ -18,3 +18,11 @@ inline colour operator*(const colour& c1, const colour& c2)
   return colour(c1.r * c2.r, c1.g * c2.g, c1.b * c2.b, c1.a * c2.a);
 }
 
+inline bool operator==(const colour& c1, const colour& c2)
+{
+  return    c1.r == c2.r
+         && c1.g == c2.g
+         && c1.b == c2.b
+         && c1.a == c2.a;
+}
+

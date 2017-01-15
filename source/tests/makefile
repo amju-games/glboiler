@@ -4,7 +4,9 @@ clean:
 	rm glboiler_tests *.o ../*.o geom/*.o ../geom/*.o ../macosx/*.o
 
 run:
-	./glboiler_tests
+	cp glboiler_tests ../../assets/; cd ../../assets/; ./glboiler_tests; cd -
+# NB run tests from assets/ dir, so we can load assets within the tests
+
 
 CC=clang++
 
@@ -22,6 +24,7 @@ int_graph_tests.cpp \
 light_tests.cpp \
 scene_graph_tests.cpp \
 scene_node_tests.cpp \
+texture_tests.cpp \
 vertex_tests.cpp \
 viewport_tests.cpp \
 geom/aabb_tests.cpp \
@@ -42,6 +45,7 @@ geom/vec3_tests.cpp \
 ../scene_description.cpp \
 ../scene_graph.cpp \
 ../teapot_scene_node.cpp \
+../texture.cpp \
 ../view.cpp \
 ../geom/aabb.cpp \
 ../geom/camera.cpp \

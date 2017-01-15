@@ -6,6 +6,8 @@
 
 #include <string>
 #include <vector>
+#include "colour.h"
+#include "vec2.h"
 
 class texture
 {
@@ -14,8 +16,17 @@ public:
 
   bool load(const std::string& filename);
   void set_active_texture_id(int i) { m_active_texture_id = i; }
+  bool has_been_uploaded() const { return m_has_been_uploaded; }
 
-  void upload_on_gl_thread();
+  unsigned int get_width() const { return m_w; }
+  unsigned int get_height() const { return m_h; }
+  unsigned int get_bytes_per_pixel() const { return m_bytes_per_pixel; }
+
+  // Look up texel colour in data: for this to work, the data must 
+  //  not be deleted yet, of course! 
+  colour get_texel_colour(const vec2& uv) const;
+
+  void upload_on_gl_thread(bool then_delete_data = true);
   void use_on_gl_thread();
   void destroy_on_gl_thread();
 
@@ -31,7 +42,6 @@ private:
   unsigned int m_h = 0;
   unsigned int m_bytes_per_pixel = 0;
   bool m_has_been_uploaded = false;
-  bool m_delete_data_after_upload = true;
   bool m_destroy_called = false;
   bool m_use_mipmaps = false;
 
