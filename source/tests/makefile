@@ -1,7 +1,7 @@
 all:glboiler_tests_exe
 
 clean:
-	rm glboiler_tests *.o ../*.o geom/*.o ../geom/*.o ../macosx/*.o
+	rm glboiler_tests *.o ../*.o geom/*.o ../geom/*.o ../macosx/*.o utils/*.o
 
 run:
 	cp glboiler_tests ../../assets/; cd ../../assets/; ./glboiler_tests; cd -
@@ -12,7 +12,14 @@ CC=clang++
 
 WARNINGS=-Wall -Wno-deprecated-declarations
 
-INCLUDES=-I.. -I../thirdparty/googletest/include  -I../thirdparty/lpng1626/ -I../geom -I../macosx -Igeom
+INCLUDES=\
+  -I.. \
+  -I../thirdparty/googletest/include \
+  -I../thirdparty/lpng1626 \
+  -I../geom \
+  -I../macosx \
+  -Igeom \
+  -I../utils
 
 CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11   -DMACOSX
 
@@ -33,6 +40,7 @@ geom/mat4_tests.cpp \
 geom/mat4_test_utils.cpp \
 geom/vec2_tests.cpp \
 geom/vec3_tests.cpp \
+utils/string_utils_tests.cpp \
 ../forward_renderer.cpp \
 ../gl_system.cpp \
 ../gl_shader.cpp \
@@ -52,7 +60,8 @@ geom/vec3_tests.cpp \
 ../geom/frustum.cpp \
 ../geom/look_at.cpp \
 ../geom/projection.cpp \
-../macosx/timer.cpp
+../macosx/timer.cpp \
+../utils/string_utils.cpp 
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=glboiler_tests
