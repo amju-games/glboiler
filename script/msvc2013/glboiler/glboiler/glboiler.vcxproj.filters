@@ -31,6 +31,15 @@
     <Filter Include="source\tests\geom">
       <UniqueIdentifier>{32623f14-0a2e-48ff-a9e3-601fb657f4bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\utils">
+      <UniqueIdentifier>{a43d5b93-f66b-425c-b7ff-96924ceabb4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\md3">
+      <UniqueIdentifier>{ac135a94-1cd2-4e88-952f-c93a012ab441}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\tests\utils">
+      <UniqueIdentifier>{01398602-e254-49fc-94a2-19cbbe1ccc3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\source\colour.h">
@@ -185,6 +194,24 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\tests\geom\mat4_test_utils.h">
       <Filter>source\tests\geom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\md3\md3.h">
+      <Filter>source\md3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\md3\md3_types.h">
+      <Filter>source\md3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\utils\file.h">
+      <Filter>source\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\utils\string_utils.h">
+      <Filter>source\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\md3_node.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\texture.h">
+      <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -382,6 +409,27 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\geom\vec3_tests.cpp">
       <Filter>source\tests\geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\md3\md3.cpp">
+      <Filter>source\md3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\utils\file.cpp">
+      <Filter>source\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\utils\string_utils.cpp">
+      <Filter>source\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\md3_node.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\texture.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\utils\file_tests.cpp">
+      <Filter>source\tests\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\utils\string_utils_tests.cpp">
+      <Filter>source\tests\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

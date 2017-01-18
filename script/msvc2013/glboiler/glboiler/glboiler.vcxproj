@@ -54,14 +54,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\..\..\source;..\..\..\..\source\thirdparty\lpng1626;..\..\..\..\source\thirdparty\zlib;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lpng1626;..\..\..\..\source\thirdparty\zlib;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\..\..\source\tests\geom;..\..\..\..\source\tests;..\..\..\..\source\thirdparty\googletest\include;..\..\..\..\source;..\..\..\..\source\thirdparty\lpng1626;..\..\..\..\source\thirdparty\zlib;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source\tests\geom;..\..\..\..\source\tests;..\..\..\..\source\thirdparty\googletest\include;..\..\..\..\source;..\..\..\..\source\thirdparty\lpng1626;..\..\..\..\source\thirdparty\zlib;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source\utils;..\..\..\..\source;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -127,6 +128,9 @@
     <ClInclude Include="..\..\..\..\source\light.h" />
     <ClInclude Include="..\..\..\..\source\load_png.h" />
     <ClInclude Include="..\..\..\..\source\log.h" />
+    <ClInclude Include="..\..\..\..\source\md3\md3.h" />
+    <ClInclude Include="..\..\..\..\source\md3\md3_types.h" />
+    <ClInclude Include="..\..\..\..\source\md3_node.h" />
     <ClInclude Include="..\..\..\..\source\object.h" />
     <ClInclude Include="..\..\..\..\source\renderer.h" />
     <ClInclude Include="..\..\..\..\source\render_to_texture.h" />
@@ -140,6 +144,7 @@
     <ClInclude Include="..\..\..\..\source\tests\test_scene_node.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\source\texture.h" />
     <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\png.h" />
     <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pngconf.h" />
     <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pngdebug.h" />
@@ -157,6 +162,8 @@
     <ClInclude Include="..\..\..\..\source\thirdparty\zlib\zconf.in.h" />
     <ClInclude Include="..\..\..\..\source\thirdparty\zlib\zlib.h" />
     <ClInclude Include="..\..\..\..\source\thirdparty\zlib\zutil.h" />
+    <ClInclude Include="..\..\..\..\source\utils\file.h" />
+    <ClInclude Include="..\..\..\..\source\utils\string_utils.h" />
     <ClInclude Include="..\..\..\..\source\vertex.h" />
     <ClInclude Include="..\..\..\..\source\view.h" />
     <ClInclude Include="..\..\..\..\source\viewport.h" />
@@ -179,6 +186,8 @@
     <ClCompile Include="..\..\..\..\source\main\glut_main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\md3\md3.cpp" />
+    <ClCompile Include="..\..\..\..\source\md3_node.cpp" />
     <ClCompile Include="..\..\..\..\source\renderer.cpp" />
     <ClCompile Include="..\..\..\..\source\render_to_texture.cpp" />
     <ClCompile Include="..\..\..\..\source\scene_description.cpp" />
@@ -223,12 +232,21 @@
     <ClCompile Include="..\..\..\..\source\tests\test_main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\utils\file_tests.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\utils\string_utils_tests.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\vertex_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\viewport_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\texture.cpp" />
     <ClCompile Include="..\..\..\..\source\thirdparty\glew-2.0.0\src\glew.c" />
     <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\example.c" />
     <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\png.c" />
@@ -259,6 +277,8 @@
     <ClCompile Include="..\..\..\..\source\thirdparty\zlib\trees.c" />
     <ClCompile Include="..\..\..\..\source\thirdparty\zlib\uncompr.c" />
     <ClCompile Include="..\..\..\..\source\thirdparty\zlib\zutil.c" />
+    <ClCompile Include="..\..\..\..\source\utils\file.cpp" />
+    <ClCompile Include="..\..\..\..\source\utils\string_utils.cpp" />
     <ClCompile Include="..\..\..\..\source\view.cpp" />
     <ClCompile Include="..\..\..\..\source\windows\timer.cpp" />
   </ItemGroup>

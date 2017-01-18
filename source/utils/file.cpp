@@ -39,7 +39,7 @@ size_t file::read_binary(size_t num_bytes, void* dest)
   }
 
   m_file.read(reinterpret_cast<char*>(dest), num_bytes);
-  return m_file.gcount();
+  return static_cast<size_t>(m_file.gcount());
 }
 
 bool file::read_string(std::string* s)
