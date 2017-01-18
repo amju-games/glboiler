@@ -10,7 +10,8 @@
 static const std::string TEX_FILENAME = "textures/white.png";
 static const unsigned int EXPECTED_WIDTH = 8;
 static const unsigned int EXPECTED_HEIGHT = 8;
-static const unsigned int EXPECTED_BYTES_PER_PIXEL = 3;
+// Because we set png image format to RGBA, we always get 4 bytes per pixel
+static const unsigned int EXPECTED_BYTES_PER_PIXEL = 4;
 static const colour EXPECTED_COLOUR(1, 1, 1, 1); // i.e. white
 
 TEST(texture, create)
