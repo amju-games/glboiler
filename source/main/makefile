@@ -1,7 +1,7 @@
 all:glboiler_exe
 
 clean:
-	rm glboiler *.o ../*.o ../geom/*.o ../macosx/*.o ../../assets/glboiler
+	rm glboiler *.o ../*.o ../geom/*.o ../macosx/*.o ../../assets/glboiler ../md3/*.o ../utils/*.o
 
 run:
 	cp glboiler ../../assets/; cd ../../assets/; ./glboiler; cd -
@@ -10,7 +10,14 @@ CC=clang++
 
 WARNINGS=-Wall -Wno-deprecated-declarations 
 
-INCLUDES=-I.. -I../thirdparty/googletest/include  -I../thirdparty/lpng1626/ -I../geom -I../macosx
+INCLUDES=\
+  -I.. \
+  -I../thirdparty/googletest/include  \
+  -I../thirdparty/lpng1626 \
+  -I../geom \
+  -I../macosx \
+  -I../utils \
+  -I../md3
 
 CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11 -O0 -g
 
@@ -22,6 +29,7 @@ SOURCES=glut_main.cpp \
 ../gl_shader.cpp \
 ../int_graph.cpp \
 ../load_png.cpp \
+../md3_node.cpp \
 ../renderer.cpp \
 ../render_to_texture.cpp \
 ../scene_description.cpp \
@@ -30,13 +38,16 @@ SOURCES=glut_main.cpp \
 ../texture.cpp \
 ../view.cpp \
 ../macosx/timer.cpp \
+../md3/md3.cpp \
 ../geom/aabb.cpp \
 ../geom/camera.cpp \
 ../geom/frustum.cpp \
 ../geom/look_at.cpp \
 ../geom/projection.cpp \
 ../light.cpp \
-../log.cpp
+../log.cpp \
+../utils/file.cpp \
+../utils/string_utils.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=glboiler

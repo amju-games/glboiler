@@ -19,6 +19,8 @@
 #include "look_at.h"
 #include "projection.h"
 #include "teapot_scene_node.h" // TODO TEMP TEST
+#include "md3_node.h"
+#include "texture.h"
 #include "timer.h"
 
 static int WIN_X = 1000;
@@ -37,7 +39,7 @@ void display()
 
     camera left_cam, right_cam;
     float eye_sep = 0.5f;
-    float z_dist = 12.0f;
+    float z_dist = 60.0f;
     vec3 left(-eye_sep, 6, z_dist);
     vec3 right(eye_sep, 6, z_dist);
     vec3 up(0, 1, 0);
@@ -52,6 +54,9 @@ void display()
     rend.set_view(1, view(viewport(WIN_X / 2, 0, WIN_X / 2, WIN_Y), right_cam));
 
     scene_graph sg;
+    auto md3_root = std::make_shared<md3_node>();
+    sg.add_node(md3_root);
+
     auto root = std::make_shared<teapot_scene_node>();
     auto child = std::make_shared<teapot_scene_node>();
     child->get_xform().translate(vec3(2.5f, 0, 0));
@@ -67,12 +72,45 @@ void display()
     sg.add_connection(child->get_id(), gchild->get_id());
     sg.add_connection(gchild->get_id(), ggchild->get_id());
 
+/*
+    texture tex;
+    tex.set_active_texture_id(2);
+    bool b = tex.load("textures/heart.png");
+    assert(b);
+    tex.upload_on_gl_thread();
+    tex.use_on_gl_thread();
+
+
+  glUseProgram(0); // back to fixed function
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+  glColor4f(1,1,1,1);
+//  glActiveTexture(GL_TEXTURE0);
+//  glBindTexture(GL_TEXTURE_2D, m_tex[1]);
+//  glEnable(GL_TEXTURE_2D);
+  glTranslated(0,0,-1);
+  glBegin(GL_QUADS);
+  float x1 = 0.5f;
+  float x2 = 1.0f;
+  float y1 = 0.0f;
+  float y2 = 0.5f;
+  glTexCoord2d(0,0);glVertex2f(x1, y1);
+  glTexCoord2d(1,0);glVertex2f(x2, y1);
+  glTexCoord2d(1,1);glVertex2f(x2, y2);
+  glTexCoord2d(0,1);glVertex2f(x1, y2);
+  glEnd();
+*/
+
     rend.render_on_gl_thread(sg);
-    
     rend.destroy_on_gl_thread();
+ 
+///    tex.destroy_on_gl_thread();
+ 
     glutSwapBuffers();
-    usleep(10000); // to stop my mac melting :(
-    glutPostRedisplay();
+//    usleep(10000); // to stop my mac melting :(
+//    glutPostRedisplay();
 }
 
 void reshape(int x, int y)
