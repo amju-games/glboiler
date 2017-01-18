@@ -40,6 +40,7 @@ geom/mat4_tests.cpp \
 geom/mat4_test_utils.cpp \
 geom/vec2_tests.cpp \
 geom/vec3_tests.cpp \
+utils/file_tests.cpp \
 utils/string_utils_tests.cpp \
 ../forward_renderer.cpp \
 ../gl_system.cpp \
@@ -61,6 +62,7 @@ utils/string_utils_tests.cpp \
 ../geom/look_at.cpp \
 ../geom/projection.cpp \
 ../macosx/timer.cpp \
+../utils/file.cpp \
 ../utils/string_utils.cpp 
 
 OBJECTS=$(SOURCES:.cpp=.o)
