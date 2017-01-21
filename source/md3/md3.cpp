@@ -695,9 +695,10 @@ std::cout << "(ignoring this line: " << strLine.c_str() << ")\n";
   void CModelMD3::DrawModel()
   {
     // Rotate the model to compensate for the z up orientation that the model was saved
-    glRotatef(-90, 1, 0, 0);
-    //AmjuGL::RotateX(-90.0f);
-    //AmjuGL::RotateZ(-90.0f);
+
+    // NB this is only OK for the gl_1_1 renderer! - j.c.
+    // Better to not do this, for consistency with gl 2+ 
+////    glRotatef(-90, 1, 0, 0);
 
     // Draw the first link, which is the lower body.  This will then recursively go
     // through the models attached to this model and drawn them.
@@ -894,6 +895,7 @@ std::cout << "(ignoring this line: " << strLine.c_str() << ")\n";
 
         // Grab the texture index from the materialID index into our material list
         texture* pTex = pModel->pMaterials[pObject->materialID].textureId;
+//TODO TEMP TEST
         pTex->use_on_gl_thread(); 
         //UseThisTexture(); //Bind();
         // Bind the texture index that we got from the material textureID
@@ -936,6 +938,11 @@ std::cout << "(ignoring this line: " << strLine.c_str() << ")\n";
           // and next index to the initial index given from the face data.
           CVector3 vPoint1 = pObject->pVerts[ currentIndex + index ];
           CVector3 vPoint2 = pObject->pVerts[ nextIndex + index];
+
+          CVector3 normal1 = pObject->pNormals[currentIndex + index];
+          CVector3 normal2 = pObject->pNormals[nextIndex + index];
+          CVector3 norm = normal1 + (normal2 - normal1) * pModel->t;
+          glNormal3f(norm.x, norm.y, norm.z);
 
           // By using the equation: p(t) = p0 + t(p1 - p0), with a time t,
           // we create a new vertex that is closer to the next key frame.
@@ -1166,6 +1173,10 @@ std::cout << "LOADING MODEL: " << strFileName << "\n";
     // number of frames in the mesh.  This is because each frame of animation has a 
     // totally new set of vertices.  This will be used in the next animation tutorial.
     currentMesh.pVerts    = new CVector3 [currentMesh.numOfVerts * meshHeader.numMeshFrames];
+
+    // j.c. 
+    currentMesh.pNormals = new CVector3[currentMesh.numOfVerts * meshHeader.numMeshFrames];
+
     currentMesh.pTexVerts = new CVector2 [currentMesh.numOfVerts];
     currentMesh.pFaces    = new tFace [currentMesh.numOfFaces];
 
@@ -1183,6 +1194,8 @@ std::cout << "LOADING MODEL: " << strFileName << "\n";
       currentMesh.pVerts[i].x =  m_pVertices[i].vertex[0] / 64.0f;
       currentMesh.pVerts[i].y =  m_pVertices[i].vertex[1] / 64.0f;
       currentMesh.pVerts[i].z =  m_pVertices[i].vertex[2] / 64.0f;
+
+      currentMesh.pNormals[i] = m_pVertices[i].decodedNormal(); // j.c.
     }
 
     // Go through all of the uv coords and assign them over to our structure

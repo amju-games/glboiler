@@ -9,7 +9,7 @@ md3_node::md3_node()
 {
   m_md3_model = new CModelMD3; // TODO get resource
   log(msg() << "Loading md3 model...");
-  m_md3_model->LoadModel("md3/chaos-marine/");
+  m_md3_model->LoadModel("md3/dragon/");
   log(msg() << "Loaded md3 model ok!");
 }
 

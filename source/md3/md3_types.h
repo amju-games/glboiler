@@ -6,6 +6,9 @@
 
 #include <string>
 #include <vector>
+#include "vec2.h"
+#include "vec3.h"
+
 // TODO 
 // The maximum amount of textures to load
 #define MAX_TEXTURES 100								
@@ -13,18 +16,21 @@
 #include "texture.h"
 
   // This is our 3D point class.  This will be used to store the vertices of our model.
-  class CVector3 
-  {
-  public:
-    float x, y, z;
-  };
+using CVector3 = vec3;
+using CVector2 = vec2;
 
-  // This is our 2D point class.  This will be used to store the UV coordinates.
-  class CVector2 
-  {
-  public:
-    float x, y;
-  };
+  //class CVector3 
+  //{
+  //public:
+  //  float x, y, z;
+  //};
+
+  //// This is our 2D point class.  This will be used to store the UV coordinates.
+  //class CVector2 
+  //{
+  //public:
+  //  float x, y;
+  //};
 
   // This is our face structure.  This is used for indexing into the vertex 
   // and texture coordinate arrays.  From this information we know which vertices

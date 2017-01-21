@@ -138,6 +138,20 @@
     signed short	 vertex[3];				// The vertex for this face (scale down by 64.0f)
     unsigned char normal[2];				// This stores some crazy normal values (not sure...)
 
+    vec3 decodedNormal() const
+    {
+      // j.c. - from https://www.icculus.org/homepages/phaethon/q3a/formats/md3format.html
+      float lat = static_cast<float>(normal[1]) * (2.0 * M_PI) / 255.f;
+      float lng = static_cast<float>(normal[0]) * (2.0 * M_PI) / 255.f;
+      return vec3(cos(lat) * sin(lng), sin(lat) * sin(lng), cos(lng));
+      /* from the website:
+        lat = ((normal shift - right 8) binary - and 255) * (2 * pi) / 255
+        lng <-(normal binary - and 255) * (2 * pi) / 255
+        x <-cos(lat) * sin(lng)
+        y <-sin(lat) * sin(lng)
+        z <-cos(lng)
+      */
+    }
   };
   
   // This stores the indices into the vertex and texture coordinate arrays
