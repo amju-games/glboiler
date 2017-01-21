@@ -12,7 +12,7 @@
 #include "md3.h"
 #include "string_utils.h"
 
-//#define MD3_DEBUG
+#define MD3_DEBUG
 
   void CQuaternion::CreateMatrix(float *pMatrix)
   {
@@ -447,7 +447,15 @@
 
   texture* CreateTexture(const std::string& file)
   {
-    return 0; //new texturebb(Texture*)TheResourceManager::Instance()->GetRes(file);
+    texture* tex = new texture;
+    if (!tex->load(file))
+    {
+      assert(0);
+      return nullptr;
+    }
+    // Just for now. Resource manager will know when to call this on the right thread.
+    tex->upload_on_gl_thread();
+    return tex;
   }
 
   bool CModelMD3::LoadModelTextures(t3DModel *pModel, const std::string& strPath)
@@ -504,7 +512,7 @@
     // Create an animation object for every valid animation in the Quake3 Character
     tAnimationInfo animations[MAX_ANIMATIONS];
 
-    file f; ///File f(false); // no version info
+    text_file f; ///File f(false); // no version info
     bool b = f.open_for_reading(strConfigFile);
 
     // Here we make sure that the file was found and could be opened
@@ -898,7 +906,7 @@ std::cout << "(ignoring this line: " << strLine.c_str() << ")\n";
         //AmjuGL::Disable(AmjuGL::AMJU_TEXTURE_2D);
       }
 
-      log(msg() << "Drawing " << pObject->numOfFaces << " faces");
+//      log(msg() << "Drawing " << pObject->numOfFaces << " faces");
 
       // Start drawing our model triangles
       glBegin(GL_TRIANGLES);
@@ -999,7 +1007,7 @@ std::cout << "LOADING MODEL: " << strFileName << "\n";
     // Open the MD3 file in binary
     std::string filepluspath = "";
     filepluspath += strFileName; 
-    m_pFile = new file; // no version info
+    m_pFile = new binary_file; // no version info
     bool b = m_pFile->open_for_reading(filepluspath); 
     m_bytesRead = 0;
 
@@ -1212,7 +1220,7 @@ std::cout << "LOADING MODEL: " << strFileName << "\n";
     if (!pModel) return false;
 
     // Open the skin file
-    file f; //File f(false); // no version info
+    text_file f; //File f(false); // no version info
     bool b = f.open_for_reading(strSkin);
 
     // Make sure the file was opened
@@ -1284,7 +1292,7 @@ std::cout << "LOADING MODEL: " << strFileName << "\n";
     if (!pModel) return false;
 
     // Open the shader file
-    file f; 
+    text_file f; 
     bool b = f.open_for_reading(strShader);
 
     // Make sure the file was opened

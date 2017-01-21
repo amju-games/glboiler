@@ -190,7 +190,7 @@
     // Member Variables		
 
     // The file pointer
-    file* m_pFile;
+    binary_file* m_pFile;
 
     unsigned int m_bytesRead; // bytes read so far from above file
 
