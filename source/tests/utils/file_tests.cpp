@@ -4,16 +4,16 @@
 
 // These tests have to be run from the assets/ dir
 
-TEST(file, open_file_that_exists)
+TEST(text_file, open_file_that_exists)
 {
-  file f;
+  text_file f;
   bool ok = f.open_for_reading("test/file_a.txt");
   ASSERT_TRUE(ok);
 }
 
-TEST(file, read_string)
+TEST(text_file, read_string)
 {
-  file f;
+  text_file f;
   // This file should contain: abc\ndef\n
   bool ok = f.open_for_reading("test/file_a.txt");
   ASSERT_TRUE(ok);
@@ -28,9 +28,9 @@ TEST(file, read_string)
   ASSERT_FALSE(ok); 
 }
 
-TEST(file, close)
+TEST(text_file, close)
 {
-  file* f = new file;
+  text_file* f = new text_file;
   bool ok = f->open_for_reading("test/file_a.txt");
   ASSERT_TRUE(ok);
   f->close();
@@ -40,9 +40,9 @@ TEST(file, close)
   delete f;
 }
 
-TEST(file, open_file_that_doesnt_exist)
+TEST(text_file, open_file_that_doesnt_exist)
 {
-  file f;
+  text_file f;
   bool ok = f.open_for_reading("no_such_file______.no_file");
   ASSERT_FALSE(ok);
   std::string s;
@@ -50,9 +50,9 @@ TEST(file, open_file_that_doesnt_exist)
   ASSERT_FALSE(ok);
 }
 
-TEST(file, seek)
+TEST(binary_file, read_and_seek)
 {
-  file f;
+  binary_file f;
   // File contents: "0123456789abcdef\n"
   bool ok = f.open_for_reading("test/file_b.txt");
   ASSERT_TRUE(ok);
