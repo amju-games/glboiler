@@ -58,16 +58,21 @@ public:
   float operator[] (int i) const { return m[i]; }
   float& operator[] (int i) { return m[i]; }
 
-  void load_identity();
-  void translate(const vec3& tr);
-  void rotate_y_radians(float radians);
+  const mat4& load_identity();
+  const mat4& translate(const vec3& tr);
+
+  const mat4& rotate_x_radians(float radians);
+  const mat4& rotate_y_radians(float radians);
+  const mat4& rotate_z_radians(float radians);
+
+  const mat4& scale(float x, float y, float z);
 
 private:
   float m[16];
   friend mat4 mult(const mat4& m1, const mat4& m2);
 };
 
-inline void mat4::load_identity()
+inline const mat4& mat4::load_identity()
 {
   m[0]  = 1; 
   m[1]  = 0; 
@@ -88,17 +93,41 @@ inline void mat4::load_identity()
   m[13] = 0; 
   m[14] = 0; 
   m[15] = 1; 
+
+  return *this;
 }
 
-inline void mat4::translate(const vec3& tr)
+inline const mat4& mat4::translate(const vec3& tr)
 {
   load_identity();
   m[12] = tr.x;  
   m[13] = tr.y;  
   m[14] = tr.z;  
+
+  return *this;
 }
 
-inline void mat4::rotate_y_radians(float radians)
+inline const mat4& mat4::rotate_x_radians(float radians)
+{
+  float c = cos(radians);
+  float s = sin(radians);
+
+  m[0] = 1;
+  m[1] = 0;
+  m[2] = 0;
+
+  m[4] = 0;
+  m[5] = c;
+  m[6] = s;
+
+  m[8] = 0;
+  m[9] = -s;
+  m[10] = c;
+
+  return *this;
+}
+
+inline const mat4& mat4::rotate_y_radians(float radians)
 {
   float c = cos(radians);
   float s = sin(radians);
@@ -114,6 +143,53 @@ inline void mat4::rotate_y_radians(float radians)
   m[8]  = s; 
   m[9]  = 0; 
   m[10] = c; 
+
+  return *this;
+}
+
+inline const mat4& mat4::rotate_z_radians(float radians)
+{
+  float c = cos(radians);
+  float s = sin(radians);
+
+  m[0] = c;
+  m[1] = s;
+  m[2] = 0;
+
+  m[4] = -s;
+  m[5] = c;
+  m[6] = 0;
+
+  m[8] = 0;
+  m[9] = 0;
+  m[10] = 1;
+
+  return *this;
+}
+
+inline const mat4& mat4::scale(float x, float y, float z)
+{
+  m[0] = x;
+  m[1] = 0;
+  m[2] = 0;
+  m[3] = 0;
+
+  m[4] = 0;
+  m[5] = y;
+  m[6] = 0;
+  m[7] = 0;
+
+  m[8] = 0;
+  m[9] = 0;
+  m[10] = z;
+  m[11] = 0;
+
+  m[12] = 0;
+  m[13] = 0;
+  m[14] = 0;
+  m[15] = 1;
+
+  return *this;
 }
 
 inline mat4 mult(const mat4& m1, const mat4& m2)

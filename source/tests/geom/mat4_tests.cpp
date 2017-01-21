@@ -88,6 +88,39 @@ TEST(mat4, mult)
   assert_equal(result, expected);
 }
 
+TEST(mat4, rotate_x_1)
+{
+  mat4 m;
+  m.rotate_x_radians(0);
+  assert_identity(m);
+}
+
+TEST(mat4, rotate_x_2)
+{
+  mat4 m1;
+  float a = M_PI * 1.7f; // some arbitrary angle
+  m1.rotate_x_radians(a);
+  mat4 m2;
+  m2.rotate_x_radians(-a);
+  mat4 i;
+  mat4 m = mult(m1, m2);
+  assert_equal(m, i);
+}
+
+TEST(mat4, rotate_x_3)
+{
+  mat4 m;
+  float a = M_PI * 0.73;
+  m.rotate_x_radians(a);
+  const mat4 expected = {
+    1, 0,        0,       0,
+    0, cosf(a),  sinf(a), 0,
+    0, -sinf(a), cosf(a), 0,
+    0, 0,        0,       1
+  };
+  assert_equal(m, expected);
+}
+
 TEST(mat4, rotate_y_1)
 {
   mat4 m;
@@ -117,6 +150,39 @@ TEST(mat4, rotate_y_3)
     0,        1,  0,       0,
     sinf(a),  0,  cosf(a), 0,
     0,        0,  0,       1
+  };
+  assert_equal(m, expected);
+}
+
+TEST(mat4, rotate_z_1)
+{
+  mat4 m;
+  m.rotate_z_radians(0);
+  assert_identity(m);
+}
+
+TEST(mat4, rotate_z_2)
+{
+  mat4 m1;
+  float a = M_PI * 1.3;
+  m1.rotate_z_radians(a);
+  mat4 m2;
+  m2.rotate_z_radians(-a);
+  mat4 i;
+  mat4 m = mult(m1, m2);
+  assert_equal(m, i);
+}
+
+TEST(mat4, rotate_z_3)
+{
+  mat4 m;
+  float a = M_PI * 0.73;
+  m.rotate_z_radians(a);
+  const mat4 expected = {
+    cosf(a),  sinf(a),  0, 0,
+    -sinf(a), cosf(a),  0, 0,
+    0,        0,        1, 0,
+    0,        0,        0, 1
   };
   assert_equal(m, expected);
 }
