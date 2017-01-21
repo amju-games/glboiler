@@ -28,7 +28,7 @@ public:
     return *m_bounding_vol;
   }
 
-  virtual void render() const = 0;
+  virtual void render() const {}
 
   const mat4& get_xform() const { return m_xform; }
   mat4& get_xform() { m_has_changed = true; return m_xform; }
