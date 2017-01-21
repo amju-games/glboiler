@@ -110,7 +110,8 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\source\boiler_assert.h" />
     <ClInclude Include="..\..\..\..\source\colour.h" />
-    <ClInclude Include="..\..\..\..\source\forward_renderer.h" />
+    <ClInclude Include="..\..\..\..\source\gl_1_1_renderer.h" />
+    <ClInclude Include="..\..\..\..\source\gl_2_renderer.h" />
     <ClInclude Include="..\..\..\..\source\geom\aabb.h" />
     <ClInclude Include="..\..\..\..\source\geom\bounding_vol.h" />
     <ClInclude Include="..\..\..\..\source\geom\camera.h" />
@@ -137,7 +138,7 @@
     <ClInclude Include="..\..\..\..\source\scene_description.h" />
     <ClInclude Include="..\..\..\..\source\scene_graph.h" />
     <ClInclude Include="..\..\..\..\source\scene_node.h" />
-    <ClInclude Include="..\..\..\..\source\teapot_scene_node.h" />
+    <ClInclude Include="..\..\..\..\source\solid_scene_node.h" />
     <ClInclude Include="..\..\..\..\source\tests\geom\mat4_test_utils.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
@@ -171,7 +172,8 @@
     <ClInclude Include="..\..\..\..\source\windows\timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\source\forward_renderer.cpp" />
+    <ClCompile Include="..\..\..\..\source\gl_1_1_renderer.cpp" />
+    <ClCompile Include="..\..\..\..\source\gl_2_renderer.cpp" />
     <ClCompile Include="..\..\..\..\source\geom\aabb.cpp" />
     <ClCompile Include="..\..\..\..\source\geom\camera.cpp" />
     <ClCompile Include="..\..\..\..\source\geom\frustum.cpp" />
@@ -192,7 +194,7 @@
     <ClCompile Include="..\..\..\..\source\render_to_texture.cpp" />
     <ClCompile Include="..\..\..\..\source\scene_description.cpp" />
     <ClCompile Include="..\..\..\..\source\scene_graph.cpp" />
-    <ClCompile Include="..\..\..\..\source\teapot_scene_node.cpp" />
+    <ClCompile Include="..\..\..\..\source\solid_scene_node.cpp" />
     <ClCompile Include="..\..\..\..\source\tests\colour_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -285,6 +287,12 @@
   <ItemGroup>
     <Library Include="..\..\..\..\source\thirdparty\glut\glut32.lib" />
     <Library Include="..\..\..\..\source\thirdparty\googletest\msvc\gtest\Debug\gtestd.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\assets\shaders\just_depth_f.txt" />
+    <Text Include="..\..\..\..\assets\shaders\just_depth_v.txt" />
+    <Text Include="..\..\..\..\assets\shaders\test_f.txt" />
+    <Text Include="..\..\..\..\assets\shaders\test_v.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

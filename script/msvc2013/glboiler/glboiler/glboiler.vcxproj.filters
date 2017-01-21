@@ -40,12 +40,15 @@
     <Filter Include="source\tests\utils">
       <UniqueIdentifier>{01398602-e254-49fc-94a2-19cbbe1ccc3f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{3c9f42f0-0037-4711-821e-8a7aef072cde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\shaders">
+      <UniqueIdentifier>{7a52817c-86ce-4128-8e17-ca59530ae116}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\source\colour.h">
-      <Filter>source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\forward_renderer.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\gl_shader.h">
@@ -82,9 +85,6 @@
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\scene_node.h">
-      <Filter>source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\teapot_scene_node.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\vertex.h">
@@ -213,11 +213,17 @@
     <ClInclude Include="..\..\..\..\source\texture.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\source\solid_scene_node.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\gl_1_1_renderer.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\gl_2_renderer.h">
+      <Filter>source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\source\forward_renderer.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\gl_shader.cpp">
       <Filter>source</Filter>
     </ClCompile>
@@ -246,9 +252,6 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\scene_graph.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\teapot_scene_node.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\view.cpp">
@@ -431,9 +434,32 @@
     <ClCompile Include="..\..\..\..\source\tests\utils\string_utils_tests.cpp">
       <Filter>source\tests\utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\solid_scene_node.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\gl_1_1_renderer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\gl_2_renderer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\source\thirdparty\glut\glut32.lib" />
     <Library Include="..\..\..\..\source\thirdparty\googletest\msvc\gtest\Debug\gtestd.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\assets\shaders\just_depth_f.txt">
+      <Filter>assets\shaders</Filter>
+    </Text>
+    <Text Include="..\..\..\..\assets\shaders\just_depth_v.txt">
+      <Filter>assets\shaders</Filter>
+    </Text>
+    <Text Include="..\..\..\..\assets\shaders\test_f.txt">
+      <Filter>assets\shaders</Filter>
+    </Text>
+    <Text Include="..\..\..\..\assets\shaders\test_v.txt">
+      <Filter>assets\shaders</Filter>
+    </Text>
   </ItemGroup>
 </Project>
