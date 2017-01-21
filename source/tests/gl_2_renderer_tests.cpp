@@ -3,11 +3,11 @@
 // -----------------------------------------------------------------------------
 
 #include <gtest/gtest.h>
-#include "forward_renderer.h"
+#include "gl_2_renderer.h"
 
-TEST(basic_renderer, create)
+TEST(gl_2_renderer, create)
 {
-    forward_renderer r;
+    gl_2_renderer r;
     const render_stats& stats = r.get_render_stats();
     ASSERT_EQ(0, stats.num_nodes_rendered);
 }

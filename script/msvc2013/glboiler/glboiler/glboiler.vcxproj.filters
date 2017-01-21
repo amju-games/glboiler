@@ -371,9 +371,6 @@
     <ClCompile Include="..\..\..\..\source\tests\colour_tests.cpp">
       <Filter>source\tests</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\tests\forward_renderer_tests.cpp">
-      <Filter>source\tests</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\int_graph_tests.cpp">
       <Filter>source\tests</Filter>
     </ClCompile>
@@ -442,6 +439,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\gl_2_renderer.cpp">
       <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\gl_2_renderer_tests.cpp">
+      <Filter>source\tests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
