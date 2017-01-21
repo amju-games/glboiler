@@ -67,6 +67,8 @@ bool texture::load(const std::string& filename)
   m_data = load_png(filename, &m_w, &m_h, &m_bytes_per_pixel);
   if (m_data)
   {
+    flip_image_data(m_data, m_w, m_h, m_bytes_per_pixel);
+
     log(msg() << "Loaded texture \"" << filename 
       << "\" w: " << m_w << " h: " << m_h 
       << " bpp: " << m_bytes_per_pixel);

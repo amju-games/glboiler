@@ -2,10 +2,35 @@
 // glboiler - Jason Colman 2016-2017 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
+#include <array>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h> // memcpy
 #include "png.h"
 #include "load_png.h"
+
+void swap_row(unsigned char* row_1, unsigned char* row_2, unsigned char* temp, unsigned int row_length)
+{
+  memcpy_s(temp, row_length, row_1, row_length); // row_1 -> temp
+  memcpy_s(row_1, row_length, row_2, row_length); // row_2 -> row_1
+  memcpy_s(row_2, row_length, temp, row_length); // temp -> row_2
+}
+
+void flip_image_data(
+  unsigned char* data,
+  unsigned int w,
+  unsigned int h,
+  unsigned int bytes_per_pixel)
+{
+  // Flip vertically in place, by swapping rows
+  unsigned int row_length = w * bytes_per_pixel; // temp location for swap
+  unsigned char* temp_row = new unsigned char[row_length];
+  for (int y = 0; y < h / 2; y++)
+  {
+    swap_row(data + y * row_length, data + (h - y - 1) * row_length, temp_row, row_length);
+  }
+  delete [] temp_row;
+}
 
 unsigned char* load_png(
   const std::string& filename, 

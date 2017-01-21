@@ -12,3 +12,9 @@ unsigned char* load_png(
   unsigned int* pHeight,
   unsigned int* bytesPerPixel);
 
+void flip_image_data(
+  unsigned char* data, 
+  unsigned int w, 
+  unsigned int h, 
+  unsigned int bytes_per_pixel);
+
