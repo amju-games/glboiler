@@ -91,13 +91,13 @@ bool gl_shader::load(
 
   if (!read_file(vert_filename, &m_vert_shader_source))
   {
-    std::cout << "Failed to read vertex shader from file\n";
+    std::cout << "Failed to read vertex shader from file: " << vert_filename << "\n";
     return false;
   }
 
   if (!read_file(frag_filename, &m_frag_shader_source))
   {
-    std::cout << "Failed to read fragment shader from file\n";
+    std::cout << "Failed to read fragment shader from file: " << frag_filename << "\n";
     return false;
   }
  
