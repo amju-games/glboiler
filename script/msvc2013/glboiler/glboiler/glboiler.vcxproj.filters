@@ -213,13 +213,16 @@
     <ClInclude Include="..\..\..\..\source\texture.h">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\source\solid_scene_node.h">
-      <Filter>source</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\source\gl_1_1_renderer.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\gl_2_renderer.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\gl_1_1_solid_scene_node.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\gl_2_solid_scene_node.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
@@ -431,9 +434,6 @@
     <ClCompile Include="..\..\..\..\source\tests\utils\string_utils_tests.cpp">
       <Filter>source\tests\utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\solid_scene_node.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\gl_1_1_renderer.cpp">
       <Filter>source</Filter>
     </ClCompile>
@@ -443,22 +443,37 @@
     <ClCompile Include="..\..\..\..\source\tests\gl_2_renderer_tests.cpp">
       <Filter>source\tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\gl_1_1_solid_scene_node.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\load_png_tests.cpp">
+      <Filter>source\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\gl_2_solid_scene_node.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\source\thirdparty\glut\glut32.lib" />
     <Library Include="..\..\..\..\source\thirdparty\googletest\msvc\gtest\Debug\gtestd.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\assets\shaders\just_depth_f.txt">
+    <Text Include="..\..\..\..\assets\shaders\gl_2_just_depth_f.txt">
       <Filter>assets\shaders</Filter>
     </Text>
-    <Text Include="..\..\..\..\assets\shaders\just_depth_v.txt">
+    <Text Include="..\..\..\..\assets\shaders\gl_2_just_depth_v.txt">
       <Filter>assets\shaders</Filter>
     </Text>
-    <Text Include="..\..\..\..\assets\shaders\test_f.txt">
+    <Text Include="..\..\..\..\assets\shaders\gl_2_test_f.txt">
       <Filter>assets\shaders</Filter>
     </Text>
-    <Text Include="..\..\..\..\assets\shaders\test_v.txt">
+    <Text Include="..\..\..\..\assets\shaders\gl_2_test_v.txt">
+      <Filter>assets\shaders</Filter>
+    </Text>
+    <Text Include="..\..\..\..\assets\shaders\gl_2_replicate_fixed_f.txt">
+      <Filter>assets\shaders</Filter>
+    </Text>
+    <Text Include="..\..\..\..\assets\shaders\gl_2_replicate_fixed_v.txt">
       <Filter>assets\shaders</Filter>
     </Text>
   </ItemGroup>

@@ -123,6 +123,7 @@
     <ClInclude Include="..\..\..\..\source\geom\stereo_camera.h" />
     <ClInclude Include="..\..\..\..\source\geom\vec2.h" />
     <ClInclude Include="..\..\..\..\source\geom\vec3.h" />
+    <ClInclude Include="..\..\..\..\source\gl_2_solid_scene_node.h" />
     <ClInclude Include="..\..\..\..\source\gl_shader.h" />
     <ClInclude Include="..\..\..\..\source\gl_system.h" />
     <ClInclude Include="..\..\..\..\source\int_graph.h" />
@@ -138,7 +139,7 @@
     <ClInclude Include="..\..\..\..\source\scene_description.h" />
     <ClInclude Include="..\..\..\..\source\scene_graph.h" />
     <ClInclude Include="..\..\..\..\source\scene_node.h" />
-    <ClInclude Include="..\..\..\..\source\solid_scene_node.h" />
+    <ClInclude Include="..\..\..\..\source\gl_1_1_solid_scene_node.h" />
     <ClInclude Include="..\..\..\..\source\tests\geom\mat4_test_utils.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
@@ -179,6 +180,7 @@
     <ClCompile Include="..\..\..\..\source\geom\frustum.cpp" />
     <ClCompile Include="..\..\..\..\source\geom\look_at.cpp" />
     <ClCompile Include="..\..\..\..\source\geom\projection.cpp" />
+    <ClCompile Include="..\..\..\..\source\gl_2_solid_scene_node.cpp" />
     <ClCompile Include="..\..\..\..\source\gl_shader.cpp" />
     <ClCompile Include="..\..\..\..\source\gl_system.cpp" />
     <ClCompile Include="..\..\..\..\source\int_graph.cpp" />
@@ -194,7 +196,7 @@
     <ClCompile Include="..\..\..\..\source\render_to_texture.cpp" />
     <ClCompile Include="..\..\..\..\source\scene_description.cpp" />
     <ClCompile Include="..\..\..\..\source\scene_graph.cpp" />
-    <ClCompile Include="..\..\..\..\source\solid_scene_node.cpp" />
+    <ClCompile Include="..\..\..\..\source\gl_1_1_solid_scene_node.cpp" />
     <ClCompile Include="..\..\..\..\source\tests\colour_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -223,6 +225,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\light_tests.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\load_png_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\scene_graph_tests.cpp">
@@ -289,10 +294,12 @@
     <Library Include="..\..\..\..\source\thirdparty\googletest\msvc\gtest\Debug\gtestd.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\assets\shaders\just_depth_f.txt" />
-    <Text Include="..\..\..\..\assets\shaders\just_depth_v.txt" />
-    <Text Include="..\..\..\..\assets\shaders\test_f.txt" />
-    <Text Include="..\..\..\..\assets\shaders\test_v.txt" />
+    <Text Include="..\..\..\..\assets\shaders\gl_2_just_depth_f.txt" />
+    <Text Include="..\..\..\..\assets\shaders\gl_2_just_depth_v.txt" />
+    <Text Include="..\..\..\..\assets\shaders\gl_2_replicate_fixed_f.txt" />
+    <Text Include="..\..\..\..\assets\shaders\gl_2_replicate_fixed_v.txt" />
+    <Text Include="..\..\..\..\assets\shaders\gl_2_test_f.txt" />
+    <Text Include="..\..\..\..\assets\shaders\gl_2_test_v.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

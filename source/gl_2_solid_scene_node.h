@@ -6,24 +6,24 @@
 
 #include "scene_node.h"
 
-class plane_scene_node : public scene_node
+class gl_2_plane_scene_node : public scene_node
 {
 public:
-  plane_scene_node();
+  gl_2_plane_scene_node();
   virtual void render() const override;
 };
 
-class sphere_scene_node : public scene_node
+class gl_2_sphere_scene_node : public scene_node
 {
 public:
-  sphere_scene_node();
+  gl_2_sphere_scene_node();
   virtual void render() const override;
 };
 
-class teapot_scene_node : public scene_node
+class gl_2_teapot_scene_node : public scene_node
 {
 public:
-  teapot_scene_node();
+  gl_2_teapot_scene_node();
   virtual void render() const override;
 };
 

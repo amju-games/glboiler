@@ -1,0 +1,59 @@
+// Fragment shader
+// Try to replicate the fixed function lighting
+
+// TODO get rid of this stuff, not used here.
+uniform sampler2D shadow_map;
+uniform int shadow_map_size; // in case textureSize() not available
+
+varying vec3 v_normal;
+
+// TODO get rid of this stuff, not used here.
+varying vec4 v_shadow_coord;
+
+////#define YES_PCF
+
+void main()
+{
+  vec4 shadow_coords = v_shadow_coord / v_shadow_coord.w; 
+
+  // Bias: TODO adjust based on normal
+  shadow_coords.z += 0.005;
+
+#ifdef YES_PCF
+
+  // PCF
+  // TODO Hardware pcf
+  float shadow = 0.0;
+  // Texture size. Can only use textureSize() in OpenGL 4 :(
+  float texel_size = 1.0 / float(shadow_map_size);
+ 
+  for(int x = -1; x <= 1; ++x)
+  {
+    for(int y = -1; y <= 1; ++y)
+    {
+      float depth = texture2D(shadow_map, shadow_coords.xy + vec2(x, y) * texel_size).r; 
+      shadow += depth < shadow_coords.z ? 0.2 : 0.8;        
+    }    
+  }
+  shadow /= 9.0;
+
+#else // YES_PCF
+
+  // No PCF
+  float depth = texture2D(shadow_map, shadow_coords.st).z;
+  float shadow = 1.0;
+  if (v_shadow_coord.w > 0.0)
+    shadow = depth < shadow_coords.z ? 1.0 : 1.0;
+
+#endif // YES_PCF
+
+  vec3 light_dir = normalize(vec3(1, 1, 1));
+  float n_dot_l = max(0, dot(light_dir, normalize(v_normal)));
+
+
+  float n = shadow * n_dot_l; 
+
+  gl_FragColor = vec4(n, 1, n, 1);
+}
+
+

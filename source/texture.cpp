@@ -88,7 +88,7 @@ void texture::upload_on_gl_thread(bool delete_data_after_upload)
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-  // ??
+  // TODO GL 1.1 only - move into gl_1_1_renderer/material
   glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
   int format = GL_RGB;

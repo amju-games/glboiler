@@ -23,7 +23,12 @@ void gl_1_1_renderer::render_on_gl_thread(int view_index)
 
   frustum frust = this_view.calc_frustum();
 
+  GL_CHECK(glEnable(GL_CULL_FACE)); // test
+  GL_CHECK(glFrontFace(GL_CW));
   GL_CHECK(glCullFace(GL_BACK));
+  GL_CHECK(glEnable(GL_DEPTH_TEST));
+  GL_CHECK(glUseProgram(0));
+
   traverse(*m_sg, frust, nullptr);
 }
 

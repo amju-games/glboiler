@@ -218,6 +218,7 @@ bool render_to_texture::end_on_gl_thread()
 void render_to_texture::debug_draw_on_gl_thread()
 {
   glUseProgram(0); // back to fixed function
+  glDisable(GL_LIGHTING);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   glMatrixMode(GL_MODELVIEW);
@@ -225,7 +226,6 @@ void render_to_texture::debug_draw_on_gl_thread()
   glColor4f(1,1,1,1);
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, m_tex[1]);
-  glEnable(GL_TEXTURE_2D);
   glTranslated(0,0,-1);
   glBegin(GL_QUADS);
   float x1 = 0.5f;

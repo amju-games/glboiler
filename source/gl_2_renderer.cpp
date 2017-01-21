@@ -37,7 +37,7 @@ void gl_2_renderer::init_on_gl_thread()
   m_shadow_map.init_on_gl_thread(); 
 
   // shader for shadow map
-  m_depth_shader.load("shaders/just_depth_v.txt", "shaders/just_depth_f.txt");
+  m_depth_shader.load("shaders/gl_2_just_depth_v.txt", "shaders/gl_2_just_depth_f.txt");
   m_depth_shader.compile_on_gl_thread();
   m_depth_shader.use_on_gl_thread();
 }
@@ -46,19 +46,23 @@ void gl_2_renderer::begin_render_on_gl_thread(const scene_graph& sg)
 {
   renderer::begin_render_on_gl_thread(sg);
 
+  GL_CHECK(glEnable(GL_CULL_FACE)); // test
+  GL_CHECK(glFrontFace(GL_CW));
+  GL_CHECK(glCullFace(GL_BACK));
+  GL_CHECK(glEnable(GL_DEPTH_TEST));
+
   clear_blended_nodes();
-  glEnable(GL_CULL_FACE);
   shadow_map_pass(sg);
 }
 
 void gl_2_renderer::render_on_gl_thread(int view_index)
 {
   gl_shader sh;
-  sh.load("shaders/test_v.txt", "shaders/test_f.txt");
+  sh.load("shaders/gl_2_replicate_fixed_v.txt", "shaders/gl_2_replicate_fixed_f.txt");
   sh.compile_on_gl_thread();
   sh.use_on_gl_thread();
   sh.set_int_on_gl_thread("shadow_map", 0);
-  sh.set_int_on_gl_thread("shadow_map_size", m_shadow_map_size);
+//  sh.set_int_on_gl_thread("shadow_map_size", m_shadow_map_size);
   sh.set_mat4_on_gl_thread("light_matrix", m_light_matrix);
 
   view& this_view = m_view[view_index];
@@ -170,6 +174,11 @@ void gl_2_renderer::shadow_map_pass(const scene_graph& sg)
 void gl_2_renderer::opaque_pass(const scene_graph& sg, const frustum& fr, gl_shader* override_shader)
 {
   GL_CHECK(glCullFace(GL_BACK));
+
+  GL_CHECK(glDisable(GL_CULL_FACE)); // test
+
+
+  GL_CHECK(glEnable(GL_DEPTH_TEST));
   traverse(sg, fr, override_shader);
 }
 
