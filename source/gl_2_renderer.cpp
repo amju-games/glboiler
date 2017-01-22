@@ -27,6 +27,7 @@ gl_2_renderer::gl_2_renderer()
 void gl_2_renderer::destroy_on_gl_thread()
 {
   m_depth_shader.destroy_on_gl_thread();
+  m_opaque_pass_shader.destroy_on_gl_thread();
   m_shadow_map.destroy_on_gl_thread();
 }
 
@@ -40,6 +41,9 @@ void gl_2_renderer::init_on_gl_thread()
   m_depth_shader.load("shaders/gl_2_just_depth_v.txt", "shaders/gl_2_just_depth_f.txt");
   m_depth_shader.upload_on_gl_thread();
   m_depth_shader.use_on_gl_thread();
+
+  m_opaque_pass_shader.load("shaders/gl_2_replicate_fixed_v.txt", "shaders/gl_2_replicate_fixed_f.txt");
+  m_opaque_pass_shader.upload_on_gl_thread();
 }
 
 void gl_2_renderer::begin_render_on_gl_thread(const scene_graph& sg)
@@ -57,35 +61,30 @@ void gl_2_renderer::begin_render_on_gl_thread(const scene_graph& sg)
 
 void gl_2_renderer::render_on_gl_thread(int view_index)
 {
-  gl_shader sh;
-  sh.load("shaders/gl_2_replicate_fixed_v.txt", "shaders/gl_2_replicate_fixed_f.txt");
-  sh.upload_on_gl_thread();
-  sh.use_on_gl_thread();
+  m_opaque_pass_shader.use_on_gl_thread();
   
-  sh.set_int_on_gl_thread("diffuse_map", 0);
-  sh.set_int_on_gl_thread("shadow_map", 1);
+  m_opaque_pass_shader.set_int_on_gl_thread("diffuse_map", 0);
+  m_opaque_pass_shader.set_int_on_gl_thread("shadow_map", 1);
 
 //  sh.set_int_on_gl_thread("shadow_map_size", m_shadow_map_size);
-  sh.set_mat4_on_gl_thread("light_matrix", m_light_matrix);
+  m_opaque_pass_shader.set_mat4_on_gl_thread("light_matrix", m_light_matrix);
 
   view& this_view = m_view[view_index];
   this_view.set_gl_viewport();
   const camera& cam = this_view.get_camera();
 
-  sh.set_mat4_on_gl_thread("look_at_matrix", cam.look_at_matrix);
-  sh.set_mat4_on_gl_thread("proj_matrix", cam.proj_matrix);
+  m_opaque_pass_shader.set_mat4_on_gl_thread("look_at_matrix", cam.look_at_matrix);
+  m_opaque_pass_shader.set_mat4_on_gl_thread("proj_matrix", cam.proj_matrix);
 
   frustum frust = this_view.calc_frustum();
 
   m_shadow_map.use_texture_on_gl_thread();
 
   // Render opaque geom, for each eye
-  opaque_pass(*m_sg, frust, &sh);
+  opaque_pass(*m_sg, frust, &m_opaque_pass_shader);
 
   // Render blended nodes, for each eye
   draw_blended_nodes(frust);
-
-  sh.destroy_on_gl_thread();
 }
 
 void gl_2_renderer::end_render_on_gl_thread()

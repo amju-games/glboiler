@@ -30,6 +30,7 @@ private:
 private:
   render_to_texture m_shadow_map;
   gl_shader m_depth_shader;
+  gl_shader m_opaque_pass_shader;  // TODO this will be replaced by materials on nodes
   mat4 m_light_matrix;
   int m_shadow_map_size;
 };
