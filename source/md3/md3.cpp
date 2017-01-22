@@ -7,12 +7,14 @@
 #include <fstream>
 #include <iostream>
 #include <math.h>
+
+#include <Windows.h>
 #include "gl_includes.h"
 #include "log.h"
 #include "md3.h"
 #include "string_utils.h"
 
-#define MD3_DEBUG
+//#define MD3_DEBUG
 
   void CQuaternion::CreateMatrix(float *pMatrix)
   {
@@ -281,7 +283,7 @@
     return &m_Weapon;
   }
 
-  bool CModelMD3::LoadModel(const std::string& strPath) ////, const std::string& strModel)
+  bool CModelMD3::LoadModel(const std::string& strPath, resource_manager& rm) ////, const std::string& strModel)
   {
     CLoadMD3 loadMd3;				// This object allows us to load each .md3 and .skin file
 
@@ -293,7 +295,9 @@
     std::string strUpperSkin = strPath + "upper_default.skin";
     std::string strHeadSkin = strPath +  "head_default.skin";
 
+#ifdef MD3_DEBUG
     log(msg() << "Loading head...");
+#endif
 
     // Load the head mesh (*_head.md3) and make sure it loaded properly
     if(!loadMd3.ImportMD3(&m_Head,  strHeadModel))
@@ -303,7 +307,9 @@
       return false;
     }
 
+#ifdef MD3_DEBUG
     log(msg() << "Loading upper...");
+#endif
 
     // Load the upper mesh (*_head.md3) and make sure it loaded properly
     if(!loadMd3.ImportMD3(&m_Upper, strUpperModel))		
@@ -313,7 +319,9 @@
       return false;
     }
 
+#ifdef MD3_DEBUG
     log(msg() << "Loading lower...");
+#endif
 
     // Load the lower mesh (*_lower.md3) and make sure it loaded properly
     if(!loadMd3.ImportMD3(&m_Lower, strLowerModel))
@@ -323,7 +331,9 @@
       return false;
     }
 
+#ifdef MD3_DEBUG
     log(msg() << "Loading lower skin...");
+#endif
 
     // Load the lower skin (*_upper.skin) and make sure it loaded properly
     if(!loadMd3.LoadSkin(&m_Lower, strLowerSkin))
@@ -333,7 +343,9 @@
       return false;
     }
 
+#ifdef MD3_DEBUG
     log(msg() << "Loading upper skin...");
+#endif
 
     // Load the upper skin (*_upper.skin) and make sure it loaded properly
     if(!loadMd3.LoadSkin(&m_Upper, strUpperSkin))
@@ -343,7 +355,9 @@
       return false;
     }
 
+#ifdef MD3_DEBUG
     log(msg() << "Loading head skin...");
+#endif
 
     // Load the head skin (*_head.skin) and make sure it loaded properly
     if(!loadMd3.LoadSkin(&m_Head,  strHeadSkin))
@@ -353,26 +367,32 @@
       return false;
     }
 
+#ifdef MD3_DEBUG
     log(msg() << "Loading lower textures...");
+#endif
 
     // Load the lower, upper and head textures.  
-    if (!LoadModelTextures(&m_Lower, strPath))
+    if (!LoadModelTextures(&m_Lower, strPath, rm))
     {
       std::cout << "Failed to load LOWER textures.\n";
       return false;
     }
 
+#ifdef MD3_DEBUG
     log(msg() << "Loading upper textures...");
+#endif
 
-    if (!LoadModelTextures(&m_Upper, strPath)) 
+    if (!LoadModelTextures(&m_Upper, strPath, rm)) 
     {
       std::cout << "Failed to load UPPER textures.\n";
       return false;
     }
 
+#ifdef MD3_DEBUG
     log(msg() << "Loading head textures...");
+#endif
 
-    if (!LoadModelTextures(&m_Head,  strPath))
+    if (!LoadModelTextures(&m_Head,  strPath, rm))
     {
       std::cout << "Failed to load HEAD textures.\n";
       return false;
@@ -386,7 +406,9 @@
     // More conventional
     std::string strConfigFile = strPath + "animation.cfg";
 
+#ifdef MD3_DEBUG
     log(msg() << "Loading animations...");
+#endif
 
     // Load the animation config file (*_animation.config) and make sure it loaded properly
     if(!LoadAnimations(strConfigFile))
@@ -396,12 +418,16 @@
       return false;
     }
 
+#ifdef MD3_DEBUG
     log(msg() << "Loading link...");
+#endif
 
     // Link the lower body to the upper body when the tag "tag_torso" is found in our tag array
     LinkModel(&m_Lower, &m_Upper, "tag_torso");
 
+#ifdef MD3_DEBUG
     log(msg() << "Loading link...");
+#endif
 
     // Link the upper body to the head when the tag "tag_head" is found in our tag array
     LinkModel(&m_Upper, &m_Head, "tag_head");
@@ -410,7 +436,7 @@
     return true;
   }
 
-  bool CModelMD3::LoadWeapon(const std::string& strPath, const std::string& strModel)
+  bool CModelMD3::LoadWeapon(const std::string& strPath, const std::string& strModel, resource_manager& rm)
   {
     CLoadMD3 loadMd3;					// This object allows us to load the.md3 and .shader file
 
@@ -436,7 +462,7 @@
 
     // We should have the textures needed for each weapon part loaded from the weapon's
     // shader, so let's load them in the given path.
-    LoadModelTextures(&m_Weapon, strPath);
+    LoadModelTextures(&m_Weapon, strPath, rm);
 
     // Link the weapon to the model's hand that has the weapon tag
     LinkModel(&m_Upper, &m_Weapon, "tag_weapon");
@@ -445,20 +471,13 @@
     return true;
   }
 
-  texture* CreateTexture(const std::string& file)
+  static texture* CreateTexture(const std::string& file, resource_manager& rm)
   {
-    texture* tex = new texture;
-    if (!tex->load(file))
-    {
-      assert(0);
-      return nullptr;
-    }
-    // Just for now. Resource manager will know when to call this on the right thread.
-    tex->upload_on_gl_thread();
-    return tex;
+    std::shared_ptr<texture> tex = rm.get_texture(file);
+    return tex.get();
   }
 
-  bool CModelMD3::LoadModelTextures(t3DModel *pModel, const std::string& strPath)
+  bool CModelMD3::LoadModelTextures(t3DModel *pModel, const std::string& strPath, resource_manager& rm)
   {
     // Go through all the materials that are assigned to this model
     for(int i = 0; i < pModel->numOfMaterials; i++)
@@ -470,7 +489,7 @@
         //sprintf(strFullPath, "%s", pModel->pMaterials[i].strFile);
         std::string strFullPath = strPath + pModel->pMaterials[i].strFile;
 
-        texture* pTex = CreateTexture(strFullPath);
+        texture* pTex = CreateTexture(strFullPath, rm);
         if (!pTex)
         {
           std::cout << "Md3: CreateTexture Failed to load texture " << strFullPath << "\n";
@@ -819,10 +838,8 @@ std::cout << "(ignoring this line: " << strLine.c_str() << ")\n";
     }
 
     // Get the current time in milliseconds
-    float time = 1.0f; 
-//TheTimer::Instance()->GetElapsedTime() * 1000.0f; 
-//Amju::Engine::Instance()->GetElapsedTime() * 1000.0f; 
-// TODO (float)GetTickCount();
+    float time = timeGetTime(); // TODO TEMP TEST - Windows only
+    // TODO Sort this out. 
 
     // Find the time that has elapsed since the last time that was stored
     elapsedTime = time - pModel->lastTime;

@@ -225,6 +225,12 @@
     <ClInclude Include="..\..\..\..\source\gl_2_solid_scene_node.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\source\resource_manager.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\resource.h">
+      <Filter>source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\gl_shader.cpp">
@@ -452,6 +458,9 @@
     <ClCompile Include="..\..\..\..\source\gl_2_solid_scene_node.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\resource_manager.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\source\thirdparty\glut\glut32.lib" />
@@ -476,5 +485,6 @@
     <Text Include="..\..\..\..\assets\shaders\gl_2_replicate_fixed_v.txt">
       <Filter>assets\shaders</Filter>
     </Text>
+    <Text Include="..\..\..\..\TODO2.txt" />
   </ItemGroup>
 </Project>

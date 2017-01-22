@@ -136,6 +136,8 @@
     <ClInclude Include="..\..\..\..\source\object.h" />
     <ClInclude Include="..\..\..\..\source\renderer.h" />
     <ClInclude Include="..\..\..\..\source\render_to_texture.h" />
+    <ClInclude Include="..\..\..\..\source\resource.h" />
+    <ClInclude Include="..\..\..\..\source\resource_manager.h" />
     <ClInclude Include="..\..\..\..\source\scene_description.h" />
     <ClInclude Include="..\..\..\..\source\scene_graph.h" />
     <ClInclude Include="..\..\..\..\source\scene_node.h" />
@@ -194,6 +196,7 @@
     <ClCompile Include="..\..\..\..\source\md3_node.cpp" />
     <ClCompile Include="..\..\..\..\source\renderer.cpp" />
     <ClCompile Include="..\..\..\..\source\render_to_texture.cpp" />
+    <ClCompile Include="..\..\..\..\source\resource_manager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene_description.cpp" />
     <ClCompile Include="..\..\..\..\source\scene_graph.cpp" />
     <ClCompile Include="..\..\..\..\source\gl_1_1_solid_scene_node.cpp" />
@@ -300,6 +303,7 @@
     <Text Include="..\..\..\..\assets\shaders\gl_2_replicate_fixed_v.txt" />
     <Text Include="..\..\..\..\assets\shaders\gl_2_test_f.txt" />
     <Text Include="..\..\..\..\assets\shaders\gl_2_test_v.txt" />
+    <Text Include="..\..\..\..\TODO2.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

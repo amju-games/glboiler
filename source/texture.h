@@ -7,9 +7,10 @@
 #include <string>
 #include <vector>
 #include "colour.h"
+#include "resource.h"
 #include "vec2.h"
 
-class texture
+class texture : public gl_resource
 {
 public:
   ~texture();

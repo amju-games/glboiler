@@ -9,6 +9,7 @@
 #include <vector>
 #include "file.h"
 #include "md3_types.h"
+#include "resource_manager.h"
 
 #define kLower	0			// This stores the ID for the legs model
 #define kUpper	1			// This stores the ID for the torso model
@@ -141,16 +142,10 @@
     vec3 decodedNormal() const
     {
       // j.c. - from https://www.icculus.org/homepages/phaethon/q3a/formats/md3format.html
-      float lat = static_cast<float>(normal[1]) * (2.0 * M_PI) / 255.f;
-      float lng = static_cast<float>(normal[0]) * (2.0 * M_PI) / 255.f;
+      const float f = static_cast<float>(2.0 * M_PI) / 255.f;
+      float lat = static_cast<float>(normal[1]) * f;
+      float lng = static_cast<float>(normal[0]) * f;
       return vec3(cos(lat) * sin(lng), sin(lat) * sin(lng), cos(lng));
-      /* from the website:
-        lat = ((normal shift - right 8) binary - and 255) * (2 * pi) / 255
-        lng <-(normal binary - and 255) * (2 * pi) / 255
-        x <-cos(lat) * sin(lng)
-        y <-sin(lat) * sin(lng)
-        z <-cos(lng)
-      */
     }
   };
   
@@ -226,10 +221,10 @@
 
     // This loads the model from a path and name prefix.   It takes the path and
     // model name prefix to be added to _upper.md3, _lower.md3 or _head.md3.
-    bool LoadModel(const std::string& strPath); ////, const std::string& strModel);
+    bool LoadModel(const std::string& strPath, resource_manager& rm); ////, const std::string& strModel);
 
     // This loads the weapon and takes the same path and model name to be added to .md3
-    bool LoadWeapon(const std::string& strPath, const std::string& strModel);
+    bool LoadWeapon(const std::string& strPath, const std::string& strModel, resource_manager& rm);
 
     // This links a model to another model (pLink) so that it's the parent of that child.
     // The strTagName is the tag, or joint, that they will be linked at (I.E. "tag_torso").
@@ -255,7 +250,7 @@
 
   private:
     // This loads the models textures with a given path
-    bool LoadModelTextures(t3DModel *pModel, const std::string& strPath);
+    bool LoadModelTextures(t3DModel *pModel, const std::string& strPath, resource_manager& rm);
 
     // This loads the animation config file (.cfg) for the character
     bool LoadAnimations(const std::string& strConfigFile);
