@@ -218,6 +218,8 @@ bool render_to_texture::end_on_gl_thread()
 
 void render_to_texture::debug_draw_on_gl_thread()
 {
+  // TODO TEMP TEST - use quad type?
+
   glUseProgram(0); // back to fixed function
   glDisable(GL_LIGHTING);
   glMatrixMode(GL_PROJECTION);
@@ -234,9 +236,9 @@ void render_to_texture::debug_draw_on_gl_thread()
   float y1 = 0.5f;
   float y2 = 1.0f;
   glTexCoord2d(0,0);glVertex2f(x1, y1);
-  glTexCoord2d(1,0);glVertex2f(x2, y1);
+  glTexCoord2d(0, 1); glVertex2f(x1, y2);
   glTexCoord2d(1,1);glVertex2f(x2, y2);
-  glTexCoord2d(0,1);glVertex2f(x1, y2);
+  glTexCoord2d(1, 0); glVertex2f(x2, y1);
   glEnd();
 }
 

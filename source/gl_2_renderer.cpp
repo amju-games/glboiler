@@ -52,7 +52,6 @@ void gl_2_renderer::begin_render_on_gl_thread(const scene_graph& sg)
 
   GL_CHECK(glEnable(GL_CULL_FACE)); // test
   GL_CHECK(glFrontFace(GL_CW));
-  GL_CHECK(glCullFace(GL_BACK));
   GL_CHECK(glEnable(GL_DEPTH_TEST));
 
   clear_blended_nodes();
@@ -177,7 +176,7 @@ void gl_2_renderer::opaque_pass(const scene_graph& sg, const frustum& fr, gl_sha
 {
   GL_CHECK(glCullFace(GL_BACK));
 
-  GL_CHECK(glDisable(GL_CULL_FACE)); // test
+  GL_CHECK(glEnable(GL_CULL_FACE)); 
 
 
   GL_CHECK(glEnable(GL_DEPTH_TEST));
