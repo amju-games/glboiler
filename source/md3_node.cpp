@@ -16,7 +16,7 @@ md3_node::md3_node()
   log(msg() << "Loaded md3 model ok!");
 }
 
-void md3_node::render() const
+void md3_node::render_on_gl_thread() const
 {
   m_md3_model->DrawModel();
 }

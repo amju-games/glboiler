@@ -11,7 +11,7 @@ gl_2_plane_scene_node::gl_2_plane_scene_node()
   m_bounding_vol.reset(new aabb);
 }
 
-void gl_2_plane_scene_node::render() const
+void gl_2_plane_scene_node::render_on_gl_thread() const
 {
   glBegin(GL_QUADS);
   float x = 5.0f;
@@ -36,7 +36,7 @@ gl_2_sphere_scene_node::gl_2_sphere_scene_node()
   m_bounding_vol.reset(new aabb);
 }
 
-void gl_2_sphere_scene_node::render() const
+void gl_2_sphere_scene_node::render_on_gl_thread() const
 {
   glutSolidSphere(1, 100, 100);
 }
@@ -48,7 +48,7 @@ gl_2_teapot_scene_node::gl_2_teapot_scene_node()
   m_bounding_vol.reset(new aabb);
 }
 
-void gl_2_teapot_scene_node::render() const
+void gl_2_teapot_scene_node::render_on_gl_thread() const
 {
   glutSolidTeapot(1);
 }

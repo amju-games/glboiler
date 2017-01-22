@@ -38,7 +38,14 @@ void renderer::traverse(
 
     const scene_node& node = sg.get_node(tn.id);
     mat4 m = mult(tn.combined_matrix, node.get_xform());
+
+    // TODO VFC here, transform node bounding vol and test against frustum.
+
+    // TODO 
+    // Batch here if it's a blended node.
     draw_node(node, fr, override_shader, m);
+    // TODO
+    // If opaque, batch the node, so we can sort by shader, or possibly z distance etc.
 
     auto child_ids = sg.get_connections(tn.id);
     for (int ch_id : child_ids)

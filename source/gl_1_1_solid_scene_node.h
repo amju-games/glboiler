@@ -10,20 +10,20 @@ class gl_1_1_plane_scene_node : public scene_node
 {
 public:
   gl_1_1_plane_scene_node();
-  virtual void render() const override;
+  virtual void render_on_gl_thread() const override;
 };
 
 class gl_1_1_sphere_scene_node : public scene_node
 {
 public:
   gl_1_1_sphere_scene_node();
-  virtual void render() const override;
+  virtual void render_on_gl_thread() const override;
 };
 
 class gl_1_1_teapot_scene_node : public scene_node
 {
 public:
   gl_1_1_teapot_scene_node();
-  virtual void render() const override;
+  virtual void render_on_gl_thread() const override;
 };
 
