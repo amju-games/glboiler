@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <math.h>
+#include <cmath>
 #include "boiler_assert.h"
 
 struct vec3

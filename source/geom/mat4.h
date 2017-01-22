@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <math.h>
+#include <cmath>
 #include <string.h> // memcpy
 #include "vec3.h"
 

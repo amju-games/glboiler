@@ -2,7 +2,7 @@
 // glboiler - Jason Colman 2016-2017 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
-#include <math.h>
+#include <cmath>
 #include "projection.h"
 
 void perspective::set_matrix(mat4& m) const

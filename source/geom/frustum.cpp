@@ -2,7 +2,7 @@
 // glboiler - Jason Colman 2016-2017 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
-#include <math.h>
+#include <cmath>
 #include "frustum.h"
 
 frustum::frustum()
