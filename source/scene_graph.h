@@ -24,6 +24,8 @@ public:
 
   std::vector<int> get_connections(int from_node) const;
 
+  void update();
+
 private:
   using node_vec = std::vector<p_scene_node>;
   node_vec m_nodes;

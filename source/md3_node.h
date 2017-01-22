@@ -12,6 +12,7 @@ class md3_node : public scene_node
 public:
   md3_node();
   virtual void render() const override;
+  virtual void update() override;
 
 private:
   CModelMD3* m_md3_model;

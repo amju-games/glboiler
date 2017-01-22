@@ -24,6 +24,9 @@ void renderer::traverse(
   const frustum& fr,
   gl_shader* override_shader)
 {
+  // In this traversal we can visit the same node more than once - required for reflections.
+  // It's ok as long as there is not a cycle in the graph.
+
   std::stack<traversal_node> to_visit;
   int root = 0;
   to_visit.push(root);

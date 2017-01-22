@@ -19,9 +19,10 @@ md3_node::md3_node()
 void md3_node::render() const
 {
   m_md3_model->DrawModel();
-
-  // Just for a quick test - no good for real, as we would update every render pass!
-  m_md3_model->Update(); // TODO TEMP TEST
 }
 
+void md3_node::update()
+{
+  m_md3_model->Update(); 
+}
 

@@ -33,6 +33,8 @@ public:
   const mat4& get_xform() const { return m_xform; }
   mat4& get_xform() { m_has_changed = true; return m_xform; }
 
+  virtual void update() {}
+
 protected:
   int m_id;
   mat4 m_xform;
