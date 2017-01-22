@@ -61,7 +61,10 @@ void gl_2_renderer::render_on_gl_thread(int view_index)
   sh.load("shaders/gl_2_replicate_fixed_v.txt", "shaders/gl_2_replicate_fixed_f.txt");
   sh.compile_on_gl_thread();
   sh.use_on_gl_thread();
-  sh.set_int_on_gl_thread("shadow_map", 0);
+  
+  sh.set_int_on_gl_thread("diffuse_map", 0);
+  sh.set_int_on_gl_thread("shadow_map", 1);
+
 //  sh.set_int_on_gl_thread("shadow_map_size", m_shadow_map_size);
   sh.set_mat4_on_gl_thread("light_matrix", m_light_matrix);
 

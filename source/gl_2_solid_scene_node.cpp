@@ -18,9 +18,13 @@ void gl_2_plane_scene_node::render() const
   float y = 0.0f;
   float z = 5.0f;
   glNormal3f(0, 1, 0);
+  glTexCoord2f(1, 1);
   glVertex3f(x, y, z);
+  glTexCoord2f(0, 1);
   glVertex3f(-x, y, z);
+  glTexCoord2f(0, 0);
   glVertex3f(-x, y, -z);
+  glTexCoord2f(1, 0);
   glVertex3f(x, y, -z);
   glEnd();
 }

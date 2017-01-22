@@ -52,7 +52,8 @@ void render_to_texture::use_texture_on_gl_thread()
   if (m_flags == RENDER_DEPTH)
   {
     // Only 1 texture, so use texture0, right?
-    GL_CHECK(glActiveTexture(GL_TEXTURE0));
+    // TODO Set this
+    GL_CHECK(glActiveTexture(GL_TEXTURE1));
     GL_CHECK(glBindTexture(GL_TEXTURE_2D, m_tex[1]));
   }
   else if (m_flags == RENDER_COLOUR)
