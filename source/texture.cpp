@@ -27,9 +27,9 @@ colour texture::get_texel_colour(const vec2& uv) const
   int x = static_cast<int>(uv.x * static_cast<float>(m_w - 1));
   int y = static_cast<int>(uv.y * static_cast<float>(m_h - 1));
   gl_boiler_assert(x >= 0);
-  gl_boiler_assert(x < m_w);
+  gl_boiler_assert(x < static_cast<int>(m_w));
   gl_boiler_assert(y >= 0);
-  gl_boiler_assert(y < m_h);
+  gl_boiler_assert(y < static_cast<int>(m_h));
  
   // TODO stride ?
   unsigned char* addr = m_data + y * m_w * m_bytes_per_pixel + x; 
