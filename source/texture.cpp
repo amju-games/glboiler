@@ -12,28 +12,28 @@ texture::~texture()
 {
   if (has_been_uploaded())
   {
-    assert(m_destroy_called);
+    gl_boiler_assert(m_destroy_called);
   }
   free_data();
 }
 
 colour texture::get_texel_colour(const vec2& uv) const
 {
-  assert(m_data);
-  assert(m_w > 0);
-  assert(m_h > 0);
-  assert(m_bytes_per_pixel > 0);
+  gl_boiler_assert(m_data);
+  gl_boiler_assert(m_w > 0);
+  gl_boiler_assert(m_h > 0);
+  gl_boiler_assert(m_bytes_per_pixel > 0);
 
   int x = static_cast<int>(uv.x * static_cast<float>(m_w - 1));
   int y = static_cast<int>(uv.y * static_cast<float>(m_h - 1));
-  assert(x >= 0);
-  assert(x < m_w);
-  assert(y >= 0);
-  assert(y < m_h);
+  gl_boiler_assert(x >= 0);
+  gl_boiler_assert(x < m_w);
+  gl_boiler_assert(y >= 0);
+  gl_boiler_assert(y < m_h);
  
   // TODO stride ?
   unsigned char* addr = m_data + y * m_w * m_bytes_per_pixel + x; 
-  assert(addr < (m_data + m_w * m_h * m_bytes_per_pixel));
+  gl_boiler_assert(addr < (m_data + m_w * m_h * m_bytes_per_pixel));
 
   unsigned char c[4] = { 0, 0, 0, 0xff };
 
@@ -51,7 +51,7 @@ colour texture::get_texel_colour(const vec2& uv) const
     c[2] = *(addr + 2);
     break;
   default:
-    assert(false); // unexpected bytes per pixel
+    gl_boiler_stop; // unexpected bytes per pixel
   }
   
   return colour(
@@ -147,7 +147,7 @@ void texture::free_data()
 
 void texture::use_on_gl_thread()
 {
-  assert(m_has_been_uploaded);
+  gl_boiler_assert(m_has_been_uploaded);
 
   GL_CHECK(glEnable(GL_TEXTURE_2D));
   GL_CHECK(glActiveTexture(GL_TEXTURE0 + m_active_texture_id));

@@ -22,7 +22,7 @@ void scene_graph::add_connection(int from_node, int to_node)
 
 const scene_node& scene_graph::get_node(int i) const
 {
-  assert(i < static_cast<int>(m_nodes.size()));
+  gl_boiler_assert(i < static_cast<int>(m_nodes.size()));
   return *m_nodes[i];
 }
 

@@ -63,7 +63,7 @@ inline vec2 operator-(const vec2& v)
 inline vec2 normalise(const vec2& v)
 {
   float len = length(v);
-  assert(len > 0);
+  gl_boiler_assert(len > 0);
   float one_over = 1.0f / len;
   return v * one_over;
 }

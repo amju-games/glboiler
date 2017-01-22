@@ -72,7 +72,7 @@ inline vec3 operator-(const vec3& v)
 inline vec3 normalise(const vec3& v)
 {
   float len = length(v);
-  assert(len > 0);
+  gl_boiler_assert(len > 0);
   float one_over = 1.0f / len;
   return v * one_over;
 }

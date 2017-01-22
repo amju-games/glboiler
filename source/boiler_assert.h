@@ -7,14 +7,20 @@
 #include "log.h"
 
 template<typename T>
-void boiler_assert(T expr, const char* expr_str, const char* file, int line)
+void boiler_assert_(T expr, const char* expr_str, const char* file, int line)
 {
   if (!expr)
   {
     log(msg() << "ASSERT FAILED: " << expr_str << " in " << file << ": " << line);
+
+    _CrtDbgBreak(); // windows only
   }
 }
 
-#ifndef assert
-#define assert(expr) boiler_assert(expr, #expr, __FILE__, __LINE__)
+#ifndef gl_boiler_stop
+#define gl_boiler_stop    boiler_assert_(false, "Stopped.", __FILE__, __LINE__)
+#endif
+
+#ifndef gl_boiler_assert
+#define gl_boiler_assert(expr)    boiler_assert_(expr, #expr, __FILE__, __LINE__)
 #endif

@@ -7,6 +7,8 @@
 #include "log.h"
 #include "string_utils.h"
 
+//#define FILE_DEBUG
+
 file::~file()
 {
   close();
@@ -18,7 +20,7 @@ bool file::open_for_reading(const std::string& filename, std::ios::openmode mode
   {
     if (filename != m_filename)
     {
-      assert(0);
+      gl_boiler_stop;
     }
     log(msg() << "Already open for reading: \"" << filename << "\"");
     return true;
@@ -27,8 +29,9 @@ bool file::open_for_reading(const std::string& filename, std::ios::openmode mode
   m_file.open(filename, mode);
   if (m_file.is_open())
   {
+#ifdef FILE_DEBUG
     log(msg() << "Opening for reading: \"" << filename << "\"");
-
+#endif
     //    m_file.seekg(0, m_file.end);
     //    m_size = m_file.tellg();
     //    m_file.seekg(0, m_file.beg);
