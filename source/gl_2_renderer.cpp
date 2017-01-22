@@ -38,7 +38,7 @@ void gl_2_renderer::init_on_gl_thread()
 
   // shader for shadow map
   m_depth_shader.load("shaders/gl_2_just_depth_v.txt", "shaders/gl_2_just_depth_f.txt");
-  m_depth_shader.compile_on_gl_thread();
+  m_depth_shader.upload_on_gl_thread();
   m_depth_shader.use_on_gl_thread();
 }
 
@@ -59,7 +59,7 @@ void gl_2_renderer::render_on_gl_thread(int view_index)
 {
   gl_shader sh;
   sh.load("shaders/gl_2_replicate_fixed_v.txt", "shaders/gl_2_replicate_fixed_f.txt");
-  sh.compile_on_gl_thread();
+  sh.upload_on_gl_thread();
   sh.use_on_gl_thread();
   
   sh.set_int_on_gl_thread("diffuse_map", 0);

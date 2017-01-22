@@ -6,17 +6,18 @@
 
 #include <string>
 #include "mat4.h"
+#include "resource.h"
 
-class gl_shader
+class gl_shader : public gl_resource
 {
 public:
   ~gl_shader();
 
   bool load(const std::string& vert_filename, const std::string& frag_filename);
 
-  void destroy_on_gl_thread();
-  bool compile_on_gl_thread();
-  void use_on_gl_thread();
+  virtual void upload_on_gl_thread() override;
+  virtual void use_on_gl_thread() override;
+  virtual void destroy_on_gl_thread() override;
 
   void set_float_on_gl_thread(const std::string& name, float f);
   void set_int_on_gl_thread(const std::string& name, int i);

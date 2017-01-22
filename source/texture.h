@@ -27,9 +27,9 @@ public:
   //  not be deleted yet, of course! 
   colour get_texel_colour(const vec2& uv) const;
 
-  void upload_on_gl_thread(bool then_delete_data = true);
-  void use_on_gl_thread();
-  void destroy_on_gl_thread();
+  virtual void upload_on_gl_thread() override;
+  virtual void use_on_gl_thread() override;
+  virtual void destroy_on_gl_thread() override;
 
 private:
   void free_data();
@@ -45,6 +45,7 @@ private:
   bool m_has_been_uploaded = false;
   bool m_destroy_called = false;
   bool m_use_mipmaps = false;
+  bool m_delete_data_after_upload = true;
 
   // TODO wrap/clamp, nearest/linear/aniso/etc  
 };

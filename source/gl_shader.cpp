@@ -13,7 +13,7 @@ gl_shader::~gl_shader()
 {
   if (m_compiled_ok)
   {
-    assert(m_destroy_called);
+    gl_boiler_assert(m_destroy_called);
   }
 }
 
@@ -104,7 +104,7 @@ bool gl_shader::load(
   return true;
 }
 
-bool gl_shader::compile_on_gl_thread()
+void gl_shader::upload_on_gl_thread()
 {
   GL_CHECK(GLuint vertSh = glCreateShader(GL_VERTEX_SHADER));
   GL_CHECK(GLuint fragSh = glCreateShader(GL_FRAGMENT_SHADER));
@@ -125,7 +125,7 @@ bool gl_shader::compile_on_gl_thread()
   {
     GL_CHECK(glGetShaderInfoLog(vertSh, ERROR_BUF_SIZE, 0, buf));
     log(msg() << m_vert_shader_filename << ": " << buf);
-    return false;
+    gl_boiler_stop;
   }
 
   GL_CHECK(glCompileShader(fragSh));
@@ -135,7 +135,7 @@ bool gl_shader::compile_on_gl_thread()
   {
     GL_CHECK(glGetShaderInfoLog(fragSh, ERROR_BUF_SIZE, 0, buf));
     log(msg() << m_frag_shader_filename << ": " << buf);
-    return false;
+    gl_boiler_stop;
   }
 
   GL_CHECK(m_program_id = glCreateProgram());
@@ -148,18 +148,16 @@ bool gl_shader::compile_on_gl_thread()
   {
     GL_CHECK(glGetProgramInfoLog(m_program_id, ERROR_BUF_SIZE, 0, buf));
     log(buf);
-    return false;
+    gl_boiler_stop;
   }
   m_compiled_ok = true;
 
   use_on_gl_thread(); // bind shader so we can set uniforms
-
-  return true;
 }
 
 void gl_shader::use_on_gl_thread()
 {
-  assert(m_compiled_ok);
+  gl_boiler_assert(m_compiled_ok);
   GL_CHECK(glUseProgram(m_program_id));
 }
 

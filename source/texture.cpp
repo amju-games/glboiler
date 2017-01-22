@@ -80,7 +80,7 @@ bool texture::load(const std::string& filename)
   return m_data != nullptr;
 }
 
-void texture::upload_on_gl_thread(bool delete_data_after_upload)
+void texture::upload_on_gl_thread()
 {
   glGenTextures(1, &m_bind_texture_id);
   glBindTexture(GL_TEXTURE_2D, m_bind_texture_id);
@@ -116,7 +116,7 @@ void texture::upload_on_gl_thread(bool delete_data_after_upload)
            GL_UNSIGNED_BYTE,
            m_data);
 
-  if (delete_data_after_upload)
+  if (m_delete_data_after_upload)
   {
     free_data();
   }

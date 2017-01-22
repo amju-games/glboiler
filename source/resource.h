@@ -12,5 +12,9 @@ public:
 
 class gl_resource : public resource
 {
+public:
+  virtual void upload_on_gl_thread() = 0;
+  virtual void use_on_gl_thread() = 0;
+  virtual void destroy_on_gl_thread() = 0;
 };
 
