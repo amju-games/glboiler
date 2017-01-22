@@ -10,7 +10,7 @@
 TEST(scene_node, render)
 {
   test_scene_node n;
-  n.render();
+  n.render_on_gl_thread();
 }
 
 TEST(scene_node, initial_xform)

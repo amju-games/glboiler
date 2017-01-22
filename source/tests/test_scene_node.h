@@ -9,7 +9,7 @@
 class test_scene_node : public scene_node
 {
 public:
-    virtual void render() const override
+    virtual void render_on_gl_thread() const override
     {
     }
 };

@@ -476,6 +476,9 @@
     <ClCompile Include="..\..\..\..\source\scene_node.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\texture_tests.cpp">
+      <Filter>source\tests\geom</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\source\thirdparty\glut\glut32.lib" />
