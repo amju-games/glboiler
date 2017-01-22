@@ -92,50 +92,6 @@ void gl_2_renderer::end_render_on_gl_thread()
   m_shadow_map.debug_draw_on_gl_thread();
 }
 
-/* old
-void gl_2_renderer::render_on_gl_thread(const scene_graph& sd, int view_index)
-{
-  clear_blended_nodes();
-
-  glEnable(GL_CULL_FACE);
-
-  shadow_map_pass(sd);
-
-  gl_shader sh;
-  sh.load("shaders/test_v.txt", "shaders/test_f.txt");
-  sh.compile_on_gl_thread();
-  sh.use_on_gl_thread();
-  sh.set_int_on_gl_thread("shadow_map", 0);
-  sh.set_int_on_gl_thread("shadow_map_size", m_shadow_map_size);
-  sh.set_mat4_on_gl_thread("light_matrix", m_light_matrix);
-
-  for (int eye = 0; eye < 2 ; eye++)
-  {
-    view& this_view = m_view[eye];
-    this_view.set_gl_viewport();
-    const camera& cam = this_view.get_camera();
-
-    sh.set_mat4_on_gl_thread("look_at_matrix", cam.look_at_matrix);
-    sh.set_mat4_on_gl_thread("proj_matrix", cam.proj_matrix);
-
-    frustum frust = this_view.calc_frustum();
-  
-    m_shadow_map.use_texture_on_gl_thread();
-
-    // Render opaque geom, for each eye
-    opaque_pass(sd, frust, &sh);
-
-    // Render blended nodes, for each eye
-    draw_blended_nodes(frust);
-  }
-
-  m_shadow_map.use_texture_on_gl_thread();
-  m_shadow_map.debug_draw_on_gl_thread();
-
-  sh.destroy_on_gl_thread();
-}
-*/
-
 void gl_2_renderer::clear_blended_nodes()
 {
   m_blended_nodes.clear();
