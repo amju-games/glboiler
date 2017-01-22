@@ -18,6 +18,7 @@
 #include "gl_shader.h"
 #include "gl_system.h"
 #include "look_at.h"
+#include "material.h"
 #include "projection.h"
 #include "gl_1_1_solid_scene_node.h" // TODO TEMP TEST
 #include "md3_node.h"
@@ -76,6 +77,14 @@ void set_up_gl_1_1_scene(scene_graph& sg)
   sg.add_node(md3_root);
   sg.add_connection(root->get_id(), md3_root->get_id());
 
+  static resource_manager rm; // TODO TEMP TEST
+
+  std::shared_ptr<material> mat_test_card(new material);
+  std::shared_ptr<material> mat_white(new material);
+
+  mat_test_card->set_textures({ "textures/test_card.png" }, rm);
+  mat_white->set_textures({ "textures/white.png" }, rm);
+
   auto sphere = std::make_shared<gl_1_1_sphere_scene_node>();
   sphere->get_xform().translate(vec3(-5, 0, -5));
   sg.add_node(sphere);
@@ -83,12 +92,15 @@ void set_up_gl_1_1_scene(scene_graph& sg)
   auto teapot = std::make_shared<gl_1_1_teapot_scene_node>();
   mat4 m = mult(mat4().scale(.5f, .5f, .5f), mat4().rotate_x_radians(-M_PI_2));
   m = mult(m, mat4().translate(vec3(0, 0, 3.f)));
-  teapot->get_xform() = mult(m, mat4().rotate_z_radians(M_PI_2));
+  teapot->get_xform() = m; 
+  teapot->set_material(mat_white);
   sg.add_node(teapot);
 
   auto plane = std::make_shared<gl_1_1_plane_scene_node>();
   plane->get_xform().translate(vec3(0, -2.f, 0));
   sg.add_node(plane);
+
+  plane->set_material(mat_test_card);
 
   sg.add_connection(root->get_id(), plane->get_id());
   sg.add_connection(root->get_id(), sphere->get_id());
@@ -160,6 +172,9 @@ void display()
   glutSwapBuffers();
 //    usleep(10000); // to stop my mac melting :(
   glutPostRedisplay();
+
+  sg_1.update();
+  sg_2.update();
 }
 
 void reshape(int x, int y)

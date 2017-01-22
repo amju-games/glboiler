@@ -110,6 +110,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\source\boiler_assert.h" />
     <ClInclude Include="..\..\..\..\source\colour.h" />
+    <ClInclude Include="..\..\..\..\source\geom\quat.h" />
     <ClInclude Include="..\..\..\..\source\gl_1_1_renderer.h" />
     <ClInclude Include="..\..\..\..\source\gl_2_renderer.h" />
     <ClInclude Include="..\..\..\..\source\geom\aabb.h" />
@@ -130,6 +131,7 @@
     <ClInclude Include="..\..\..\..\source\light.h" />
     <ClInclude Include="..\..\..\..\source\load_png.h" />
     <ClInclude Include="..\..\..\..\source\log.h" />
+    <ClInclude Include="..\..\..\..\source\material.h" />
     <ClInclude Include="..\..\..\..\source\md3\md3.h" />
     <ClInclude Include="..\..\..\..\source\md3\md3_types.h" />
     <ClInclude Include="..\..\..\..\source\md3_node.h" />
@@ -175,6 +177,7 @@
     <ClInclude Include="..\..\..\..\source\windows\timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\geom\quat.cpp" />
     <ClCompile Include="..\..\..\..\source\gl_1_1_renderer.cpp" />
     <ClCompile Include="..\..\..\..\source\gl_2_renderer.cpp" />
     <ClCompile Include="..\..\..\..\source\geom\aabb.cpp" />
@@ -192,6 +195,7 @@
     <ClCompile Include="..\..\..\..\source\main\glut_main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\material.cpp" />
     <ClCompile Include="..\..\..\..\source\md3\md3.cpp" />
     <ClCompile Include="..\..\..\..\source\md3_node.cpp" />
     <ClCompile Include="..\..\..\..\source\renderer.cpp" />
@@ -200,6 +204,7 @@
     <ClCompile Include="..\..\..\..\source\scene_description.cpp" />
     <ClCompile Include="..\..\..\..\source\scene_graph.cpp" />
     <ClCompile Include="..\..\..\..\source\gl_1_1_solid_scene_node.cpp" />
+    <ClCompile Include="..\..\..\..\source\scene_node.cpp" />
     <ClCompile Include="..\..\..\..\source\tests\colour_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>

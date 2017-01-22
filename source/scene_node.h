@@ -8,6 +8,7 @@
 #include "bounding_vol.h"
 #include "frustum.h"
 #include "mat4.h"
+#include "material.h"
 #include "object.h"
 
 class scene_node : public object
@@ -28,16 +29,20 @@ public:
     return *m_bounding_vol;
   }
 
-  virtual void render() const {}
+  virtual void render_on_gl_thread() const {}
 
   const mat4& get_xform() const { return m_xform; }
   mat4& get_xform() { m_has_changed = true; return m_xform; }
 
   virtual void update() {}
 
+  void set_material(std::shared_ptr<material> material);
+  void use_material_on_gl_thread() const;
+
 protected:
   int m_id;
   mat4 m_xform;
+  std::shared_ptr<material> m_material;
   std::unique_ptr<bounding_vol> m_bounding_vol;
   bool m_has_changed;
 };

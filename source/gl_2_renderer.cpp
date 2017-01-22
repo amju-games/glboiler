@@ -79,7 +79,7 @@ void gl_2_renderer::render_on_gl_thread(int view_index)
 
   m_shadow_map.use_texture_on_gl_thread();
 
-  // Render opaque geom, for each eye
+  // Render opaque geom
   opaque_pass(*m_sg, frust, &m_opaque_pass_shader);
 
   // Render blended nodes, for each eye
@@ -143,19 +143,20 @@ void gl_2_renderer::draw_node(const scene_node& node, const frustum& fr, gl_shad
 {
   gl_shader* sh = override_shader;
 
-/* TODO use override shader if set, otherwise use material/shader for node
+  // TODO use override shader if set, otherwise use material/shader for node
+  // TODO should be material, not shader
   if (override_shader)
   {
-    override_shader->use_this_shader();
+    override_shader->use_on_gl_thread();
   }
   else
   {
-    node.use_material();
+    node.use_material_on_gl_thread();
   }
-*/
+  node.use_material_on_gl_thread(); // TODO TEMP TEST
 
   sh->set_mat4_on_gl_thread("world_matrix", xform);
-  node.render();
+  node.render_on_gl_thread();
   m_render_stats.num_nodes_rendered++;
 }
 

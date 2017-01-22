@@ -231,6 +231,12 @@
     <ClInclude Include="..\..\..\..\source\resource.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\source\material.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\geom\quat.h">
+      <Filter>source\geom</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\gl_shader.cpp">
@@ -459,6 +465,15 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\resource_manager.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\material.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\geom\quat.cpp">
+      <Filter>source\geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\scene_node.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

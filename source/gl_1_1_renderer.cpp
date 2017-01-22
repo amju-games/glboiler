@@ -36,7 +36,8 @@ void gl_1_1_renderer::draw_node(const scene_node& node, const frustum& fr, gl_sh
 {
   GL_CHECK(glPushMatrix());
   GL_CHECK(glMultMatrixf(xform.data()));
-  node.render();
+  node.use_material_on_gl_thread();
+  node.render_on_gl_thread();
   m_render_stats.num_nodes_rendered++;
   GL_CHECK(glPopMatrix());
 }
