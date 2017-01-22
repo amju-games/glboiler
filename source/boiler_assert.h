@@ -4,6 +4,10 @@
 
 #pragma once
 
+#ifdef MACOSX
+#include <cassert> // TODO TEMP TEST
+#endif
+
 #include "log.h"
 
 template<typename T>
@@ -13,7 +17,13 @@ void boiler_assert_(T expr, const char* expr_str, const char* file, int line)
   {
     log(msg() << "ASSERT FAILED: " << expr_str << " in " << file << ": " << line);
 
+#ifdef WIN32
     _CrtDbgBreak(); // windows only
+#endif
+
+#ifdef MACOSX
+    assert(0);
+#endif
   }
 }
 

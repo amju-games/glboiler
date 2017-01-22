@@ -9,7 +9,9 @@
 
 #include <iostream>
 #include <stdio.h>
-//#include <unistd.h>
+#ifdef MACOSX
+#include <unistd.h>
+#endif
 
 #include "camera.h"
 #include "gl_1_1_renderer.h"
@@ -170,7 +172,11 @@ void display()
 ///    tex.destroy_on_gl_thread();
  
   glutSwapBuffers();
-//    usleep(10000); // to stop my mac melting :(
+
+#ifdef MACOSX
+  usleep(10000); // to stop my mac melting :(
+#endif
+
   glutPostRedisplay();
 
   sg_1.update();
@@ -205,7 +211,9 @@ int main(int argc, char** argv)
   glutInitWindowSize(WIN_X, WIN_Y);
   glutCreateWindow("Hello"); 
 
+#ifdef WIN32
   glewInit();
+#endif
 
   // log_gl_info();
 

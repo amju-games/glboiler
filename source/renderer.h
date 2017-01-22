@@ -38,7 +38,7 @@ public:
 
 protected:
   // Traverse scene graph. Call draw_node() on scene nodes visited.
-  void renderer::traverse(
+  void traverse(
     const scene_graph& sg,
     const frustum& fr,
     gl_shader* override_shader);

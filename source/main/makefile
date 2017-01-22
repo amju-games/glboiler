@@ -19,22 +19,27 @@ INCLUDES=\
   -I../utils \
   -I../md3
 
-CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11 -O0 -g
+CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11 -O0 -g -DMACOSX
 
 LDFLAGS=-framework OpenGL -framework GLUT ../thirdparty/lpng1626/libpng.a -lz
 
 SOURCES=glut_main.cpp \
-../forward_renderer.cpp \
+../gl_1_1_renderer.cpp \
+../gl_2_renderer.cpp \
+../gl_1_1_solid_scene_node.cpp \
+../gl_2_solid_scene_node.cpp \
 ../gl_system.cpp \
 ../gl_shader.cpp \
 ../int_graph.cpp \
 ../load_png.cpp \
+../material.cpp \
 ../md3_node.cpp \
 ../renderer.cpp \
 ../render_to_texture.cpp \
+../resource_manager.cpp \
 ../scene_description.cpp \
 ../scene_graph.cpp \
-../teapot_scene_node.cpp \
+../scene_node.cpp \
 ../texture.cpp \
 ../view.cpp \
 ../macosx/timer.cpp \
@@ -44,6 +49,7 @@ SOURCES=glut_main.cpp \
 ../geom/frustum.cpp \
 ../geom/look_at.cpp \
 ../geom/projection.cpp \
+../geom/quat.cpp \
 ../light.cpp \
 ../log.cpp \
 ../utils/file.cpp \

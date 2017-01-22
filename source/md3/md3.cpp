@@ -8,7 +8,11 @@
 #include <iostream>
 #include <cmath>
 
+#ifdef WIN32
+// TODO TEMP HACK - timeGetTime
 #include <Windows.h>
+#endif
+
 #include "gl_includes.h"
 #include "log.h"
 #include "md3.h"
@@ -638,7 +642,13 @@ void CModelMD3::SetCurrentTime(t3DModel *pModel)
   }
 
   // Get the current time in milliseconds
+#ifdef WIN32
   float time = timeGetTime(); // TODO TEMP TEST - Windows only
+#endif
+
+#ifdef MACOSX
+  float time = 1.f;
+#endif
   // TODO Sort this out. 
 
   // Find the time that has elapsed since the last time that was stored

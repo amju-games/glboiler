@@ -11,9 +11,17 @@
 
 void swap_row(unsigned char* row_1, unsigned char* row_2, unsigned char* temp, unsigned int row_length)
 {
+#ifdef WIN32
   memcpy_s(temp, row_length, row_1, row_length); // row_1 -> temp
   memcpy_s(row_1, row_length, row_2, row_length); // row_2 -> row_1
   memcpy_s(row_2, row_length, temp, row_length); // temp -> row_2
+#endif
+
+#ifdef MACOSX
+  memcpy(temp, row_1, row_length); // row_1 -> temp
+  memcpy(row_1, row_2, row_length); // row_2 -> row_1
+  memcpy(row_2, temp, row_length); // temp -> row_2
+#endif
 }
 
 void flip_image_data(
