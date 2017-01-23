@@ -54,15 +54,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lpng1626;..\..\..\..\source\thirdparty\zlib;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source\tests\geom;..\..\..\..\source\tests;..\..\..\..\source\thirdparty\googletest\include;..\..\..\..\source;..\..\..\..\source\thirdparty\lpng1626;..\..\..\..\source\thirdparty\zlib;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source\utils;..\..\..\..\source;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -98,7 +98,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;MSVC; _USE_MATH_DEFINES;WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,28 +146,14 @@
     <ClInclude Include="..\..\..\..\source\gl_1_1_solid_scene_node.h" />
     <ClInclude Include="..\..\..\..\source\tests\geom\mat4_test_utils.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\tests\test_scene_node.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\texture.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\png.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pngconf.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pngdebug.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pnginfo.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pngpriv.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pngstruct.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\crc32.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\deflate.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\inffast.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\inffixed.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\inflate.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\inftrees.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\trees.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\zconf.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\zconf.in.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\zlib.h" />
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\zutil.h" />
+    <ClInclude Include="..\..\..\..\source\thirdparty\lodepng\lodepng.h" />
     <ClInclude Include="..\..\..\..\source\utils\file.h" />
     <ClInclude Include="..\..\..\..\source\utils\string_utils.h" />
     <ClInclude Include="..\..\..\..\source\vertex.h" />
@@ -207,47 +193,64 @@
     <ClCompile Include="..\..\..\..\source\scene_node.cpp" />
     <ClCompile Include="..\..\..\..\source\tests\colour_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\gl_2_renderer_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\geom\aabb_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\geom\frustum_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\geom\mat4_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\geom\mat4_test_utils.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\geom\vec2_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\geom\vec3_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\int_graph_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\light_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\load_png_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\scene_graph_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\scene_node_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\test_main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\tests\texture_tests.cpp" />
+    <ClCompile Include="..\..\..\..\source\tests\texture_tests.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\utils\file_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -258,41 +261,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\vertex_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\viewport_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\texture.cpp" />
     <ClCompile Include="..\..\..\..\source\thirdparty\glew-2.0.0\src\glew.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\example.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\png.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngerror.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngget.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngmem.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngpread.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngread.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngrio.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngrtran.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngrutil.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngset.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngtrans.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngwio.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngwrite.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngwtran.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngwutil.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\adler32.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\compress.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\crc32.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\deflate.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\gzio.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\infback.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\inffast.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\inflate.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\inftrees.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\minigzip.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\trees.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\uncompr.c" />
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\zutil.c" />
+    <ClCompile Include="..\..\..\..\source\thirdparty\lodepng\lodepng.cpp" />
     <ClCompile Include="..\..\..\..\source\utils\file.cpp" />
     <ClCompile Include="..\..\..\..\source\utils\string_utils.cpp" />
     <ClCompile Include="..\..\..\..\source\view.cpp" />

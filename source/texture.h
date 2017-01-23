@@ -36,7 +36,7 @@ private:
 
 private:
   std::string m_filename;
-  unsigned char* m_data = nullptr;
+  std::vector<unsigned char> m_data;
   unsigned int m_bind_texture_id = 0;
   int m_active_texture_id = 0;
   unsigned int m_w = 0;

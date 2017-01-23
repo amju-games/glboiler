@@ -5,9 +5,11 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
-unsigned char* load_png(
+bool load_png(
   const std::string& filename, 
+  std::vector<unsigned char>* data,
   unsigned int* pWidth, 
   unsigned int* pHeight,
   unsigned int* bytesPerPixel);

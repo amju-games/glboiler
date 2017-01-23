@@ -19,7 +19,7 @@ texture::~texture()
 
 colour texture::get_texel_colour(const vec2& uv) const
 {
-  gl_boiler_assert(m_data);
+  gl_boiler_assert(!m_data.empty());
   gl_boiler_assert(m_w > 0);
   gl_boiler_assert(m_h > 0);
   gl_boiler_assert(m_bytes_per_pixel > 0);
@@ -32,8 +32,8 @@ colour texture::get_texel_colour(const vec2& uv) const
   gl_boiler_assert(y < static_cast<int>(m_h));
  
   // TODO stride ?
-  unsigned char* addr = m_data + y * m_w * m_bytes_per_pixel + x; 
-  gl_boiler_assert(addr < (m_data + m_w * m_h * m_bytes_per_pixel));
+  const unsigned char* addr = &m_data[0] + y * m_w * m_bytes_per_pixel + x; 
+  gl_boiler_assert(addr < (&m_data[0] + m_w * m_h * m_bytes_per_pixel));
 
   unsigned char c[4] = { 0, 0, 0, 0xff };
 
@@ -64,20 +64,20 @@ colour texture::get_texel_colour(const vec2& uv) const
 bool texture::load(const std::string& filename)
 {
   m_filename = filename;
-  m_data = load_png(filename, &m_w, &m_h, &m_bytes_per_pixel);
-  if (m_data)
-  {
-    flip_image_data(m_data, m_w, m_h, m_bytes_per_pixel);
-
-    log(msg() << "Loaded texture \"" << filename 
-      << "\" w: " << m_w << " h: " << m_h 
-      << " bpp: " << m_bytes_per_pixel);
-  }
-  else
+  if (!load_png(filename, &m_data, &m_w, &m_h, &m_bytes_per_pixel))
   {
     log(msg() << "Failed to load texture \"" << filename << "\"");
+    return false;
   }
-  return m_data != nullptr;
+  gl_boiler_assert(!m_data.empty());
+
+  flip_image_data(&m_data[0], m_w, m_h, m_bytes_per_pixel);
+
+  log(msg() << "Loaded texture \"" << filename 
+    << "\" w: " << m_w << " h: " << m_h 
+    << " bpp: " << m_bytes_per_pixel);
+
+  return true;
 }
 
 void texture::upload_on_gl_thread()
@@ -105,16 +105,7 @@ void texture::upload_on_gl_thread()
            0,
            format,
            GL_UNSIGNED_BYTE,
-           m_data));
-
-  gluBuild2DMipmaps(
-           GL_TEXTURE_2D,  
-           format,
-           m_w,
-           m_h,
-           format,
-           GL_UNSIGNED_BYTE,
-           m_data);
+           &m_data[0]));
 
   if (m_delete_data_after_upload)
   {
@@ -137,10 +128,9 @@ void texture::destroy_on_gl_thread()
 
 void texture::free_data()
 {
-  if (m_data)
+  if (!m_data.empty())
   {
-    free(m_data);
-    m_data = nullptr;
+    m_data.clear();
     log(msg() << "Deleted data for texture \"" << m_filename << "\"");
   }
 }

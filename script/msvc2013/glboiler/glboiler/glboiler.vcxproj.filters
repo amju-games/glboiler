@@ -13,14 +13,8 @@
     <Filter Include="source\thirdparty">
       <UniqueIdentifier>{ca3433e0-39d0-4bcd-9077-9c8f622bfabb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source\thirdparty\lpng1626">
-      <UniqueIdentifier>{0cccd958-cc27-46f1-b3f7-845207e8cbac}</UniqueIdentifier>
-    </Filter>
     <Filter Include="source\windows">
       <UniqueIdentifier>{f306f181-6893-46e9-a7c8-844f9b177932}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\thirdparty\zlib">
-      <UniqueIdentifier>{04fee2a3-e758-42d2-b3bc-f3727f555d77}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\thirdparty\glew">
       <UniqueIdentifier>{1ee3d4a2-e54f-42e2-8529-f487a3d46d29}</UniqueIdentifier>
@@ -45,6 +39,9 @@
     </Filter>
     <Filter Include="assets\shaders">
       <UniqueIdentifier>{7a52817c-86ce-4128-8e17-ca59530ae116}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\thirdparty\lodepng">
+      <UniqueIdentifier>{84fd6527-a787-4a50-9f7c-26d8bae349d7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -129,62 +126,11 @@
     <ClInclude Include="..\..\..\..\source\geom\vec3.h">
       <Filter>source\geom</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\png.h">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pngconf.h">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pngdebug.h">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pnginfo.h">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pngpriv.h">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\lpng1626\pngstruct.h">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\source\windows\gl_includes.h">
       <Filter>source\windows</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\windows\timer.h">
       <Filter>source\windows</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\crc32.h">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\deflate.h">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\inffast.h">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\inffixed.h">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\inflate.h">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\inftrees.h">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\trees.h">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\zconf.h">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\zconf.in.h">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\zlib.h">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\source\thirdparty\zlib\zutil.h">
-      <Filter>source\thirdparty\zlib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\boiler_assert.h">
       <Filter>source</Filter>
@@ -236,6 +182,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\geom\quat.h">
       <Filter>source\geom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\thirdparty\lodepng\lodepng.h">
+      <Filter>source\thirdparty\lodepng</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -290,95 +239,8 @@
     <ClCompile Include="..\..\..\..\source\main\glut_main.cpp">
       <Filter>source\main</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\example.c">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\png.c">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngerror.c">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngget.c">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngmem.c">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngpread.c">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngread.c">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngrio.c">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngrtran.c">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngrutil.c">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngset.c">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngtrans.c">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngwio.c">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngwrite.c">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngwtran.c">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\lpng1626\pngwutil.c">
-      <Filter>source\thirdparty\lpng1626</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\windows\timer.cpp">
       <Filter>source\windows</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\adler32.c">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\compress.c">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\crc32.c">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\deflate.c">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\gzio.c">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\infback.c">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\inffast.c">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\inflate.c">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\inftrees.c">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\minigzip.c">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\trees.c">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\uncompr.c">
-      <Filter>source\thirdparty\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\thirdparty\zlib\zutil.c">
-      <Filter>source\thirdparty\zlib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\thirdparty\glew-2.0.0\src\glew.c">
       <Filter>source\thirdparty\glew</Filter>
@@ -478,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\texture_tests.cpp">
       <Filter>source\tests\geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\lodepng\lodepng.cpp">
+      <Filter>source\thirdparty\lodepng</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
