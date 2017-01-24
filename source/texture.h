@@ -44,7 +44,7 @@ private:
   unsigned int m_bytes_per_pixel = 0;
   bool m_has_been_uploaded = false;
   bool m_destroy_called = false;
-  bool m_use_mipmaps = false;
+  bool m_use_mipmaps = true;
   bool m_delete_data_after_upload = true;
 
   // TODO wrap/clamp, nearest/linear/aniso/etc  
