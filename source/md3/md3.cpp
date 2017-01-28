@@ -29,7 +29,7 @@ static bool IsInString(std::string strString, std::string strSubString)
   unsigned int index = strString.find(strSubString);
 
   // Make sure the index returned was valid
-  if (index >= 0 && index < strString.length())
+  if (index < strString.length())
     return true;
 
   // The sub string does not exist in strString.
@@ -279,7 +279,8 @@ bool CModelMD3::LoadWeapon(const std::string& strPath, const std::string& strMod
 
 static texture* CreateTexture(const std::string& file, resource_manager& rm)
 {
-  std::shared_ptr<texture> tex = rm.get_texture(file);
+  std::string f = trim(file);
+  std::shared_ptr<texture> tex = rm.get_texture(f);
   return tex.get();
 }
 
