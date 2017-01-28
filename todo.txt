@@ -53,3 +53,8 @@ GFX features
  - Screen space reflection, vs geometry-based reflection plane
 
 
+Parallax Occlusion Mapping: POM
+
+https://www.gamedev.net/resources/_/technical/graphics-programming-and-theory/a-closer-look-at-parallax-occlusion-mapping-r3262
+
+
