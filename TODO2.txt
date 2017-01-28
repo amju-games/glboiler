@@ -1,0 +1,33 @@
+MD3 rotation of separate model - broken for gl2 renderer
+ - it's because of glMultMatrixf in DrawLink() - extract this and subclass for GL 1.1 and 2
+
+Threads, message queue
+
+Materials
+ - Use shader
+
+Shader needs uniforms list
+
+Resource manager
+ - Handle pending sets
+
+Split md3 load etc from render
+quat tests
+  
+gl_4 nodes: focus on md3, plane
+
+gl_4 renderer? Or gl_2_renderer works?
+
+Normal mapping
+
+Cube/sphere mapping
+
+Shut down gracefully - prove no mem or GL leaks
+Tests with mock types to show scene graph, res manager etc clean up
+
+OpenVR
+
+===
+DONE - Specialised assert
+
+

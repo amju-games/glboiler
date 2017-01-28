@@ -1,3 +1,16 @@
+MD3 dragon walks around
+
+
+Procedural sky
+
+water
+reflections
+
+My Heads - with different materials
+
+Deferred renderer
+
+
 Renderer: use "policies"? We want to mix and match:
  - Thread-safe/multithreaded -> message queue
  - Forward/deferred: these are 2 subclasses of renderer base class
