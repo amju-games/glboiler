@@ -13,7 +13,7 @@ WARNINGS=-Wall -Wno-deprecated-declarations
 INCLUDES=\
   -I.. \
   -I../thirdparty/googletest/include  \
-  -I../thirdparty/lpng1626 \
+  -I../thirdparty/lodepng \
   -I../geom \
   -I../macosx \
   -I../utils \
@@ -21,7 +21,7 @@ INCLUDES=\
 
 CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11 -O0 -g -DMACOSX
 
-LDFLAGS=-framework OpenGL -framework GLUT ../thirdparty/lpng1626/libpng.a -lz
+LDFLAGS=-framework OpenGL -framework GLUT 
 
 SOURCES=glut_main.cpp \
 ../gl_1_1_renderer.cpp \
@@ -53,7 +53,8 @@ SOURCES=glut_main.cpp \
 ../light.cpp \
 ../log.cpp \
 ../utils/file.cpp \
-../utils/string_utils.cpp
+../utils/string_utils.cpp \
+../thirdparty/lodepng/lodepng.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=glboiler
