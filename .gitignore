@@ -22,3 +22,4 @@ source/md3/*.o
 source/tests/utils/*.o
 source/utils/*.o
 *.o
+*.opensdf
