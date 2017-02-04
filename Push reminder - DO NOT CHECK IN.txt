@@ -1,0 +1,12 @@
+To push to jason-amju projects on github:
+
+ git push https://jason-amju:Henry1234@github.com/jason-amju/glboiler.git
+
+
+Switch to constructive labs:
+
+ git fetch https://jason-constructivelabs:'Edcr1ukhBL!f'@github.com/jason-constructivelabs/Monkey.git
+
+
+That didn't work, but in SourceTree, go to Repo Settings, Advanced, uncheck use global user settings. This trips it into asking for credentials again.
+
