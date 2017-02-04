@@ -15,7 +15,7 @@ public:
 
 protected:
   virtual void create_renderers_on_gl_thread() override;
-  virtual void set_up_scene_graph_on_gl_thread(resource_manager& rm);
+  virtual void set_up_scene_graph_on_gl_thread(resource_manager& rm) override;
 
 };
 

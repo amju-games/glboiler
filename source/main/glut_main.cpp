@@ -13,7 +13,10 @@
 #include <unistd.h>
 #endif
 
+#ifdef YES_ANT_TWEAK_BAR
 #include <AntTweakBar.h>
+#endif
+
 #include "gl_includes.h"
 #include "gl_system.h"
 #include "md3_state.h"
@@ -21,6 +24,8 @@
 #ifdef WIN32
 #include <Windows.h>
 #endif
+
+#ifdef YES_ANT_TWEAK_BAR
 
 // For AntTweakBar exmaple
 // This example displays one of the following shapes
@@ -84,11 +89,11 @@ void TW_CALL GetAutoRotateCB(void *value, void *clientData)
   *(int *)value = g_AutoRotate; // copy g_AutoRotate to value
 }
 // Ant Tweak bar
+#endif // YES_ANT_TWEAK_BAR
 
 
-
-static int WIN_X = 1800;
-static int WIN_Y = 800;
+static int WIN_X = 800;
+static int WIN_Y = 600;
 
 state* the_state = new md3_state;
 
@@ -102,9 +107,11 @@ void display()
 
   the_state->render_on_gl_thread();
 
+#ifdef YES_ANT_TWEAK_BAR
   // Draw tweak bars
   glViewport(0, 0, WIN_X, WIN_Y);
   TwDraw();
+#endif // YES_ANT_TWEAK_BAR
 
  
   glutSwapBuffers();
@@ -126,26 +133,15 @@ void reshape(int x, int y)
     
   glViewport(0, 0, x, y);
 
+#ifdef YES_ANT_TWEAK_BAR
   // Send the new window size to AntTweakBar
   TwWindowSize(x, y);
+#endif
 }
 
-int main(int argc, char** argv)
+#ifdef YES_ANT_TWEAK_BAR
+void set_up_ant_tweak_bar()
 {
-  glutInit(&argc, argv);
-
-  // https://pleiades.ucsc.edu/hyades/OpenGL_on_OS_X
-  glutInitDisplayMode(
-      //GLUT_3_2_CORE_PROFILE | 
-      GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
-
-  glutInitWindowSize(WIN_X, WIN_Y);
-  glutCreateWindow("Hello"); 
-
-#ifdef WIN32
-  glewInit();
-#endif
-
   // Ant Tweak Bar
   TwBar *bar; // Pointer to the tweak bar
   float axis[] = { 0.7f, 0.7f, 0.0f }; // initial model rotation
@@ -210,8 +206,24 @@ int main(int argc, char** argv)
     // add 'g_CurrentShape' to 'bar': this is a variable of type ShapeType. Its key shortcuts are [<] and [>].
     TwAddVarRW(bar, "Shape", shapeType, &g_CurrentShape, " keyIncr='<' keyDecr='>' help='Change object shape.' ");
   }
+}
+#endif
 
+int main(int argc, char** argv)
+{
+  glutInit(&argc, argv);
 
+  // https://pleiades.ucsc.edu/hyades/OpenGL_on_OS_X
+  glutInitDisplayMode(
+      //GLUT_3_2_CORE_PROFILE | 
+      GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
+
+  glutInitWindowSize(WIN_X, WIN_Y);
+  glutCreateWindow("Hello"); 
+
+#ifdef WIN32
+  glewInit();
+#endif
 
   // log_gl_info();
 

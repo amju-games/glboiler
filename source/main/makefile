@@ -34,12 +34,14 @@ SOURCES=glut_main.cpp \
 ../load_png.cpp \
 ../material.cpp \
 ../md3_node.cpp \
+../md3_state.cpp \
 ../renderer.cpp \
 ../render_to_texture.cpp \
 ../resource_manager.cpp \
 ../scene_description.cpp \
 ../scene_graph.cpp \
 ../scene_node.cpp \
+../state.cpp \
 ../texture.cpp \
 ../view.cpp \
 ../macosx/timer.cpp \
