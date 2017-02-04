@@ -7,9 +7,6 @@
     <Filter Include="source\geom">
       <UniqueIdentifier>{fb47b358-8fb2-44a6-9177-6e20fc433454}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source\main">
-      <UniqueIdentifier>{fe343946-2ca6-4072-b7a1-67c0aceae8e5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="source\thirdparty">
       <UniqueIdentifier>{ca3433e0-39d0-4bcd-9077-9c8f622bfabb}</UniqueIdentifier>
     </Filter>
@@ -42,6 +39,12 @@
     </Filter>
     <Filter Include="source\thirdparty\lodepng">
       <UniqueIdentifier>{84fd6527-a787-4a50-9f7c-26d8bae349d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\glutmain">
+      <UniqueIdentifier>{fe343946-2ca6-4072-b7a1-67c0aceae8e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\sdl_openvr_main">
+      <UniqueIdentifier>{a4068ca8-1041-4bae-b0d8-d4aa63acc87e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -243,7 +246,7 @@
       <Filter>source\geom</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\main\glut_main.cpp">
-      <Filter>source\main</Filter>
+      <Filter>source\glutmain</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\windows\timer.cpp">
       <Filter>source\windows</Filter>
@@ -356,10 +359,23 @@
     <ClCompile Include="..\..\..\..\source\state.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\main\hellovr_opengl_main.cpp">
+      <Filter>source\sdl_openvr_main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\openvr\samples\shared\Matrices.cpp">
+      <Filter>source\sdl_openvr_main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\openvr\samples\shared\pathtools.cpp">
+      <Filter>source\sdl_openvr_main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\source\thirdparty\glut\glut32.lib" />
     <Library Include="..\..\..\..\source\thirdparty\googletest\msvc\gtest\Debug\gtestd.lib" />
+    <Library Include="..\..\..\..\source\thirdparty\AntTweakBar\lib\AntTweakBar.lib" />
+    <Library Include="..\..\..\..\source\thirdparty\openvr\lib\win32\openvr_api.lib" />
+    <Library Include="..\..\..\..\source\thirdparty\sdl2-2.0.3\bin\win32\SDL2.lib" />
+    <Library Include="..\..\..\..\source\thirdparty\sdl2-2.0.3\bin\win32\SDL2main.lib" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\assets\shaders\gl_2_just_depth_f.txt">
@@ -381,5 +397,8 @@
       <Filter>assets\shaders</Filter>
     </Text>
     <Text Include="..\..\..\..\TODO2.txt" />
+    <Text Include="..\..\..\..\todo.txt" />
+    <Text Include="..\..\..\..\vao_notes.txt" />
+    <Text Include="..\..\..\..\Push reminder - DO NOT CHECK IN.txt" />
   </ItemGroup>
 </Project>

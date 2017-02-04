@@ -35,6 +35,7 @@ public:
 
   // TODO allow views to change?
   void set_view(int n, const view& v) { m_view[n] = v; }
+  view* get_view(int n) { return &(m_view[n]); }
 
 protected:
   // Traverse scene graph. Call draw_node() on scene nodes visited.

@@ -6,6 +6,7 @@
 #include "md3_node.h"
 #include "gl_1_1_solid_scene_node.h"
 #include "gl_2_renderer.h"
+#include "gl_1_1_renderer.h"
 
 void md3_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
 {
@@ -53,12 +54,16 @@ void md3_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
 
 void md3_state::create_renderers_on_gl_thread()
 {
-  std::shared_ptr<renderer> left(new gl_2_renderer);
-  set_up_renderer_on_gl_thread(*left, 0, 0, m_window_w, m_window_h, true);
-  m_renderers.push_back(left); 
+  std::shared_ptr<renderer> rend(new gl_2_renderer);
+  set_up_renderer_on_gl_thread(*rend, 0, 0, m_window_w, m_window_h, true);
+  m_renderers.push_back(rend);
 
-  std::shared_ptr<renderer> right(new gl_2_renderer);
-  set_up_renderer_on_gl_thread(*right, 0, 0, m_window_w, m_window_h, false);
-  m_renderers.push_back(right);
+  //std::shared_ptr<renderer> left(new gl_2_renderer);
+  //set_up_renderer_on_gl_thread(*left, 0, 0, m_window_w, m_window_h, true);
+  //m_renderers.push_back(left); 
+
+  //std::shared_ptr<renderer> right(new gl_2_renderer);
+  //set_up_renderer_on_gl_thread(*right, 0, 0, m_window_w, m_window_h, false);
+  //m_renderers.push_back(right);
 }
 

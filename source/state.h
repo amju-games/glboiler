@@ -27,6 +27,8 @@ public:
 
   void set_window_size(int w, int h);
 
+  view* get_view() { return m_renderers[0]->get_view(0); }
+
 protected:
   virtual void set_up_scene_graph_on_gl_thread(resource_manager& rm) = 0;
 

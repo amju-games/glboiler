@@ -54,15 +54,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\..\..\..\source\thirdparty\sdl2-2.0.3\include;..\..\..\..\source\thirdparty\openvr\headers;..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\..\..\source\tests\geom;..\..\..\..\source\thirdparty\googletest\include;..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\..\..\..\source\thirdparty\sdl2-2.0.3\include;..\..\..\..\source\thirdparty\openvr\headers;..\..\..\..\source\tests\geom;..\..\..\..\source\thirdparty\googletest\include;..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\..\..\..\source\thirdparty\sdl2-2.0.3\include;..\..\..\..\source\thirdparty\openvr\headers;..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -73,7 +73,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;MSVC; _USE_MATH_DEFINES;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -182,7 +182,9 @@
     <ClCompile Include="..\..\..\..\source\log.cpp" />
     <ClCompile Include="..\..\..\..\source\main\glut_main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\main\hellovr_opengl_main.cpp" />
     <ClCompile Include="..\..\..\..\source\material.cpp" />
     <ClCompile Include="..\..\..\..\source\md3\md3.cpp" />
     <ClCompile Include="..\..\..\..\source\md3_node.cpp" />
@@ -274,14 +276,20 @@
     <ClCompile Include="..\..\..\..\source\texture.cpp" />
     <ClCompile Include="..\..\..\..\source\thirdparty\glew-2.0.0\src\glew.c" />
     <ClCompile Include="..\..\..\..\source\thirdparty\lodepng\lodepng.cpp" />
+    <ClCompile Include="..\..\..\..\source\thirdparty\openvr\samples\shared\Matrices.cpp" />
+    <ClCompile Include="..\..\..\..\source\thirdparty\openvr\samples\shared\pathtools.cpp" />
     <ClCompile Include="..\..\..\..\source\utils\file.cpp" />
     <ClCompile Include="..\..\..\..\source\utils\string_utils.cpp" />
     <ClCompile Include="..\..\..\..\source\view.cpp" />
     <ClCompile Include="..\..\..\..\source\windows\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="..\..\..\..\source\thirdparty\AntTweakBar\lib\AntTweakBar.lib" />
     <Library Include="..\..\..\..\source\thirdparty\glut\glut32.lib" />
     <Library Include="..\..\..\..\source\thirdparty\googletest\msvc\gtest\Debug\gtestd.lib" />
+    <Library Include="..\..\..\..\source\thirdparty\openvr\lib\win32\openvr_api.lib" />
+    <Library Include="..\..\..\..\source\thirdparty\sdl2-2.0.3\bin\win32\SDL2.lib" />
+    <Library Include="..\..\..\..\source\thirdparty\sdl2-2.0.3\bin\win32\SDL2main.lib" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\assets\shaders\gl_2_just_depth_f.txt" />
@@ -290,7 +298,10 @@
     <Text Include="..\..\..\..\assets\shaders\gl_2_replicate_fixed_v.txt" />
     <Text Include="..\..\..\..\assets\shaders\gl_2_test_f.txt" />
     <Text Include="..\..\..\..\assets\shaders\gl_2_test_v.txt" />
+    <Text Include="..\..\..\..\Push reminder - DO NOT CHECK IN.txt" />
+    <Text Include="..\..\..\..\todo.txt" />
     <Text Include="..\..\..\..\TODO2.txt" />
+    <Text Include="..\..\..\..\vao_notes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

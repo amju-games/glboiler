@@ -13,7 +13,7 @@ void gl_1_1_renderer::render_on_gl_thread(int view_index)
   GL_CHECK(glLightfv(GL_LIGHT0, GL_POSITION, light_direction));
 
   view& this_view = m_view[view_index];
-  this_view.set_gl_viewport();
+  ////this_view.set_gl_viewport();
   const camera& cam = this_view.get_camera();
 
   GL_CHECK(glMatrixMode(GL_PROJECTION));

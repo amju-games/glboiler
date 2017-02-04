@@ -18,6 +18,7 @@ public:
   void set_gl_viewport() const;
 
   const camera& get_camera() const { return m_cam; }
+  camera& get_camera() { return m_cam; }
 
 private:
   viewport m_vp;

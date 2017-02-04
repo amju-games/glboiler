@@ -69,7 +69,7 @@ void gl_2_renderer::render_on_gl_thread(int view_index)
   m_opaque_pass_shader.set_mat4_on_gl_thread("light_matrix", m_light_matrix);
 
   view& this_view = m_view[view_index];
-  this_view.set_gl_viewport();
+//  this_view.set_gl_viewport();
   const camera& cam = this_view.get_camera();
 
   m_opaque_pass_shader.set_mat4_on_gl_thread("look_at_matrix", cam.look_at_matrix);
@@ -89,7 +89,7 @@ void gl_2_renderer::render_on_gl_thread(int view_index)
 void gl_2_renderer::end_render_on_gl_thread()
 {
   m_shadow_map.use_texture_on_gl_thread();
-  m_shadow_map.debug_draw_on_gl_thread();
+  ////m_shadow_map.debug_draw_on_gl_thread();
 }
 
 void gl_2_renderer::clear_blended_nodes()

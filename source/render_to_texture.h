@@ -47,7 +47,7 @@ protected:
   int m_width, m_height; // pixels - size of texture to which we render
 
   // Viewport before switching to this render target, so we revert in End()
-  int m_vpX, m_vpY, m_vpW, m_vpH;
+  int m_old_viewport[4];
 
   int m_flags;
 };
