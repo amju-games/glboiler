@@ -93,7 +93,7 @@ void TW_CALL GetAutoRotateCB(void *value, void *clientData)
 
 
 static int WIN_X = 800;
-static int WIN_Y = 600;
+static int WIN_Y = 800;
 
 state* the_state = new md3_state;
 

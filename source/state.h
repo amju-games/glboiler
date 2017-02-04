@@ -27,12 +27,12 @@ public:
 
   void set_window_size(int w, int h);
 
-  view* get_view() { return m_renderers[0]->get_view(0); }
+  view* get_view() { return m_renderer->get_view(); }
 
 protected:
   virtual void set_up_scene_graph_on_gl_thread(resource_manager& rm) = 0;
 
-  virtual void create_renderers_on_gl_thread() = 0;
+  virtual void create_renderer_on_gl_thread() = 0;
 
   // Convenience function for setting up stereo renderers, offsets by eye distance
   static void set_up_renderer_on_gl_thread(renderer& rend, int x, int y, int w, int h, bool left_side);
@@ -46,6 +46,6 @@ protected:
   std::unique_ptr<scene_graph> m_sg;
 
   // Renders the scene graph
-  std::vector<std::shared_ptr<renderer>> m_renderers;
+  std::unique_ptr<renderer> m_renderer;
 };
 

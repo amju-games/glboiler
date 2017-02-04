@@ -25,7 +25,7 @@ public:
   
   // Render: begin, render for each view, then end.
   virtual void begin_render_on_gl_thread(const scene_graph& sg) { m_sg = &sg; }
-  virtual void render_on_gl_thread(int view_index) = 0;
+  virtual void render_on_gl_thread() = 0;
   virtual void end_render_on_gl_thread() { m_sg = nullptr; }
 
   // Final clean up
@@ -34,8 +34,8 @@ public:
   const render_stats& get_render_stats() const { return m_render_stats; }
 
   // TODO allow views to change?
-  void set_view(int n, const view& v) { m_view[n] = v; }
-  view* get_view(int n) { return &(m_view[n]); }
+  void set_view(const view& v) { m_view = v; }
+  view* get_view() { return &m_view; }
 
 protected:
   // Traverse scene graph. Call draw_node() on scene nodes visited.
@@ -56,8 +56,7 @@ protected:
   const scene_graph* m_sg = nullptr;
 
   render_stats m_render_stats;
-  static const int MAX_NUM_VIEWS = 16; 
-  view m_view[MAX_NUM_VIEWS];
+  view m_view;
   std::vector<scene_node*> m_blended_nodes;
 };
 

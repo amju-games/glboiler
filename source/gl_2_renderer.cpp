@@ -58,7 +58,7 @@ void gl_2_renderer::begin_render_on_gl_thread(const scene_graph& sg)
   shadow_map_pass(sg);
 }
 
-void gl_2_renderer::render_on_gl_thread(int view_index)
+void gl_2_renderer::render_on_gl_thread()
 {
   m_opaque_pass_shader.use_on_gl_thread();
   
@@ -68,14 +68,12 @@ void gl_2_renderer::render_on_gl_thread(int view_index)
 //  sh.set_int_on_gl_thread("shadow_map_size", m_shadow_map_size);
   m_opaque_pass_shader.set_mat4_on_gl_thread("light_matrix", m_light_matrix);
 
-  view& this_view = m_view[view_index];
-//  this_view.set_gl_viewport();
-  const camera& cam = this_view.get_camera();
+  const camera& cam = m_view.get_camera();
 
   m_opaque_pass_shader.set_mat4_on_gl_thread("look_at_matrix", cam.look_at_matrix);
   m_opaque_pass_shader.set_mat4_on_gl_thread("proj_matrix", cam.proj_matrix);
 
-  frustum frust = this_view.calc_frustum();
+  frustum frust = m_view.calc_frustum();
 
   m_shadow_map.use_texture_on_gl_thread();
 
@@ -89,7 +87,7 @@ void gl_2_renderer::render_on_gl_thread(int view_index)
 void gl_2_renderer::end_render_on_gl_thread()
 {
   m_shadow_map.use_texture_on_gl_thread();
-  ////m_shadow_map.debug_draw_on_gl_thread();
+  m_shadow_map.debug_draw_on_gl_thread();
 }
 
 void gl_2_renderer::clear_blended_nodes()

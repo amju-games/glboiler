@@ -5,23 +5,21 @@
 #include "gl_1_1_renderer.h"
 #include "gl_includes.h"
 
-void gl_1_1_renderer::render_on_gl_thread(int view_index)
+void gl_1_1_renderer::render_on_gl_thread()
 {
   GL_CHECK(glEnable(GL_LIGHTING));
   GL_CHECK(glEnable(GL_LIGHT0));
   GLfloat light_direction[] = { 1.0, 1.0, 1.0, 0.0 }; 
   GL_CHECK(glLightfv(GL_LIGHT0, GL_POSITION, light_direction));
 
-  view& this_view = m_view[view_index];
-  ////this_view.set_gl_viewport();
-  const camera& cam = this_view.get_camera();
+  const camera& cam = m_view.get_camera();
 
   GL_CHECK(glMatrixMode(GL_PROJECTION));
   GL_CHECK(glLoadMatrixf(cam.proj_matrix.data()));
   GL_CHECK(glMatrixMode(GL_MODELVIEW));
   GL_CHECK(glLoadMatrixf(cam.look_at_matrix.data()));
 
-  frustum frust = this_view.calc_frustum();
+  frustum frust = m_view.calc_frustum();
 
   GL_CHECK(glEnable(GL_CULL_FACE)); // test
   GL_CHECK(glFrontFace(GL_CW));

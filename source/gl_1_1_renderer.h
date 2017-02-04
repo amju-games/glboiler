@@ -9,7 +9,7 @@
 class gl_1_1_renderer : public renderer
 {
 public:
-  virtual void render_on_gl_thread(int view_index) override;
+  virtual void render_on_gl_thread() override;
 
 protected:
   virtual void draw_node(

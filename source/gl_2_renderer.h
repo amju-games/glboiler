@@ -15,7 +15,7 @@ public:
 
   virtual void init_on_gl_thread() override;
   virtual void begin_render_on_gl_thread(const scene_graph& sg) override;
-  virtual void render_on_gl_thread(int view_index) override;
+  virtual void render_on_gl_thread() override;
   virtual void end_render_on_gl_thread() override;
   virtual void destroy_on_gl_thread() override;
 
