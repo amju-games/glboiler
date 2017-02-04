@@ -31,7 +31,7 @@ std::vector<int> scene_graph::get_connections(int from_node) const
   return m_int_graph.get_connections(from_node);
 }
 
-void scene_graph::update()
+void scene_graph::update(float dt)
 {
   // TODO factor out traversal if we need to do it for anything else
   if (m_int_graph.is_empty())

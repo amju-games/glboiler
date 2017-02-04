@@ -54,15 +54,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\..\..\source\tests\geom;..\..\..\..\source\thirdparty\googletest\include;..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\..\..\..\source\tests\geom;..\..\..\..\source\thirdparty\googletest\include;..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -135,6 +135,7 @@
     <ClInclude Include="..\..\..\..\source\md3\md3.h" />
     <ClInclude Include="..\..\..\..\source\md3\md3_types.h" />
     <ClInclude Include="..\..\..\..\source\md3_node.h" />
+    <ClInclude Include="..\..\..\..\source\md3_state.h" />
     <ClInclude Include="..\..\..\..\source\object.h" />
     <ClInclude Include="..\..\..\..\source\renderer.h" />
     <ClInclude Include="..\..\..\..\source\render_to_texture.h" />
@@ -144,6 +145,7 @@
     <ClInclude Include="..\..\..\..\source\scene_graph.h" />
     <ClInclude Include="..\..\..\..\source\scene_node.h" />
     <ClInclude Include="..\..\..\..\source\gl_1_1_solid_scene_node.h" />
+    <ClInclude Include="..\..\..\..\source\state.h" />
     <ClInclude Include="..\..\..\..\source\tests\geom\mat4_test_utils.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -184,6 +186,7 @@
     <ClCompile Include="..\..\..\..\source\material.cpp" />
     <ClCompile Include="..\..\..\..\source\md3\md3.cpp" />
     <ClCompile Include="..\..\..\..\source\md3_node.cpp" />
+    <ClCompile Include="..\..\..\..\source\md3_state.cpp" />
     <ClCompile Include="..\..\..\..\source\renderer.cpp" />
     <ClCompile Include="..\..\..\..\source\render_to_texture.cpp" />
     <ClCompile Include="..\..\..\..\source\resource_manager.cpp" />
@@ -191,6 +194,7 @@
     <ClCompile Include="..\..\..\..\source\scene_graph.cpp" />
     <ClCompile Include="..\..\..\..\source\gl_1_1_solid_scene_node.cpp" />
     <ClCompile Include="..\..\..\..\source\scene_node.cpp" />
+    <ClCompile Include="..\..\..\..\source\state.cpp" />
     <ClCompile Include="..\..\..\..\source\tests\colour_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>

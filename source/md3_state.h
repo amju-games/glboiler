@@ -7,17 +7,15 @@
 #include <memory>
 #include "renderer.h"
 #include "scene_graph.h"
+#include "state.h"
 
-class md3_state
+class md3_state : public state
 {
 public:
-  virtual void on_enter() override;
-  virtual void on_exit() override;
-  virtual void render() const override; 
-  virtual void update(float dt)  override;
 
-private:
-  std::unique_ptr<scene_graph> m_sg;
-  std::unique_ptr<renderer> m_rend;
+protected:
+  virtual void create_renderers_on_gl_thread() override;
+  virtual void set_up_scene_graph_on_gl_thread(resource_manager& rm);
+
 };
 

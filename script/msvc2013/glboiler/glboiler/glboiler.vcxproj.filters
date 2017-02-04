@@ -186,6 +186,12 @@
     <ClInclude Include="..\..\..\..\source\thirdparty\lodepng\lodepng.h">
       <Filter>source\thirdparty\lodepng</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\source\md3_state.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\state.h">
+      <Filter>source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\gl_shader.cpp">
@@ -343,6 +349,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\thirdparty\lodepng\lodepng.cpp">
       <Filter>source\thirdparty\lodepng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\md3_state.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\state.cpp">
+      <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
