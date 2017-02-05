@@ -17,7 +17,7 @@ class gl_2_renderer : public renderer
 public:
   gl_2_renderer();
 
-  virtual void begin_render_on_gl_thread(const scene_graph& sg);
+  virtual void begin_render_on_gl_thread(const scene_graph& sg) override;
   virtual void render_on_gl_thread() override;
   virtual void end_render_on_gl_thread() override;
 

@@ -42,7 +42,9 @@ SOURCES=glut_main.cpp \
 ../scene_description.cpp \
 ../scene_graph.cpp \
 ../scene_node.cpp \
-../shadow_pass.cpp \
+../shadow_depth_pass.cpp \
+../shadow_opaque_pass.cpp \
+../simple_forward_pass.cpp \
 ../state.cpp \
 ../texture.cpp \
 ../view.cpp \
