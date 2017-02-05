@@ -3,6 +3,8 @@
 // -----------------------------------------------------------------------------
 
 #include <string>
+#include <thread>
+#include "boiler_assert.h"
 #include "gl_system.h"
 #include "gl_includes.h"
 #include "log.h"
@@ -105,5 +107,17 @@ void log_gl_info()
   unsigned char s = 0;
   glGetBooleanv(params[11], &s);
   log(msg() << names[11] << ": " << (unsigned int)s);
+}
+
+static std::thread::id gl_thread_id;
+
+void set_gl_thread()
+{
+  gl_thread_id = std::this_thread::get_id();
+}
+
+void check_gl_thread()
+{
+  gl_boiler_assert(gl_thread_id == std::this_thread::get_id());
 }
 

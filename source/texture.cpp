@@ -82,11 +82,11 @@ bool texture::load(const std::string& filename)
 
 void texture::upload_on_gl_thread()
 {
-  glGenTextures(1, &m_bind_texture_id);
-  glBindTexture(GL_TEXTURE_2D, m_bind_texture_id);
+  GL_CHECK(glGenTextures(1, &m_bind_texture_id));
+  GL_CHECK(glBindTexture(GL_TEXTURE_2D, m_bind_texture_id));
 
   // TODO GL 1.1 only - move into gl_1_1_renderer/material
-  glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+  GL_CHECK(glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE));
 
   int format = GL_RGB;
   if (m_bytes_per_pixel == 4)
@@ -108,13 +108,13 @@ void texture::upload_on_gl_thread()
   {
     GL_CHECK(glGenerateMipmap(GL_TEXTURE_2D)); // GL v.3.0+
   
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    GL_CHECK(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+    GL_CHECK(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
   }
   else
   {
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    GL_CHECK(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+    GL_CHECK(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
   }
 
   if (m_delete_data_after_upload)

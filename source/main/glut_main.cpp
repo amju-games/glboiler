@@ -226,6 +226,10 @@ int main(int argc, char** argv)
 
   // log_gl_info();
 
+  // Sets this thread as the GL render thread, so we can check all GL calls 
+  //  are on this same thread.
+  set_gl_thread();
+ 
   the_state->set_window_size(WIN_X, WIN_Y);
   resource_manager rm;
   the_state->init_on_gl_thread(rm);
