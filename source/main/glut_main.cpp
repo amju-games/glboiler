@@ -25,6 +25,11 @@
 #include <Windows.h>
 #endif
 
+static int WIN_X = 800;
+static int WIN_Y = 800;
+
+state* the_state = new md3_state;
+
 #ifdef YES_ANT_TWEAK_BAR
 
 // For AntTweakBar exmaple
@@ -90,12 +95,6 @@ void TW_CALL GetAutoRotateCB(void *value, void *clientData)
 }
 // Ant Tweak bar
 #endif // YES_ANT_TWEAK_BAR
-
-
-static int WIN_X = 800;
-static int WIN_Y = 800;
-
-state* the_state = new md3_state;
 
 void display()
 {

@@ -35,10 +35,9 @@ protected:
   virtual void create_renderer_on_gl_thread() = 0;
 
   // Convenience function for setting up stereo renderers, offsets by eye distance
-  static void set_up_renderer_on_gl_thread(renderer& rend, int x, int y, int w, int h, bool left_side);
+  static void set_up_renderer_on_gl_thread(renderer& rend, int x, int y, int w, int h);
 
 protected:
-  bool m_is_stereo = false;
   int m_window_w = 1;
   int m_window_h = 1;
 

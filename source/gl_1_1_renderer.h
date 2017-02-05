@@ -9,13 +9,7 @@
 class gl_1_1_renderer : public renderer
 {
 public:
-  virtual void render_on_gl_thread() override;
+  gl_1_1_renderer();
 
-protected:
-  virtual void draw_node(
-    const scene_node& node, 
-    const frustum& fr, 
-    gl_shader* override_shader, 
-    const mat4& xform) override;
 };
 

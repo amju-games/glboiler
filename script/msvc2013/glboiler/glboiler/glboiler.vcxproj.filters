@@ -195,6 +195,21 @@
     <ClInclude Include="..\..\..\..\source\state.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render_pass.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\simple_forward_pass.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render_pass_type.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\shadow_opaque_pass.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\shadow_depth_pass.h">
+      <Filter>source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\gl_shader.cpp">
@@ -367,6 +382,18 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\thirdparty\openvr\samples\shared\pathtools.cpp">
       <Filter>source\sdl_openvr_main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render_pass.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\simple_forward_pass.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\shadow_depth_pass.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\shadow_opaque_pass.cpp">
+      <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

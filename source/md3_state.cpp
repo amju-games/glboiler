@@ -49,12 +49,11 @@ void md3_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
   m_sg->add_connection(root->get_id(), plane->get_id());
   m_sg->add_connection(root->get_id(), sphere->get_id());
   m_sg->add_connection(root->get_id(), teapot->get_id());
-
 }
 
 void md3_state::create_renderer_on_gl_thread()
 {
-  m_renderer.reset(new gl_1_1_renderer);
-  set_up_renderer_on_gl_thread(*m_renderer, 0, 0, m_window_w, m_window_h, true);
+  m_renderer.reset(new gl_2_renderer);
+  set_up_renderer_on_gl_thread(*m_renderer, 0, 0, m_window_w, m_window_h);
 }
 

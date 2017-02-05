@@ -41,32 +41,18 @@ void state::update(float dt)
   m_sg->update(dt);
 }
 
-void state::set_up_renderer_on_gl_thread(renderer& rend, int x, int y, int w, int h, bool left_side)
+void state::set_up_renderer_on_gl_thread(renderer& rend, int x, int y, int w, int h)
 {
   rend.init_on_gl_thread();
 
-  float eye_sep = 0.5f;
-  float y_dist = 10.f;
-  float z_dist = 20.0f;
+  vec3 eye_pos(0, 1, 10); // TODO TEMP TEST
   const vec3 up(0, 1, 0);
 
   perspective p(45.0f, 1.0f, 0.1f, 10000.0f);
 
-  if (left_side)
-  {
-    camera left_cam;
-    p.set_matrix(left_cam.proj_matrix);
-    vec3 left(-eye_sep, y_dist, z_dist);
-    look_at(left, -left, up).set_matrix(left_cam.look_at_matrix);
-    rend.set_view(view(viewport(0, 0, w / 2, h), left_cam));
-  }
-  else
-  {
-    camera right_cam;
-    p.set_matrix(right_cam.proj_matrix);
-    vec3 right(eye_sep, y_dist, z_dist);
-    look_at(right, -right, up).set_matrix(right_cam.look_at_matrix);
-    rend.set_view(view(viewport(w / 2, 0, w / 2, h), right_cam));
-  }
+  camera cam;
+  p.set_matrix(cam.proj_matrix);
+  look_at(eye_pos, -eye_pos, up).set_matrix(cam.look_at_matrix);
+  rend.set_view(view(viewport(0, 0, w / 2, h), cam));
 }
 

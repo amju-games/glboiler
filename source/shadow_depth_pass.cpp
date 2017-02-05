@@ -10,7 +10,7 @@
 #include "look_at.h"
 #include "projection.h"
 #include "renderer.h"
-#include "shadow_pass.h"
+#include "shadow_depth_pass.h"
 
 // Bias transforms (-1, 1) to (0, 1) space.
 static const mat4 BIAS_MATRIX =
@@ -20,7 +20,7 @@ static const mat4 BIAS_MATRIX =
   0.5, 0.5, 0.5, 1.0
 };
 
-void shadow_pass::init_on_gl_thread() 
+void shadow_depth_pass::init_on_gl_thread()
 {
   m_shadow_map_size = 1024;
 
@@ -32,16 +32,15 @@ void shadow_pass::init_on_gl_thread()
   m_depth_shader.load("shaders/gl_2_just_depth_v.txt", "shaders/gl_2_just_depth_f.txt");
   m_depth_shader.upload_on_gl_thread();
   m_depth_shader.use_on_gl_thread();
-
 }
 
-void shadow_pass::destroy_on_gl_thread()
+void shadow_depth_pass::destroy_on_gl_thread()
 {
   m_depth_shader.destroy_on_gl_thread();
   m_shadow_map.destroy_on_gl_thread();
 }
 
-void shadow_pass::render_on_gl_thread()
+void shadow_depth_pass::render_on_gl_thread()
 {
   GL_CHECK(glFrontFace(GL_CW)); // Not great that we need this here
   GL_CHECK(glEnable(GL_DEPTH_TEST));
@@ -72,10 +71,16 @@ void shadow_pass::render_on_gl_thread()
 
   GL_CHECK(glCullFace(GL_FRONT));
 
-  get_renderer()->traverse_scene_for_pass(
-    render_pass_type::SHADOW_PASS, light_frustum, &m_depth_shader);
+  traverse_scene_for_pass(
+    render_pass_type::SHADOW_PASS, light_frustum);
 
   m_shadow_map.end_on_gl_thread();
 }
 
+void shadow_depth_pass::draw_node(const scene_node& node, const frustum& fr, const mat4& xform)
+{
+  // Using m_depth_shader
+  m_depth_shader.set_mat4_on_gl_thread("world_matrix", xform);
+  node.render_on_gl_thread();
+}
 

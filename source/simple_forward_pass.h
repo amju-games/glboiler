@@ -4,15 +4,21 @@
 
 #pragma once
 
-#include "pass.h"
+#include "render_pass.h"
 
 // * simple_forward_pass *
 // Render pass: most basic forward render
-class simple_forward_pass : public pass
+class simple_forward_pass : public render_pass
 {
 public:
-  simple_forward_pass(renderer* r) : pass(r) {}
-
   virtual void render_on_gl_thread() override;
+  virtual void init_on_gl_thread() override {}
+  virtual void destroy_on_gl_thread() override {}
+
+protected:
+  virtual void draw_node(
+    const scene_node& node,
+    const frustum& fr,
+    const mat4& xform) override;
 };
 
