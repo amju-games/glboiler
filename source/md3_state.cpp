@@ -54,7 +54,7 @@ void md3_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
 
 void md3_state::create_renderer_on_gl_thread()
 {
-  m_renderer.reset(new gl_2_renderer);
+  m_renderer.reset(new gl_1_1_renderer);
   set_up_renderer_on_gl_thread(*m_renderer, 0, 0, m_window_w, m_window_h, true);
 }
 

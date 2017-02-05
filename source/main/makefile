@@ -36,11 +36,13 @@ SOURCES=glut_main.cpp \
 ../md3_node.cpp \
 ../md3_state.cpp \
 ../renderer.cpp \
+../render_pass.cpp \
 ../render_to_texture.cpp \
 ../resource_manager.cpp \
 ../scene_description.cpp \
 ../scene_graph.cpp \
 ../scene_node.cpp \
+../shadow_pass.cpp \
 ../state.cpp \
 ../texture.cpp \
 ../view.cpp \

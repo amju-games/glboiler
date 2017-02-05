@@ -22,7 +22,7 @@ struct traversal_node
 void renderer::traverse(
   const scene_graph& sg,
   const frustum& fr,
-  gl_shader* override_shader)
+  gl_shader* override_shader) 
 {
   // In this traversal we can visit the same node more than once - required for reflections.
   // It's ok as long as there is not a cycle in the graph.
@@ -55,5 +55,20 @@ void renderer::traverse(
   }
 }
 
+void renderer::traverse_scene_for_pass(
+  render_pass_type pass, 
+  const frustum& f, 
+  gl_shader* override_shader) 
+{
+  traverse(*m_sg, f, override_shader);
+}
+
+void renderer::render_on_gl_thread()
+{
+  for (auto p : m_passes)
+  {
+    p->render_on_gl_thread();
+  }
+}
 
 
