@@ -19,10 +19,10 @@ void material::set_shader(std::shared_ptr<gl_shader> shader)
 
 void material::use_on_gl_thread()
 {
-  //if (m_shader)
-  //{
-  //  m_shader->use_on_gl_thread();
-  //}
+  if (m_shader)
+  {
+    m_shader->use_on_gl_thread();
+  }
 
   for (auto tex : m_textures)
   {

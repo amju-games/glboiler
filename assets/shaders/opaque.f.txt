@@ -1,6 +1,13 @@
+// -----------------------------------------------------------------------------
+// glboiler - Jason Colman 2016-2017 - OpenGL experiments
+// -----------------------------------------------------------------------------
+// Opaque pass.
+// Draw opaque meshes, using a shadow map.
 // Fragment shader
+// -----------------------------------------------------------------------------
+
 // Just replicating fixed function lighting (one light) + one diffuse map
-// GL 2, so using built-in uniforms.
+// GL 2, so using some built-in uniforms.
 
 // TODO get rid of this stuff, not used here.
 uniform sampler2D diffuse_map;

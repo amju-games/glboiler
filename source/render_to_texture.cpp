@@ -43,10 +43,14 @@ void render_to_texture::set_size(int w, int h)
   m_height = h;
 }
  
+void render_to_texture::get_size(int* w, int* h) const
+{
+  *w = m_width;
+  *h = m_height;
+}
+
 void render_to_texture::use_texture_on_gl_thread()
 {
-////?!  GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-
   GL_CHECK(glEnable(GL_TEXTURE_2D));
 
   if (m_flags == RENDER_DEPTH)

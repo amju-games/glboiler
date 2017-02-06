@@ -28,6 +28,8 @@
 static int WIN_X = 800;
 static int WIN_Y = 800;
 
+resource_manager rm;
+
 state* the_state = new md3_state;
 
 #ifdef YES_ANT_TWEAK_BAR
@@ -96,9 +98,20 @@ void TW_CALL GetAutoRotateCB(void *value, void *clientData)
 // Ant Tweak bar
 #endif // YES_ANT_TWEAK_BAR
 
+
+void onKey(unsigned char ch, int x, int y)
+{
+  if (ch == 'r')
+  {
+    rm.reload_all();
+  }
+}
+
 void display()
 {
   //time_this_block("Rendering");
+
+  rm.update_on_gl_thread();
 
   GL_CHECK(glClearColor(1, 0, 0, 1));
   GL_CHECK(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
@@ -231,8 +244,10 @@ int main(int argc, char** argv)
   set_gl_thread();
  
   the_state->set_window_size(WIN_X, WIN_Y);
-  resource_manager rm;
   the_state->init_on_gl_thread(rm);
+
+  // In absence of Ant Tweak Bar takeover, get key events to reload resources etc.
+  glutKeyboardFunc(onKey);
 
   glutDisplayFunc(display);
   glutReshapeFunc(reshape);

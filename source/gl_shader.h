@@ -19,6 +19,8 @@ public:
   virtual void use_on_gl_thread() override;
   virtual void destroy_on_gl_thread() override;
 
+  virtual void reload() override;
+  
   void set_float_on_gl_thread(const std::string& name, float f);
   void set_int_on_gl_thread(const std::string& name, int i);
   void set_mat4_on_gl_thread(const std::string& name, const mat4& m);

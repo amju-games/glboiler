@@ -177,7 +177,7 @@
     <ClInclude Include="..\..\..\..\source\scene_graph.h" />
     <ClInclude Include="..\..\..\..\source\scene_node.h" />
     <ClInclude Include="..\..\..\..\source\gl_1_1_solid_scene_node.h" />
-    <ClInclude Include="..\..\..\..\source\shadow_opaque_pass.h" />
+    <ClInclude Include="..\..\..\..\source\opaque_pass.h" />
     <ClInclude Include="..\..\..\..\source\shadow_depth_pass.h" />
     <ClInclude Include="..\..\..\..\source\simple_forward_pass.h" />
     <ClInclude Include="..\..\..\..\source\state.h" />
@@ -238,7 +238,7 @@
     <ClCompile Include="..\..\..\..\source\gl_1_1_solid_scene_node.cpp" />
     <ClCompile Include="..\..\..\..\source\scene_node.cpp" />
     <ClCompile Include="..\..\..\..\source\shadow_depth_pass.cpp" />
-    <ClCompile Include="..\..\..\..\source\shadow_opaque_pass.cpp" />
+    <ClCompile Include="..\..\..\..\source\opaque_pass.cpp" />
     <ClCompile Include="..\..\..\..\source\simple_forward_pass.cpp" />
     <ClCompile Include="..\..\..\..\source\state.cpp" />
     <ClCompile Include="..\..\..\..\source\tests\colour_tests.cpp">
@@ -359,10 +359,10 @@
     <Library Include="..\..\..\..\source\thirdparty\sdl2-2.0.3\bin\win32\SDL2main.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\assets\shaders\gl_2_just_depth_f.txt" />
-    <Text Include="..\..\..\..\assets\shaders\gl_2_just_depth_v.txt" />
-    <Text Include="..\..\..\..\assets\shaders\gl_2_replicate_fixed_f.txt" />
-    <Text Include="..\..\..\..\assets\shaders\gl_2_replicate_fixed_v.txt" />
+    <Text Include="..\..\..\..\assets\shaders\shadow_depth_opaque.f.txt" />
+    <Text Include="..\..\..\..\assets\shaders\shadow_depth_opaque.v.txt" />
+    <Text Include="..\..\..\..\assets\shaders\opaque.f.txt" />
+    <Text Include="..\..\..\..\assets\shaders\opaque.v.txt" />
     <Text Include="..\..\..\..\assets\shaders\gl_2_test_f.txt" />
     <Text Include="..\..\..\..\assets\shaders\gl_2_test_v.txt" />
     <Text Include="..\..\..\..\Push reminder - DO NOT CHECK IN.txt" />

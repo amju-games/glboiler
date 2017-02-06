@@ -20,7 +20,7 @@ static const mat4 BIAS_MATRIX =
   0.5, 0.5, 0.5, 1.0
 };
 
-void shadow_depth_pass::init_on_gl_thread()
+void shadow_depth_pass::init_on_gl_thread(resource_manager& rm)
 {
   m_shadow_map_size = 1024;
 
@@ -29,14 +29,12 @@ void shadow_depth_pass::init_on_gl_thread()
   m_shadow_map.init_on_gl_thread();
 
   // shader for shadow map
-  m_depth_shader.load("shaders/gl_2_just_depth_v.txt", "shaders/gl_2_just_depth_f.txt");
-  m_depth_shader.upload_on_gl_thread();
-  m_depth_shader.use_on_gl_thread();
+  m_depth_shader = rm.get_shader("shadow_depth_opaque");
 }
 
 void shadow_depth_pass::destroy_on_gl_thread()
 {
-  m_depth_shader.destroy_on_gl_thread();
+  m_depth_shader->destroy_on_gl_thread(); // or leave to res manager to do this? TODO
   m_shadow_map.destroy_on_gl_thread();
 }
 
@@ -46,7 +44,7 @@ void shadow_depth_pass::render_on_gl_thread()
   GL_CHECK(glEnable(GL_DEPTH_TEST));
   GL_CHECK(glEnable(GL_CULL_FACE)); 
 
-  m_depth_shader.use_on_gl_thread();
+  m_depth_shader->use_on_gl_thread();
 
   // TODO TEMP TEST
   // Orbiting light
@@ -59,7 +57,7 @@ void shadow_depth_pass::render_on_gl_thread()
   light.calc_matrix(20.0, 0.1, 100.0);
   const mat4& m = light.get_matrix();
 
-  m_depth_shader.set_mat4_on_gl_thread("view_proj_matrix", m);
+  m_depth_shader->set_mat4_on_gl_thread("view_proj_matrix", m);
 
   // Transform with bias and store for second pass
   m_light_matrix = mult(m, BIAS_MATRIX);
@@ -80,7 +78,7 @@ void shadow_depth_pass::render_on_gl_thread()
 void shadow_depth_pass::draw_node(const scene_node& node, const frustum& fr, const mat4& xform)
 {
   // Using m_depth_shader
-  m_depth_shader.set_mat4_on_gl_thread("world_matrix", xform);
+  m_depth_shader->set_mat4_on_gl_thread("world_matrix", xform);
   node.render_on_gl_thread();
 }
 

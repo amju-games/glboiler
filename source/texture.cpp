@@ -61,6 +61,11 @@ colour texture::get_texel_colour(const vec2& uv) const
     static_cast<float>(c[3]) / 255.0f );
 }
 
+void texture::reload()
+{
+  load(m_filename);
+}
+
 bool texture::load(const std::string& filename)
 {
   m_filename = filename;
@@ -77,11 +82,19 @@ bool texture::load(const std::string& filename)
     << "\" w: " << m_w << " h: " << m_h 
     << " bpp: " << m_bytes_per_pixel);
 
+  m_has_been_uploaded = false;
+
   return true;
 }
 
 void texture::upload_on_gl_thread()
 {
+  if (m_has_been_uploaded)
+  {
+    log(msg() << m_name << " already uploaded.");
+    return;
+  }
+
   GL_CHECK(glGenTextures(1, &m_bind_texture_id));
   GL_CHECK(glBindTexture(GL_TEXTURE_2D, m_bind_texture_id));
 

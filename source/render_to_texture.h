@@ -18,6 +18,7 @@ public:
   void set_render_flags(int renderFlags);
 
   void set_size(int w, int h);
+  void get_size(int* w, int* h) const;
 
   // Create texture render target
   bool init_on_gl_thread();

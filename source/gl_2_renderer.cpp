@@ -10,16 +10,16 @@
 #include "look_at.h"
 #include "projection.h"
 #include "shadow_depth_pass.h"
-#include "shadow_opaque_pass.h"
+#include "opaque_pass.h"
 
 gl_2_renderer::gl_2_renderer()
 {
   m_shadow_depth_pass.reset(new shadow_depth_pass);
-  m_shadow_opaque_pass.reset(new shadow_opaque_pass);
+  m_opaque_pass.reset(new opaque_pass);
 
   // Store these in a generic vec so we can initialise all the passes etc in the base class.
   add_pass(m_shadow_depth_pass);
-  add_pass(m_shadow_opaque_pass);
+  add_pass(m_opaque_pass);
 }
 
 void gl_2_renderer::begin_render_on_gl_thread(const scene_graph& sg)
@@ -32,10 +32,10 @@ void gl_2_renderer::render_on_gl_thread()
   m_shadow_depth_pass->render_on_gl_thread();
 
   // Pass data from one pass to the next
-  m_shadow_opaque_pass->set_shadow_map(m_shadow_depth_pass->get_shadow_map());
-  m_shadow_opaque_pass->set_light_matrix(m_shadow_depth_pass->get_light_matrix());
+  m_opaque_pass->set_shadow_map(m_shadow_depth_pass->get_shadow_map());
+  m_opaque_pass->set_light_matrix(m_shadow_depth_pass->get_light_matrix());
 
-  m_shadow_opaque_pass->render_on_gl_thread();
+  m_opaque_pass->render_on_gl_thread();
 }
 
 void gl_2_renderer::end_render_on_gl_thread()

@@ -1,6 +1,15 @@
 MD3 rotation of separate model - broken for gl2 renderer
  - it's because of glMultMatrixf in DrawLink() - extract this and subclass for GL 1.1 and 2
 
+
+ Shaders should always be shared ptrs to resources, so we can rebuild all shaders.
+ Same for textures, meshes. All resources can be reloaded at any time.
+ Add Uniform and Attribute types for setting shader inputs at run time.
+
+
+ Shadows: make shadows work with trees/alpha nodes. Second shader within shadow depth pass.
+
+
 Threads, message queue
 
 Materials

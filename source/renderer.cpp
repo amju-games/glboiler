@@ -17,11 +17,11 @@ void renderer::render_on_gl_thread()
   }
 }
 
-void renderer::init_on_gl_thread()
+void renderer::init_on_gl_thread(resource_manager& rm)
 {
   for (auto p : m_passes)
   {
-    p->init_on_gl_thread();
+    p->init_on_gl_thread(rm);
   }
 }
 

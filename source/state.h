@@ -32,10 +32,10 @@ public:
 protected:
   virtual void set_up_scene_graph_on_gl_thread(resource_manager& rm) = 0;
 
-  virtual void create_renderer_on_gl_thread() = 0;
+  virtual void create_renderer_on_gl_thread(resource_manager& rm) = 0;
 
-  // Convenience function for setting up stereo renderers, offsets by eye distance
-  static void set_up_renderer_on_gl_thread(renderer& rend, int x, int y, int w, int h);
+  // Convenience function for setting up renderer.
+  static void set_up_renderer_on_gl_thread(renderer& rend, int x, int y, int w, int h, resource_manager& rm);
 
 protected:
   int m_window_w = 1;

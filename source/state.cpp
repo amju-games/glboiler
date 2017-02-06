@@ -17,7 +17,7 @@ void state::set_window_size(int w, int h)
 void state::init_on_gl_thread(resource_manager& rm)
 {
   // Create renderers
-  create_renderer_on_gl_thread();
+  create_renderer_on_gl_thread(rm);
 
   // Create scene graph
   set_up_scene_graph_on_gl_thread(rm);
@@ -41,9 +41,9 @@ void state::update(float dt)
   m_sg->update(dt);
 }
 
-void state::set_up_renderer_on_gl_thread(renderer& rend, int x, int y, int w, int h)
+void state::set_up_renderer_on_gl_thread(renderer& rend, int x, int y, int w, int h, resource_manager& rm)
 {
-  rend.init_on_gl_thread();
+  rend.init_on_gl_thread(rm);
 
   vec3 eye_pos(0, 1, 10); // TODO TEMP TEST
   const vec3 up(0, 1, 0);

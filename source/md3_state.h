@@ -12,10 +12,10 @@
 class md3_state : public state
 {
 public:
+  virtual void init_on_gl_thread(resource_manager& rm) override;
 
 protected:
-  virtual void create_renderer_on_gl_thread() override;
+  virtual void create_renderer_on_gl_thread(resource_manager& rm) override;
   virtual void set_up_scene_graph_on_gl_thread(resource_manager& rm) override;
-
 };
 

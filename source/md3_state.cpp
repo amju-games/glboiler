@@ -8,6 +8,20 @@
 #include "gl_2_renderer.h"
 #include "gl_1_1_renderer.h"
 
+void md3_state::init_on_gl_thread(resource_manager& rm)
+{
+  // Add resources
+  std::shared_ptr<gl_shader> opaque(new gl_shader);
+  opaque->load("shaders/opaque.v.txt", "shaders/opaque.f.txt");
+  rm.add_gl_resource("opaque", opaque);
+
+  std::shared_ptr<gl_shader> shadow_depth_opaque(new gl_shader);
+  shadow_depth_opaque->load("shaders/shadow_depth_opaque.v.txt", "shaders/shadow_depth_opaque.f.txt");
+  rm.add_gl_resource("shadow_depth_opaque", shadow_depth_opaque);
+
+  state::init_on_gl_thread(rm);
+}
+
 void md3_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
 {
   m_sg.reset(new scene_graph);
@@ -51,9 +65,9 @@ void md3_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
   m_sg->add_connection(root->get_id(), teapot->get_id());
 }
 
-void md3_state::create_renderer_on_gl_thread()
+void md3_state::create_renderer_on_gl_thread(resource_manager& rm)
 {
   m_renderer.reset(new gl_2_renderer);
-  set_up_renderer_on_gl_thread(*m_renderer, 0, 0, m_window_w, m_window_h);
+  set_up_renderer_on_gl_thread(*m_renderer, 0, 0, m_window_w, m_window_h, rm);
 }
 

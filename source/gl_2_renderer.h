@@ -8,7 +8,7 @@
 #include "render_to_texture.h"
 
 class shadow_depth_pass;
-class shadow_opaque_pass;
+class opaque_pass;
 
 // * gl_2_renderer *
 // Render scene with a single shadow map.
@@ -25,6 +25,6 @@ private:
   // Explicit pointers to each pass, which are also pushed back into m_passes,
   //  for generic stuff in the base class.
   std::shared_ptr<shadow_depth_pass> m_shadow_depth_pass;
-  std::shared_ptr<shadow_opaque_pass> m_shadow_opaque_pass;
+  std::shared_ptr<opaque_pass> m_opaque_pass;
 };
 

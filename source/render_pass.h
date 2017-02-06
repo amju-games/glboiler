@@ -5,6 +5,7 @@
 #pragma once
 
 #include "render_pass_type.h"
+#include "resource_manager.h"
 
 class frustum;
 class gl_shader;
@@ -22,7 +23,7 @@ public:
   // When we construct, point back to the owning renderer (i.e. weak ptr)
   void set_renderer(renderer* r) { m_renderer = r; }
 
-  virtual void init_on_gl_thread() = 0;
+  virtual void init_on_gl_thread(resource_manager& rm) = 0;
   virtual void destroy_on_gl_thread() = 0;
   virtual void render_on_gl_thread() = 0;
 
@@ -30,7 +31,7 @@ public:
 
 protected:
   // Traverse the scene, rendering the nodes which should be rendered 
-  //  in the given pass.
+  //  for the given pass type.
   void traverse_scene_for_pass(
     render_pass_type pass,
     const frustum&);

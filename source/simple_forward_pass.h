@@ -11,8 +11,8 @@
 class simple_forward_pass : public render_pass
 {
 public:
+  virtual void init_on_gl_thread(resource_manager& rm) override {}
   virtual void render_on_gl_thread() override;
-  virtual void init_on_gl_thread() override {}
   virtual void destroy_on_gl_thread() override {}
 
 protected:

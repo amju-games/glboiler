@@ -1,4 +1,10 @@
-// test vertex shader
+// -----------------------------------------------------------------------------
+// glboiler - Jason Colman 2016-2017 - OpenGL experiments
+// -----------------------------------------------------------------------------
+// Opaque pass.
+// Draw opaque meshes, using a shadow map.
+// Vertex shader
+// -----------------------------------------------------------------------------
 
 uniform mat4 world_matrix;
 uniform mat4 look_at_matrix;

@@ -9,7 +9,7 @@
 #include "scene_graph.h"
 #include "view.h"
 
-class gl_shader;
+////class gl_shader;
 
 struct render_stats
 {
@@ -23,7 +23,7 @@ public:
   
   // One-time initialisation. 
   // Default behaviour is to initialise all render passes.
-  virtual void init_on_gl_thread();
+  virtual void init_on_gl_thread(resource_manager& rm);
   
   // Render: begin, render for each view, then end.
   virtual void begin_render_on_gl_thread(const scene_graph& sg) { m_sg = &sg; }

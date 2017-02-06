@@ -1,0 +1,16 @@
+// -----------------------------------------------------------------------------
+// glboiler - Jason Colman 2016-2017 - OpenGL experiments
+// -----------------------------------------------------------------------------
+// Shadow map opaque pass.
+// Draw opaque meshes into a depth map.
+// Vertex shader
+// -----------------------------------------------------------------------------
+
+uniform mat4 world_matrix;
+uniform mat4 view_proj_matrix;
+
+void main()
+{
+  gl_Position = view_proj_matrix * world_matrix * gl_Vertex;
+}
+

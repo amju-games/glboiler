@@ -204,10 +204,10 @@
     <ClInclude Include="..\..\..\..\source\render_pass_type.h">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\source\shadow_opaque_pass.h">
+    <ClInclude Include="..\..\..\..\source\shadow_depth_pass.h">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\source\shadow_depth_pass.h">
+    <ClInclude Include="..\..\..\..\source\opaque_pass.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
@@ -392,7 +392,7 @@
     <ClCompile Include="..\..\..\..\source\shadow_depth_pass.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\shadow_opaque_pass.cpp">
+    <ClCompile Include="..\..\..\..\source\opaque_pass.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -405,27 +405,27 @@
     <Library Include="..\..\..\..\source\thirdparty\sdl2-2.0.3\bin\win32\SDL2main.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\assets\shaders\gl_2_just_depth_f.txt">
-      <Filter>assets\shaders</Filter>
-    </Text>
-    <Text Include="..\..\..\..\assets\shaders\gl_2_just_depth_v.txt">
-      <Filter>assets\shaders</Filter>
-    </Text>
     <Text Include="..\..\..\..\assets\shaders\gl_2_test_f.txt">
       <Filter>assets\shaders</Filter>
     </Text>
     <Text Include="..\..\..\..\assets\shaders\gl_2_test_v.txt">
       <Filter>assets\shaders</Filter>
     </Text>
-    <Text Include="..\..\..\..\assets\shaders\gl_2_replicate_fixed_f.txt">
-      <Filter>assets\shaders</Filter>
-    </Text>
-    <Text Include="..\..\..\..\assets\shaders\gl_2_replicate_fixed_v.txt">
-      <Filter>assets\shaders</Filter>
-    </Text>
     <Text Include="..\..\..\..\TODO2.txt" />
     <Text Include="..\..\..\..\todo.txt" />
     <Text Include="..\..\..\..\vao_notes.txt" />
     <Text Include="..\..\..\..\Push reminder - DO NOT CHECK IN.txt" />
+    <Text Include="..\..\..\..\assets\shaders\shadow_depth_opaque.f.txt">
+      <Filter>assets\shaders</Filter>
+    </Text>
+    <Text Include="..\..\..\..\assets\shaders\shadow_depth_opaque.v.txt">
+      <Filter>assets\shaders</Filter>
+    </Text>
+    <Text Include="..\..\..\..\assets\shaders\opaque.f.txt">
+      <Filter>assets\shaders</Filter>
+    </Text>
+    <Text Include="..\..\..\..\assets\shaders\opaque.v.txt">
+      <Filter>assets\shaders</Filter>
+    </Text>
   </ItemGroup>
 </Project>

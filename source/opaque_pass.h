@@ -6,11 +6,13 @@
 
 #include "render_pass.h"
 
-class shadow_opaque_pass : public render_pass
+class render_to_texture;
+
+class opaque_pass : public render_pass
 {
 public:
+  virtual void init_on_gl_thread(resource_manager& rm) override;
   virtual void render_on_gl_thread() override;
-  virtual void init_on_gl_thread() override;
   virtual void destroy_on_gl_thread() override;
 
   // Set light matrix from shadow depth pass
@@ -29,7 +31,6 @@ private:
 
 private:
   render_to_texture* m_shadow_map = nullptr;
-  gl_shader m_opaque_pass_shader;  
+  std::shared_ptr<gl_shader> m_opaque_pass_shader;
   mat4 m_light_matrix;
-
 };
