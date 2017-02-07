@@ -36,6 +36,13 @@ void render_pass::traverse_scene_for_pass(
     to_visit.pop();
 
     const scene_node& node = sg.get_node(tn.id);
+    if (!node.yes_render_in_pass(pass))
+    {
+      // Don't render the node in this pass. 
+      // Assuming all ancestor nodes have the same pass flags.
+      continue;
+    }
+
     mat4 m = mult(tn.combined_matrix, node.get_xform());
 
     // TODO VFC here, transform node bounding vol and test against frustum.

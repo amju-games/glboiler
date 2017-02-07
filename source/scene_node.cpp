@@ -17,3 +17,21 @@ void scene_node::use_material_on_gl_thread() const
   }
 }
 
+void scene_node::add_render_pass(render_pass_type rpt)
+{
+  if (rpt == render_pass_type::ALL)
+  {
+    // Set bit for every pass
+    m_render_passes = 0xffffffff;
+  }
+  else
+  {
+    m_render_passes |= (1 << static_cast<int>(rpt));
+  }
+}
+
+bool scene_node::yes_render_in_pass(render_pass_type rpt) const
+{
+  return (m_render_passes & (1 << static_cast<int>(rpt))) != 0;
+}
+

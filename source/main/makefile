@@ -35,6 +35,7 @@ SOURCES=glut_main.cpp \
 ../material.cpp \
 ../md3_node.cpp \
 ../md3_state.cpp \
+../opaque_pass.cpp \
 ../renderer.cpp \
 ../render_pass.cpp \
 ../render_to_texture.cpp \
@@ -43,7 +44,6 @@ SOURCES=glut_main.cpp \
 ../scene_graph.cpp \
 ../scene_node.cpp \
 ../shadow_depth_pass.cpp \
-../shadow_opaque_pass.cpp \
 ../simple_forward_pass.cpp \
 ../state.cpp \
 ../texture.cpp \

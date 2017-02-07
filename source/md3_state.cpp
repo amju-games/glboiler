@@ -39,10 +39,13 @@ void md3_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
 
   auto root = std::make_shared<scene_node>();
   m_sg->add_node(root);
+  root->add_render_pass(render_pass_type::ALL);
 
   // Add MD3 model
   auto md3_root = std::make_shared<md3_node>();
   md3_root->load(rm);
+  md3_root->add_render_pass(render_pass_type::SHADOW_PASS);
+  md3_root->add_render_pass(render_pass_type::FORWARD_OPAQUE_PASS);
 
   mat4 scale_down;
   scale_down.scale(.1f, .1f, .1f); // rather large by default
@@ -59,6 +62,8 @@ void md3_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
   auto sphere = std::make_shared<gl_1_1_sphere_scene_node>();
   sphere->get_xform().translate(vec3(-5, 0, -5));
   m_sg->add_node(sphere);
+  sphere->add_render_pass(render_pass_type::SHADOW_PASS);
+  sphere->add_render_pass(render_pass_type::FORWARD_OPAQUE_PASS);
 
   auto teapot = std::make_shared<gl_1_1_teapot_scene_node>();
   mat4 m = mult(mat4().scale(.5f, .5f, .5f), mat4().rotate_x_radians(static_cast<float>(-M_PI_2)));
@@ -66,10 +71,14 @@ void md3_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
   teapot->get_xform() = m;
   teapot->set_material(mat_white);
   m_sg->add_node(teapot);
+  teapot->add_render_pass(render_pass_type::SHADOW_PASS);
+  teapot->add_render_pass(render_pass_type::FORWARD_OPAQUE_PASS);
 
   auto plane = std::make_shared<gl_1_1_plane_scene_node>();
   plane->get_xform().translate(vec3(0, -2.f, 0));
   m_sg->add_node(plane);
+  plane->add_render_pass(render_pass_type::SHADOW_PASS);
+  plane->add_render_pass(render_pass_type::FORWARD_OPAQUE_PASS);
 
   plane->set_material(mat_test_card);
 

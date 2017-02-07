@@ -14,7 +14,7 @@ public:
   virtual void render_on_gl_thread() const override;
   virtual void update() override;
 
-  void md3_node::load(resource_manager& rm);
+  void load(resource_manager& rm);
 
 private:
   CModelMD3* m_md3_model;

@@ -9,6 +9,10 @@
 enum class render_pass_type
 {
   SHADOW_PASS,
+  SHADOW_ALPHA_PASS,
   FORWARD_OPAQUE_PASS,
+  FORWARD_BLENDED_PASS,
+
+  ALL
 };
 
