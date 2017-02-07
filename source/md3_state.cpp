@@ -42,6 +42,8 @@ void md3_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
 
   // Add MD3 model
   auto md3_root = std::make_shared<md3_node>();
+  md3_root->load(rm);
+
   mat4 scale_down;
   scale_down.scale(.1f, .1f, .1f); // rather large by default
   md3_root->get_xform() = mult(scale_down, mat4().rotate_x_radians(static_cast<float>(-M_PI_2)));
