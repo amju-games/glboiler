@@ -69,6 +69,8 @@ void texture::reload()
 bool texture::load(const std::string& filename)
 {
   m_filename = filename;
+  set_name(filename);
+
   if (!load_png(filename, &m_data, &m_w, &m_h, &m_bytes_per_pixel))
   {
     log(msg() << "Failed to load texture \"" << filename << "\"");

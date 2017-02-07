@@ -19,6 +19,17 @@ void md3_state::init_on_gl_thread(resource_manager& rm)
   shadow_depth_opaque->load("shaders/shadow_depth_opaque.v.txt", "shaders/shadow_depth_opaque.f.txt");
   rm.add_gl_resource("shadow_depth_opaque", shadow_depth_opaque);
 
+  {
+    std::shared_ptr<texture> tex(new texture);
+    tex->load("md3/dragon/deranged_crowley.png");
+    rm.add_gl_resource(tex->get_name(), tex);
+  }
+  {
+    std::shared_ptr<texture> tex(new texture);
+    tex->load("md3/dragon/deranged_sir_bruin.png");
+    rm.add_gl_resource(tex->get_name(), tex);
+  }
+
   state::init_on_gl_thread(rm);
 }
 
