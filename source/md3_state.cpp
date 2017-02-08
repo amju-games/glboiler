@@ -61,6 +61,7 @@ void md3_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
 
   auto sphere = std::make_shared<gl_1_1_sphere_scene_node>();
   sphere->get_xform().translate(vec3(-5, 0, -5));
+  sphere->set_material(mat_white);
   m_sg->add_node(sphere);
   sphere->add_render_pass(render_pass_type::SHADOW_PASS);
   sphere->add_render_pass(render_pass_type::FORWARD_OPAQUE_PASS);

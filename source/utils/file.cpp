@@ -36,6 +36,11 @@ bool file::open_for_reading(const std::string& filename, std::ios::openmode mode
     //    m_size = m_file.tellg();
     //    m_file.seekg(0, m_file.beg);
   }
+  else
+  {
+    log(msg() << "FAILED to open for reading: \"" << filename << "\"");
+    gl_boiler_stop;
+  }
 
   return m_file.is_open();
 }
@@ -99,6 +104,18 @@ bool text_file::read_string(std::string* s)
   return true;
 }
   
+void text_file::report_error(const std::string& err)
+{
+  if (m_filename.empty())
+  {
+    log(msg() << "File: no filename: error: " << err);
+  }
+  else
+  {
+    log(msg() << "File: " << m_filename << ": error: " << err);
+  }
+}
+
 bool binary_file::seek(size_t file_pos)
 {
   if (!m_file.is_open() || m_file.eof())

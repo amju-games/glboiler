@@ -19,7 +19,9 @@
 
 #include "gl_includes.h"
 #include "gl_system.h"
+#include "obj_state.h"
 #include "md3_state.h"
+#include "resource_manager.h"
 
 #ifdef WIN32
 #include <Windows.h>
@@ -30,7 +32,7 @@ static int WIN_Y = 800;
 
 resource_manager rm;
 
-state* the_state = new md3_state;
+state* the_state = new obj_state; //md3_state;
 
 #ifdef YES_ANT_TWEAK_BAR
 

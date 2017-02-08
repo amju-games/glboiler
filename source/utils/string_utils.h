@@ -26,3 +26,5 @@ bool contains(const std::string& container, const std::string& search_for_this);
 
 int to_int(const std::string& s);
 
+float to_float(const std::string& s);
+

@@ -6,11 +6,16 @@
 // Vertex shader
 // -----------------------------------------------------------------------------
 
+attribute vec4 a_pos;
+attribute vec2 a_uv;
+attribute vec3 a_normal;
+attribute vec3 a_tangent;
+
 uniform mat4 world_matrix;
 uniform mat4 view_proj_matrix;
 
 void main()
 {
-  gl_Position = view_proj_matrix * world_matrix * gl_Vertex;
+  gl_Position = view_proj_matrix * world_matrix * a_pos;
 }
 

@@ -96,3 +96,8 @@ int to_int(const std::string& s)
   return atoi(s.c_str());
 }
 
+float to_float(const std::string& s)
+{
+  return static_cast<float>(atof(s.c_str()));
+}
+

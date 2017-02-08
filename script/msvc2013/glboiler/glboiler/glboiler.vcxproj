@@ -67,19 +67,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\..\..\source\thirdparty\sdl2-2.0.3\include;..\..\..\..\source\thirdparty\openvr\headers;..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\..\..\..\source\obj;..\..\..\..\source\thirdparty\sdl2-2.0.3\include;..\..\..\..\source\thirdparty\openvr\headers;..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GlutDebug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\..\..\source\thirdparty\sdl2-2.0.3\include;..\..\..\..\source\thirdparty\openvr\headers;..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\..\..\..\source\obj;..\..\..\..\source\thirdparty\sdl2-2.0.3\include;..\..\..\..\source\thirdparty\openvr\headers;..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GTest|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\..\..\source\thirdparty\sdl2-2.0.3\include;..\..\..\..\source\thirdparty\openvr\headers;..\..\..\..\source\tests\geom;..\..\..\..\source\thirdparty\googletest\include;..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\..\..\..\source\obj;..\..\..\..\source\thirdparty\sdl2-2.0.3\include;..\..\..\..\source\thirdparty\openvr\headers;..\..\..\..\source\tests\geom;..\..\..\..\source\thirdparty\googletest\include;..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\..\..\source\thirdparty\sdl2-2.0.3\include;..\..\..\..\source\thirdparty\openvr\headers;..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\..\..\..\source\obj;..\..\..\..\source\thirdparty\sdl2-2.0.3\include;..\..\..\..\source\thirdparty\openvr\headers;..\..\..\..\source\utils;..\..\..\..\source\md3;..\..\..\..\source;..\..\..\..\source\thirdparty\lodepng;..\..\..\..\source\thirdparty\AntTweakBar\include;..\..\..\..\source\windows;..\..\..\..\source\geom;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -167,6 +167,11 @@
     <ClInclude Include="..\..\..\..\source\md3_node.h" />
     <ClInclude Include="..\..\..\..\source\md3_state.h" />
     <ClInclude Include="..\..\..\..\source\object.h" />
+    <ClInclude Include="..\..\..\..\source\obj\obj_material.h" />
+    <ClInclude Include="..\..\..\..\source\obj\obj_mesh.h" />
+    <ClInclude Include="..\..\..\..\source\obj\obj_util.h" />
+    <ClInclude Include="..\..\..\..\source\obj_scene_node.h" />
+    <ClInclude Include="..\..\..\..\source\obj_state.h" />
     <ClInclude Include="..\..\..\..\source\renderer.h" />
     <ClInclude Include="..\..\..\..\source\render_pass.h" />
     <ClInclude Include="..\..\..\..\source\render_pass_type.h" />
@@ -229,6 +234,11 @@
     <ClCompile Include="..\..\..\..\source\md3\md3.cpp" />
     <ClCompile Include="..\..\..\..\source\md3_node.cpp" />
     <ClCompile Include="..\..\..\..\source\md3_state.cpp" />
+    <ClCompile Include="..\..\..\..\source\obj\obj_material.cpp" />
+    <ClCompile Include="..\..\..\..\source\obj\obj_mesh.cpp" />
+    <ClCompile Include="..\..\..\..\source\obj\obj_util.cpp" />
+    <ClCompile Include="..\..\..\..\source\obj_scene_node.cpp" />
+    <ClCompile Include="..\..\..\..\source\obj_state.cpp" />
     <ClCompile Include="..\..\..\..\source\renderer.cpp" />
     <ClCompile Include="..\..\..\..\source\render_pass.cpp" />
     <ClCompile Include="..\..\..\..\source\render_to_texture.cpp" />

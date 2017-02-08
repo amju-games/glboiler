@@ -4,9 +4,6 @@
 
 #pragma once
 
-#include <memory>
-#include "renderer.h"
-#include "scene_graph.h"
 #include "state.h"
 
 class md3_state : public state

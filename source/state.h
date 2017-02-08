@@ -6,10 +6,12 @@
 
 #include <memory>
 #include <vector>
+#include "scene_graph.h"
+#include "renderer.h"
 
 class resource_manager;
-class renderer;
-class scene_graph;
+
+class view;
 
 class state
 {
@@ -27,7 +29,7 @@ public:
 
   void set_window_size(int w, int h);
 
-  view* get_view() { return m_renderer->get_view(); }
+  view* get_view(); 
 
 protected:
   virtual void set_up_scene_graph_on_gl_thread(resource_manager& rm) = 0;

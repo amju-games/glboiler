@@ -14,9 +14,12 @@ uniform sampler2D diffuse_map;
 uniform sampler2D shadow_map;
 uniform int shadow_map_size; // in case textureSize() not available
 
+varying vec4 v_pos;
+varying vec2 v_uv;
+
 varying vec3 v_normal;
 
-// TODO get rid of this stuff, not used here.
+// TODO get rid of this stuff, not used here.// what??
 varying vec4 v_shadow_coord;
 
 ////#define YES_PCF
@@ -59,7 +62,7 @@ void main()
   vec3 light_dir = normalize(vec3(1, 1, 1));
   float n_dot_l = max(0.0, dot(light_dir, normalize(v_normal)));
 
-  vec4 diffuse_tex_colour = texture2D(diffuse_map, gl_TexCoord[0].st);
+  vec4 diffuse_tex_colour = texture2D(diffuse_map, v_uv);
 
   float n = shadow * n_dot_l + 0.5; 
 

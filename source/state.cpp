@@ -45,7 +45,7 @@ void state::set_up_renderer_on_gl_thread(renderer& rend, int x, int y, int w, in
 {
   rend.init_on_gl_thread(rm);
 
-  vec3 eye_pos(0, 1, 10); // TODO TEMP TEST
+  vec3 eye_pos(0, 1, 50); // TODO TEMP TEST
   const vec3 up(0, 1, 0);
 
   perspective p(45.0f, 1.0f, 0.1f, 10000.0f);
@@ -54,5 +54,10 @@ void state::set_up_renderer_on_gl_thread(renderer& rend, int x, int y, int w, in
   p.set_matrix(cam.proj_matrix);
   look_at(eye_pos, -eye_pos, up).set_matrix(cam.look_at_matrix);
   rend.set_view(view(viewport(0, 0, w / 2, h), cam));
+}
+
+view* state::get_view()
+{ 
+  return m_renderer->get_view(); 
 }
 
