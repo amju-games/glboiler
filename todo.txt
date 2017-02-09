@@ -1,3 +1,6 @@
+Mouse camera rotate (HMD move in HMD build)
+Keys (joystick?) to move eye position
+
 MD3 dragon walks around
 
 Set bit field on each node to set passes in which it is rendered
@@ -30,7 +33,7 @@ Other features
  - Build lightmaps once at load time
  - Conditioning pass: binarify assets
  - GPU/CPU skinning
- - Different vertex types
+ - Different vertex types?
 
 Render flags, so we can just render depth, etc - don't do unnecessary stuff for depth pass etc.
 
