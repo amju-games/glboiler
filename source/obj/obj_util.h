@@ -8,25 +8,14 @@
 #include "string_utils.h"
 #include "vec2.h"
 #include "vec3.h"
-//#include <TriList.h> // TODO need vao type
-//#include <Texture.h>
-//#include "Material.h"
+#include "vertex.h"
 
 // Useful types
 // ------------
 
-// Vertex buffer element type
-struct Vert
-{
-  vec3 m_pos;
-  vec2 m_uv;
-  vec3 m_normal;
-  vec3 m_tangent; 
-};
-
 struct Tri
 {
-  Vert m_verts[3];
+  vertex m_verts[3];
 };
 
 typedef std::vector<Tri> Tris; 

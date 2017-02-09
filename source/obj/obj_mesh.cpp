@@ -388,12 +388,12 @@ void ObjMesh::BuildGroup(Group& g)
         gl_boiler_assert(n < m_normals.size());
         const vec3& vN = m_normals[n];
 
-        t.m_verts[j].m_normal = vN;
+        t.m_verts[j].normal = vN;
       }
 
       if (m_uvs.empty())
       {
-        t.m_verts[j].m_uv = vec2(0, 0);
+        t.m_verts[j].uv = vec2(0, 0);
       }
       else
       {
@@ -401,7 +401,7 @@ void ObjMesh::BuildGroup(Group& g)
         gl_boiler_assert(uv < m_uvs.size());
         const vec2& vUV = m_uvs[uv];
 
-        t.m_verts[j].m_uv = vUV;
+        t.m_verts[j].uv = vUV;
       }
 
       gl_boiler_assert(!m_points.empty());
@@ -410,7 +410,7 @@ void ObjMesh::BuildGroup(Group& g)
       gl_boiler_assert(p < m_points.size());
       const vec3 vP = m_points[p];
 
-      t.m_verts[j].m_pos = vP;
+      t.m_verts[j].pos = vP;
       m_aabb.set_if(vP);
     }
     g.m_tris.push_back(t);
@@ -428,44 +428,44 @@ void ObjMesh::BuildGroup(Group& g)
   //}
 }
 
-void ObjMesh::DrawGroup(Group& g)
-{
-  if (!g.IsVisible())
-  {
-    return;
-  }
-
-  // TODO TEMP TEST
-
-  glBegin(GL_TRIANGLES);
-  for (unsigned int i = 0; i < g.m_tris.size(); i++)
-  {
-    const Tri& tri = g.m_tris[i];
-    for (int v = 0; v < 3; v++)
-    {
-      const Vert& vert = tri.m_verts[v];
-      glNormal3fv(&vert.m_normal.x);
-      glTexCoord2fv(&vert.m_uv.x);
-      glVertex3fv(&vert.m_pos.x);
-    }
-  }
-  glEnd();
-
-  //// Material can set lighting/blending flags
-  //AmjuGL::PushAttrib(AmjuGL::AMJU_LIGHTING | AmjuGL::AMJU_BLEND);
-
-  //// TODO Hash, not string
-  //Materials::iterator it = m_materials.find(g.m_materialName);
-  //if (it != m_materials.end())
-  //{
-  //  Material& mat = it->second;
-  //  mat.UseThisMaterial();
-  //}
-
-  //AmjuGL::Draw(g.m_triList);
-
-  //AmjuGL::PopAttrib();
-}
+//void ObjMesh::DrawGroup(Group& g)
+//{
+//  if (!g.IsVisible())
+//  {
+//    return;
+//  }
+//
+//  // TODO TEMP TEST
+//
+//  glBegin(GL_TRIANGLES);
+//  for (unsigned int i = 0; i < g.m_tris.size(); i++)
+//  {
+//    const Tri& tri = g.m_tris[i];
+//    for (int v = 0; v < 3; v++)
+//    {
+//      const vertex& vert = tri.m_verts[v];
+//      glNormal3fv(&vert.normal.x);
+//      glTexCoord2fv(&vert.uv.x);
+//      glVertex3fv(&vert.pos.x);
+//    }
+//  }
+//  glEnd();
+//
+//  //// Material can set lighting/blending flags
+//  //AmjuGL::PushAttrib(AmjuGL::AMJU_LIGHTING | AmjuGL::AMJU_BLEND);
+//
+//  //// TODO Hash, not string
+//  //Materials::iterator it = m_materials.find(g.m_materialName);
+//  //if (it != m_materials.end())
+//  //{
+//  //  Material& mat = it->second;
+//  //  mat.UseThisMaterial();
+//  //}
+//
+//  //AmjuGL::Draw(g.m_triList);
+//
+//  //AmjuGL::PopAttrib();
+//}
 
 void ObjMesh::Merge(const ObjMesh& om)
 {

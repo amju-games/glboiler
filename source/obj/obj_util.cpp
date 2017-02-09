@@ -85,19 +85,19 @@ void Group::upload_on_gl_thread()
 
   GL_CHECK(glGenBuffers(1, &m_vbo));
   GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
-  GL_CHECK(glBufferData(GL_ARRAY_BUFFER, m_tris.size() * sizeof(Vert) * 3, &m_tris[0], GL_STATIC_DRAW));
+  GL_CHECK(glBufferData(GL_ARRAY_BUFFER, m_tris.size() * sizeof(vertex) * 3, &m_tris[0], GL_STATIC_DRAW));
 
   GL_CHECK(glEnableVertexAttribArray(0));
-  GL_CHECK(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vert), NULL));
+  GL_CHECK(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), NULL));
 
   GL_CHECK(glEnableVertexAttribArray(1));
-  GL_CHECK(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vert), (void*)(sizeof(float) * 3)));
+  GL_CHECK(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)(sizeof(float) * 3)));
 
   GL_CHECK(glEnableVertexAttribArray(2));
-  GL_CHECK(glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vert), (void*)(sizeof(float) * 5)));
+  GL_CHECK(glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)(sizeof(float) * 5)));
 
   GL_CHECK(glEnableVertexAttribArray(3));
-  GL_CHECK(glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vert), (void*)(sizeof(float) * 8)));
+  GL_CHECK(glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)(sizeof(float) * 8)));
 }
 
 void Group::use_on_gl_thread()
@@ -132,4 +132,6 @@ void Group::use_on_gl_thread()
 
 void Group::destroy_on_gl_thread()
 {
+  GL_CHECK(glDeleteBuffers(1, &m_vbo));
+  GL_CHECK(glDeleteVertexArrays(1, &m_vao));
 }
