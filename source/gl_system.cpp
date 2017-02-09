@@ -121,3 +121,19 @@ void check_gl_thread()
   gl_boiler_assert(gl_thread_id == std::this_thread::get_id());
 }
 
+static gl_validator validator_func = nullptr;
+
+void set_validator(gl_validator vf)
+{
+  validator_func = vf;
+}
+
+void run_validator(const char* statement)
+{
+  if (validator_func)
+  {
+    validator_func(statement);
+  }
+}
+
+
