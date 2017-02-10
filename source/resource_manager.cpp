@@ -8,19 +8,55 @@ void resource_manager::add_gl_resource(const std::string& name, std::shared_ptr<
 {
   auto it = m_gl_res_map.find(name);
 
+  res->set_name(name);
+
   if (it == m_gl_res_map.end())
   {
     m_gl_res_map[name] = res;
 
-    // TODO add to a 'pending upload' set, then on the gl thread we upload any
+    // Add to a 'pending upload' set, then on the gl thread we upload any
     //  textures needing to be uploaded. 
-
-    // Just for now. TODO
-    res->upload_on_gl_thread();
+    m_to_upload.insert(res);
   }
   else
   {
     log(msg() << "Resource already added: " << name);
+  }
+}
+
+void resource_manager::update_on_gl_thread()
+{
+  for (auto res : m_to_upload)
+  {
+    res->upload_on_gl_thread();
+  }
+
+  m_to_upload.clear();
+
+  for (auto res : m_to_destroy)
+  {
+    res->destroy_on_gl_thread();
+  }
+
+  m_to_destroy.clear();
+}
+
+void resource_manager::report() const
+{
+}
+
+void resource_manager::clear()
+{
+
+}
+
+void resource_manager::reload_all()
+{
+  for (auto it : m_gl_res_map)
+  {
+    it.second->reload();
+
+    m_to_upload.insert(it.second);
   }
 }
 
@@ -38,9 +74,6 @@ std::shared_ptr<texture> resource_manager::get_texture(const std::string& name, 
       // Add to pending set for upload on gl thread
       m_to_upload.insert(tex);
 
-      // TODO TEMP TEST
-      tex->upload_on_gl_thread();
-
       m_gl_res_map[name] = tex;
       return tex;
     }
@@ -54,4 +87,21 @@ std::shared_ptr<texture> resource_manager::get_texture(const std::string& name, 
     return std::dynamic_pointer_cast<texture>(it->second);
   }
 }
+
+std::shared_ptr<gl_shader> resource_manager::get_shader(const std::string& name)
+{
+  auto it = m_gl_res_map.find(name);
+
+  if (it == m_gl_res_map.end())
+  {
+    log(msg() << "texture Resource does not exist: " << name);
+    gl_boiler_stop;
+    return nullptr;
+  }
+  else
+  {
+    return std::dynamic_pointer_cast<gl_shader>(it->second);
+  }
+}
+
 

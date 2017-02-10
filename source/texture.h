@@ -31,6 +31,8 @@ public:
   virtual void use_on_gl_thread() override;
   virtual void destroy_on_gl_thread() override;
 
+  virtual void reload() override;
+
 private:
   void free_data();
 

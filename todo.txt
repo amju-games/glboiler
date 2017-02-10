@@ -1,15 +1,48 @@
-MD3 dragon walks around
+Sort nodes before drawing!
+Use insertion sort, exploit coherence.
+Sort by shader, then z-dist?
+
+Dither transparency!
+Uses dither shader, opacity value is 0..1. We get noise value for frag, and 
+compare with opacity, discard if less, say.
+
+Use same dither for shadows, so translucent meshes write to fewer texels in
+ shadow map. Very similar to meshes with an alpha channel, which we also use
+ to discard shadow map fragments.
 
 
-Procedural sky
+Have mesh class, obj_mesh populates mesh (subclass?)
+ - mesh has vao, saves/loads binary. 
 
-water
+Mouse camera rotate (HMD move in HMD build)
+Keys (joystick?) to move eye position
+
+MD3 dragon walks around?
+
+Cartoony/paper cut out 'grass' - big terrain with all effects but non-realistic style.
+
+
+
+Try dither transparency
+
+
+Set bit field on each node to set passes in which it is rendered
+DONE
+
+Split rendering into "only once" and "once or more" - so we only render shadow
+ maps once, then render the scene twice, once for each eye.
+ Could use the begin/render/end 3 funcs
+
+Node type: Procedural sky (just a dome but with special shader), with render 
+  flags set so we only render in opaque pass
+
+water - like screen space refls?
 reflections
 
 My Heads - with different materials
 
 Deferred renderer
-
+ - Show any of the G buffer layers in main view? Or just as mini views.
 
 Renderer: use "policies"? We want to mix and match:
  - Thread-safe/multithreaded -> message queue
@@ -24,7 +57,7 @@ Other features
  - Build lightmaps once at load time
  - Conditioning pass: binarify assets
  - GPU/CPU skinning
- - Different vertex types
+ - Different vertex types?
 
 Render flags, so we can just render depth, etc - don't do unnecessary stuff for depth pass etc.
 

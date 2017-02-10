@@ -7,9 +7,6 @@
     <Filter Include="source\geom">
       <UniqueIdentifier>{fb47b358-8fb2-44a6-9177-6e20fc433454}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source\main">
-      <UniqueIdentifier>{fe343946-2ca6-4072-b7a1-67c0aceae8e5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="source\thirdparty">
       <UniqueIdentifier>{ca3433e0-39d0-4bcd-9077-9c8f622bfabb}</UniqueIdentifier>
     </Filter>
@@ -19,20 +16,11 @@
     <Filter Include="source\thirdparty\glew">
       <UniqueIdentifier>{1ee3d4a2-e54f-42e2-8529-f487a3d46d29}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source\tests">
-      <UniqueIdentifier>{f3d4c7cb-14d8-45c3-9ff3-67f5c1519fa1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\tests\geom">
-      <UniqueIdentifier>{32623f14-0a2e-48ff-a9e3-601fb657f4bb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="source\utils">
       <UniqueIdentifier>{a43d5b93-f66b-425c-b7ff-96924ceabb4c}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\md3">
       <UniqueIdentifier>{ac135a94-1cd2-4e88-952f-c93a012ab441}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\tests\utils">
-      <UniqueIdentifier>{01398602-e254-49fc-94a2-19cbbe1ccc3f}</UniqueIdentifier>
     </Filter>
     <Filter Include="assets">
       <UniqueIdentifier>{3c9f42f0-0037-4711-821e-8a7aef072cde}</UniqueIdentifier>
@@ -42,6 +30,24 @@
     </Filter>
     <Filter Include="source\thirdparty\lodepng">
       <UniqueIdentifier>{84fd6527-a787-4a50-9f7c-26d8bae349d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\glutmain">
+      <UniqueIdentifier>{fe343946-2ca6-4072-b7a1-67c0aceae8e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\sdl_openvr_main">
+      <UniqueIdentifier>{a4068ca8-1041-4bae-b0d8-d4aa63acc87e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\obj">
+      <UniqueIdentifier>{27272d49-46a7-44e0-bf22-14cfda384beb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests">
+      <UniqueIdentifier>{f3d4c7cb-14d8-45c3-9ff3-67f5c1519fa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests\geom">
+      <UniqueIdentifier>{32623f14-0a2e-48ff-a9e3-601fb657f4bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests\utils">
+      <UniqueIdentifier>{01398602-e254-49fc-94a2-19cbbe1ccc3f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -136,10 +142,10 @@
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\tests\test_scene_node.h">
-      <Filter>source\tests</Filter>
+      <Filter>tests</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\tests\geom\mat4_test_utils.h">
-      <Filter>source\tests\geom</Filter>
+      <Filter>tests\geom</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\md3\md3.h">
       <Filter>source\md3</Filter>
@@ -190,6 +196,36 @@
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\state.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render_pass.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\simple_forward_pass.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\render_pass_type.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\shadow_depth_pass.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\opaque_pass.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\obj\obj_material.h">
+      <Filter>source\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\obj\obj_mesh.h">
+      <Filter>source\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\obj\obj_util.h">
+      <Filter>source\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\obj_scene_node.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\obj_state.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
@@ -243,7 +279,7 @@
       <Filter>source\geom</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\main\glut_main.cpp">
-      <Filter>source\main</Filter>
+      <Filter>source\glutmain</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\windows\timer.cpp">
       <Filter>source\windows</Filter>
@@ -252,46 +288,46 @@
       <Filter>source\thirdparty\glew</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\colour_tests.cpp">
-      <Filter>source\tests</Filter>
+      <Filter>tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\int_graph_tests.cpp">
-      <Filter>source\tests</Filter>
+      <Filter>tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\light_tests.cpp">
-      <Filter>source\tests</Filter>
+      <Filter>tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\scene_graph_tests.cpp">
-      <Filter>source\tests</Filter>
+      <Filter>tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\scene_node_tests.cpp">
-      <Filter>source\tests</Filter>
+      <Filter>tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\test_main.cpp">
-      <Filter>source\tests</Filter>
+      <Filter>tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\vertex_tests.cpp">
-      <Filter>source\tests</Filter>
+      <Filter>tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\viewport_tests.cpp">
-      <Filter>source\tests</Filter>
+      <Filter>tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\geom\aabb_tests.cpp">
-      <Filter>source\tests\geom</Filter>
+      <Filter>tests\geom</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\geom\frustum_tests.cpp">
-      <Filter>source\tests\geom</Filter>
+      <Filter>tests\geom</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\geom\mat4_test_utils.cpp">
-      <Filter>source\tests\geom</Filter>
+      <Filter>tests\geom</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\geom\mat4_tests.cpp">
-      <Filter>source\tests\geom</Filter>
+      <Filter>tests\geom</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\geom\vec2_tests.cpp">
-      <Filter>source\tests\geom</Filter>
+      <Filter>tests\geom</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\geom\vec3_tests.cpp">
-      <Filter>source\tests\geom</Filter>
+      <Filter>tests\geom</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\md3\md3.cpp">
       <Filter>source\md3</Filter>
@@ -309,10 +345,10 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\utils\file_tests.cpp">
-      <Filter>source\tests\utils</Filter>
+      <Filter>tests\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\utils\string_utils_tests.cpp">
-      <Filter>source\tests\utils</Filter>
+      <Filter>tests\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\gl_1_1_renderer.cpp">
       <Filter>source</Filter>
@@ -321,13 +357,13 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\gl_2_renderer_tests.cpp">
-      <Filter>source\tests</Filter>
+      <Filter>tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\gl_1_1_solid_scene_node.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\load_png_tests.cpp">
-      <Filter>source\tests</Filter>
+      <Filter>tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\gl_2_solid_scene_node.cpp">
       <Filter>source</Filter>
@@ -345,7 +381,7 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\texture_tests.cpp">
-      <Filter>source\tests\geom</Filter>
+      <Filter>tests\geom</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\thirdparty\lodepng\lodepng.cpp">
       <Filter>source\thirdparty\lodepng</Filter>
@@ -356,30 +392,76 @@
     <ClCompile Include="..\..\..\..\source\state.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\main\hellovr_opengl_main.cpp">
+      <Filter>source\sdl_openvr_main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\openvr\samples\shared\Matrices.cpp">
+      <Filter>source\sdl_openvr_main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\thirdparty\openvr\samples\shared\pathtools.cpp">
+      <Filter>source\sdl_openvr_main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\render_pass.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\simple_forward_pass.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\shadow_depth_pass.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\opaque_pass.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\obj\obj_material.cpp">
+      <Filter>source\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\obj\obj_mesh.cpp">
+      <Filter>source\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\obj\obj_util.cpp">
+      <Filter>source\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\obj_scene_node.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\obj_state.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\vertex.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\source\thirdparty\glut\glut32.lib" />
     <Library Include="..\..\..\..\source\thirdparty\googletest\msvc\gtest\Debug\gtestd.lib" />
+    <Library Include="..\..\..\..\source\thirdparty\AntTweakBar\lib\AntTweakBar.lib" />
+    <Library Include="..\..\..\..\source\thirdparty\openvr\lib\win32\openvr_api.lib" />
+    <Library Include="..\..\..\..\source\thirdparty\sdl2-2.0.3\bin\win32\SDL2.lib" />
+    <Library Include="..\..\..\..\source\thirdparty\sdl2-2.0.3\bin\win32\SDL2main.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\assets\shaders\gl_2_just_depth_f.txt">
-      <Filter>assets\shaders</Filter>
-    </Text>
-    <Text Include="..\..\..\..\assets\shaders\gl_2_just_depth_v.txt">
-      <Filter>assets\shaders</Filter>
-    </Text>
     <Text Include="..\..\..\..\assets\shaders\gl_2_test_f.txt">
       <Filter>assets\shaders</Filter>
     </Text>
     <Text Include="..\..\..\..\assets\shaders\gl_2_test_v.txt">
       <Filter>assets\shaders</Filter>
     </Text>
-    <Text Include="..\..\..\..\assets\shaders\gl_2_replicate_fixed_f.txt">
-      <Filter>assets\shaders</Filter>
-    </Text>
-    <Text Include="..\..\..\..\assets\shaders\gl_2_replicate_fixed_v.txt">
-      <Filter>assets\shaders</Filter>
-    </Text>
     <Text Include="..\..\..\..\TODO2.txt" />
+    <Text Include="..\..\..\..\todo.txt" />
+    <Text Include="..\..\..\..\vao_notes.txt" />
+    <Text Include="..\..\..\..\Push reminder - DO NOT CHECK IN.txt" />
+    <Text Include="..\..\..\..\assets\shaders\shadow_depth_opaque.f.txt">
+      <Filter>assets\shaders</Filter>
+    </Text>
+    <Text Include="..\..\..\..\assets\shaders\shadow_depth_opaque.v.txt">
+      <Filter>assets\shaders</Filter>
+    </Text>
+    <Text Include="..\..\..\..\assets\shaders\opaque.f.txt">
+      <Filter>assets\shaders</Filter>
+    </Text>
+    <Text Include="..\..\..\..\assets\shaders\opaque.v.txt">
+      <Filter>assets\shaders</Filter>
+    </Text>
   </ItemGroup>
 </Project>

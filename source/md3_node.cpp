@@ -7,10 +7,12 @@
 
 md3_node::md3_node()
 {
+}
+
+void md3_node::load(resource_manager& rm)
+{
   m_md3_model = new CModelMD3; // TODO get resource
   log(msg() << "Loading md3 model...");
-
-  static resource_manager rm;  // TODO TEMP TEST
 
   m_md3_model->LoadModel("md3/dragon/", rm);
   log(msg() << "Loaded md3 model ok!");

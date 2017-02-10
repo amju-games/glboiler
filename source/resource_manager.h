@@ -8,6 +8,7 @@
 #include <memory>
 #include <set>
 #include <string>
+#include "gl_shader.h"
 #include "resource.h"
 #include "texture.h"
 
@@ -17,7 +18,7 @@ public:
   // If name is filename, we can load texture on demand, i.e. if not already added to res map.
   std::shared_ptr<texture> get_texture(const std::string& name, bool load_on_demand = true);
 
-  std::shared_ptr<texture> get_shader(const std::string& name);
+  std::shared_ptr<gl_shader> get_shader(const std::string& name);
 
   void add_gl_resource(const std::string& name, std::shared_ptr<gl_resource> res);
 
@@ -29,6 +30,9 @@ public:
   //  gl thread.
 
   void update_on_gl_thread();
+
+  // Reload all resources from disk
+  void reload_all();
 
 private:
   // TODO map of gl resources, and another of non-gl resources?

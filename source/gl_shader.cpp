@@ -46,7 +46,7 @@ void gl_shader::set_int_on_gl_thread(const std::string& name, int i)
   GL_CHECK(GLint loc = glGetUniformLocation(m_program_id, name.c_str()));
   if (loc == -1)
   {
-    log(msg() << m_frag_shader_filename << ": no uniform: " << name);
+//    log(msg() << m_frag_shader_filename << ": no uniform: " << name);
     return;
   }
 
@@ -55,6 +55,8 @@ void gl_shader::set_int_on_gl_thread(const std::string& name, int i)
 
 static bool read_file(const std::string& filename, std::string* result)
 {
+  result->clear();
+
   std::ifstream f;
   f.open(filename);
   if (!f.is_open())
@@ -80,6 +82,11 @@ void gl_shader::destroy_on_gl_thread()
     GL_CHECK(glDeleteProgram(m_program_id));
     m_destroy_called = true;
   }
+}
+
+void gl_shader::reload()
+{
+  load(m_vert_shader_filename, m_frag_shader_filename);
 }
 
 bool gl_shader::load(

@@ -18,6 +18,12 @@ public:
   vec3 get_min() const;
   vec3 get_max() const;
 
+  // Calc union of this aabb and the other, i.e. a new box which encloses both.
+  aabb union_with(const aabb& other);
+
+  // Set extents if required to enclose p
+  void set_if(const vec3& p);
+
 private:
   vec3 m_min;
   vec3 m_max;

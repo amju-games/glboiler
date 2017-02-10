@@ -19,4 +19,14 @@ vec3 aabb::get_max() const
   return m_max;
 }
 
+aabb aabb::union_with(const aabb& other)
+{
+  return aabb(); // TODO
+}
+
+
+void aabb::set_if(const vec3& p)
+{
+  // TODO
+}
 

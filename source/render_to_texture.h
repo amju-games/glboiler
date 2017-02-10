@@ -18,6 +18,7 @@ public:
   void set_render_flags(int renderFlags);
 
   void set_size(int w, int h);
+  void get_size(int* w, int* h) const;
 
   // Create texture render target
   bool init_on_gl_thread();
@@ -47,7 +48,7 @@ protected:
   int m_width, m_height; // pixels - size of texture to which we render
 
   // Viewport before switching to this render target, so we revert in End()
-  int m_vpX, m_vpY, m_vpW, m_vpH;
+  int m_old_viewport[4];
 
   int m_flags;
 };

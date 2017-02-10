@@ -61,9 +61,16 @@ colour texture::get_texel_colour(const vec2& uv) const
     static_cast<float>(c[3]) / 255.0f );
 }
 
+void texture::reload()
+{
+  load(m_filename);
+}
+
 bool texture::load(const std::string& filename)
 {
   m_filename = filename;
+  set_name(filename);
+
   if (!load_png(filename, &m_data, &m_w, &m_h, &m_bytes_per_pixel))
   {
     log(msg() << "Failed to load texture \"" << filename << "\"");
@@ -77,16 +84,24 @@ bool texture::load(const std::string& filename)
     << "\" w: " << m_w << " h: " << m_h 
     << " bpp: " << m_bytes_per_pixel);
 
+  m_has_been_uploaded = false;
+
   return true;
 }
 
 void texture::upload_on_gl_thread()
 {
-  glGenTextures(1, &m_bind_texture_id);
-  glBindTexture(GL_TEXTURE_2D, m_bind_texture_id);
+  if (m_has_been_uploaded)
+  {
+    log(msg() << m_name << " already uploaded.");
+    return;
+  }
+
+  GL_CHECK(glGenTextures(1, &m_bind_texture_id));
+  GL_CHECK(glBindTexture(GL_TEXTURE_2D, m_bind_texture_id));
 
   // TODO GL 1.1 only - move into gl_1_1_renderer/material
-  glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+  GL_CHECK(glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE));
 
   int format = GL_RGB;
   if (m_bytes_per_pixel == 4)
@@ -108,13 +123,13 @@ void texture::upload_on_gl_thread()
   {
     GL_CHECK(glGenerateMipmap(GL_TEXTURE_2D)); // GL v.3.0+
   
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    GL_CHECK(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+    GL_CHECK(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
   }
   else
   {
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    GL_CHECK(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+    GL_CHECK(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
   }
 
   if (m_delete_data_after_upload)

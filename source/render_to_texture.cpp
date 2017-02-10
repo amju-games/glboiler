@@ -43,10 +43,14 @@ void render_to_texture::set_size(int w, int h)
   m_height = h;
 }
  
+void render_to_texture::get_size(int* w, int* h) const
+{
+  *w = m_width;
+  *h = m_height;
+}
+
 void render_to_texture::use_texture_on_gl_thread()
 {
-  GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-
   GL_CHECK(glEnable(GL_TEXTURE_2D));
 
   if (m_flags == RENDER_DEPTH)
@@ -196,6 +200,7 @@ bool render_to_texture::init_on_gl_thread()
 
 bool render_to_texture::begin_on_gl_thread()
 {
+  GL_CHECK(glGetIntegerv(GL_VIEWPORT, m_old_viewport));
   GL_CHECK(glViewport(0, 0, m_width, m_height)); // same as size in Init
   
   GL_CHECK(glBindTexture(GL_TEXTURE_2D, 0));
@@ -212,7 +217,8 @@ bool render_to_texture::begin_on_gl_thread()
 bool render_to_texture::end_on_gl_thread()
 {
   GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, m_old_fbo));
-  
+  GL_CHECK(glViewport(m_old_viewport[0], m_old_viewport[1], m_old_viewport[2], m_old_viewport[3]));
+
   return true;
 }
 

@@ -1,0 +1,36 @@
+// -----------------------------------------------------------------------------
+// glboiler - Jason Colman 2016-2017 - OpenGL experiments
+// -----------------------------------------------------------------------------
+// Opaque pass.
+// Draw opaque meshes, using a shadow map.
+// Vertex shader
+// -----------------------------------------------------------------------------
+
+attribute vec4 a_pos;
+attribute vec2 a_uv;
+attribute vec3 a_normal;
+attribute vec3 a_tangent;
+
+uniform mat4 world_matrix;
+uniform mat4 look_at_matrix;
+uniform mat4 proj_matrix;
+uniform mat4 light_matrix;
+
+varying vec4 v_pos;
+varying vec2 v_uv;
+varying vec3 v_normal;
+varying vec4 v_shadow_coord;
+
+void main()
+{
+  v_normal = a_normal;
+  v_shadow_coord = light_matrix * world_matrix * a_pos;
+
+  mat4 m = proj_matrix * look_at_matrix; 
+
+  gl_Position = m * world_matrix * a_pos;
+  v_pos = gl_Position;
+
+  v_uv = a_uv;
+}
+

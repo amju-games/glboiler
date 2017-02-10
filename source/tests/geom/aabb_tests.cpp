@@ -19,3 +19,5 @@ TEST(aabb, create)
   ASSERT_EQ(a.get_max(), vec3(4, 5, 6));
 }
 
+// TODO Intersection, union
+

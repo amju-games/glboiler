@@ -10,14 +10,14 @@
 class file
 {
 public:
-  ~file();
+  virtual ~file();
 
   void close();
 
 protected:
   file() = default;
   bool open_for_reading(const std::string& filename, std::ios::openmode mode);
-  void report_error(const std::string&);
+  virtual void report_error(const std::string&);
 
 protected:
   std::fstream m_file;
@@ -29,6 +29,7 @@ class text_file : public file
 public:
   bool open_for_reading(const std::string& filename);
   bool read_string(std::string*);
+  virtual void report_error(const std::string&) override;
 
 private:
   int m_line;

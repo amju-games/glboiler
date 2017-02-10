@@ -1,0 +1,14 @@
+// -----------------------------------------------------------------------------
+// glboiler - Jason Colman 2016-2017 - OpenGL experiments
+// -----------------------------------------------------------------------------
+// Shadow map opaque pass.
+// Draw opaque meshes into a depth map.
+// Fragment shader
+// -----------------------------------------------------------------------------
+
+void main()
+{
+  // Nothing to do here! The depth is written automatically.
+}
+
+
