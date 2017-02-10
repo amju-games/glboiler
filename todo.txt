@@ -1,7 +1,26 @@
+Sort nodes before drawing!
+Use insertion sort, exploit coherence.
+Sort by shader, then z-dist?
+
+Dither transparency!
+Uses dither shader, opacity value is 0..1. We get noise value for frag, and 
+compare with opacity, discard if less, say.
+
+Use same dither for shadows, so translucent meshes write to fewer texels in
+ shadow map. Very similar to meshes with an alpha channel, which we also use
+ to discard shadow map fragments.
+
+
+Have mesh class, obj_mesh populates mesh (subclass?)
+ - mesh has vao, saves/loads binary. 
+
 Mouse camera rotate (HMD move in HMD build)
 Keys (joystick?) to move eye position
 
-MD3 dragon walks around
+MD3 dragon walks around?
+
+Cartoony/paper cut out 'grass' - big terrain with all effects but non-realistic style.
+
 
 
 Try dither transparency
@@ -23,7 +42,7 @@ reflections
 My Heads - with different materials
 
 Deferred renderer
-
+ - Show any of the G buffer layers in main view? Or just as mini views.
 
 Renderer: use "policies"? We want to mix and match:
  - Thread-safe/multithreaded -> message queue
