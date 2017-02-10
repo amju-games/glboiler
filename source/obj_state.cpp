@@ -40,6 +40,8 @@ void obj_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
   m_sg.reset(new scene_graph);
 
   auto root = std::make_shared<scene_node>();
+  root->add_render_pass(render_pass_type::ALL);
+
   m_sg->add_node(root);
   m_root = root.get();
 
@@ -47,9 +49,11 @@ void obj_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
   mat_white->set_textures({ "textures/test_card.png" }, rm);
 
   auto obj = std::make_shared<obj_scene_node>();
+  obj->add_render_pass(render_pass_type::SHADOW_PASS);
+  obj->add_render_pass(render_pass_type::FORWARD_OPAQUE_PASS);
 
-//  obj->load("obj/cube_0.5.obj");
-  obj->load("obj/reduced_head_3b.obj");
+  obj->load("obj/cube_0.5.obj");
+//  obj->load("obj/reduced_head_3b.obj");
 //  obj->load("obj/ball.obj");
 
   mat4 scale_down;
