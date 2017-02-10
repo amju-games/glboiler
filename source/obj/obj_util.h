@@ -13,13 +13,6 @@
 // Useful types
 // ------------
 
-struct Tri
-{
-  vertex m_verts[3];
-};
-
-typedef std::vector<Tri> Tris; 
-
 // Face type - assumes all faces are triangles,
 //  so is most efficient.
 struct Face
@@ -53,7 +46,7 @@ struct Group
   bool m_collidable;
   std::string m_name;
   std::string m_materialName; // TODO int index
-  Tris m_tris; 
+  tris m_tris; 
 
   aabb m_aabb;
 

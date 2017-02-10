@@ -3,7 +3,12 @@ Keys (joystick?) to move eye position
 
 MD3 dragon walks around
 
+
+Try dither transparency
+
+
 Set bit field on each node to set passes in which it is rendered
+DONE
 
 Split rendering into "only once" and "once or more" - so we only render shadow
  maps once, then render the scene twice, once for each eye.

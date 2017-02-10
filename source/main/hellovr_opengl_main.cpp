@@ -14,10 +14,13 @@
 #include "shared/Matrices.h"
 #include "shared/pathtools.h"
 
-#include "md3_state.h"
+#include "gl_system.h"
+//#include "md3_state.h"
+#include "obj_state.h"
 
-state* the_state = new md3_state;
+state* the_state = new obj_state;
 
+resource_manager rm;
 
 #if defined(POSIX)
 #include "unistd.h"
@@ -333,7 +336,11 @@ std::string GetTrackedDeviceString( vr::IVRSystem *pHmd, vr::TrackedDeviceIndex_
 //-----------------------------------------------------------------------------
 bool CMainApplication::BInit()
 {
-	if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0 )
+  // Sets this thread as the GL render thread, so we can check all GL calls 
+  //  are on this same thread.
+  set_gl_thread();
+
+  	if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0 )
 	{
 		printf("%s - SDL could not initialize! SDL Error: %s\n", __FUNCTION__, SDL_GetError());
 		return false;
@@ -644,6 +651,8 @@ void CMainApplication::RunMainLoop()
 	while ( !bQuit )
 	{
 		bQuit = HandleInput();
+
+    rm.update_on_gl_thread();
 
 		RenderFrame();
 
@@ -1002,7 +1011,6 @@ void CMainApplication::SetupScene()
 		return;
 
   the_state->set_window_size(800, 800);
-  resource_manager rm;
   the_state->init_on_gl_thread(rm);
 
   /*

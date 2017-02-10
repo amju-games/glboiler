@@ -379,7 +379,7 @@ void ObjMesh::BuildGroup(Group& g)
   for (unsigned int i = 0; i < numfaces; i++)
   {
     const Face& f = faces[i];
-    Tri t;
+    tri t;
     for (int j = 0; j < 3; j++)
     {
       if (!m_normals.empty())
@@ -388,12 +388,13 @@ void ObjMesh::BuildGroup(Group& g)
         gl_boiler_assert(n < m_normals.size());
         const vec3& vN = m_normals[n];
 
-        t.m_verts[j].normal = vN;
+        // 2 - j to match winding order elsewhere - TODO change back?
+        t.m_verts[2 - j].normal = vN;
       }
 
       if (m_uvs.empty())
       {
-        t.m_verts[j].uv = vec2(0, 0);
+        t.m_verts[2 - j].uv = vec2(0, 0);
       }
       else
       {
@@ -401,7 +402,7 @@ void ObjMesh::BuildGroup(Group& g)
         gl_boiler_assert(uv < m_uvs.size());
         const vec2& vUV = m_uvs[uv];
 
-        t.m_verts[j].uv = vUV;
+        t.m_verts[2 - j].uv = vUV;
       }
 
       gl_boiler_assert(!m_points.empty());
@@ -410,9 +411,10 @@ void ObjMesh::BuildGroup(Group& g)
       gl_boiler_assert(p < m_points.size());
       const vec3 vP = m_points[p];
 
-      t.m_verts[j].pos = vP;
+      t.m_verts[2 - j].pos = vP;
       m_aabb.set_if(vP);
     }
+    t.calc_tangents();
     g.m_tris.push_back(t);
   }
 

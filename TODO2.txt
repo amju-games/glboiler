@@ -1,5 +1,11 @@
+Draw wireframe should be an option.
+That needs Tweak bar....
+
+
 MD3 rotation of separate model - broken for gl2 renderer
  - it's because of glMultMatrixf in DrawLink() - extract this and subclass for GL 1.1 and 2
+
+
 
 
  Shaders should always be shared ptrs to resources, so we can rebuild all shaders.

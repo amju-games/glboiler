@@ -26,20 +26,30 @@ void obj_state::init_on_gl_thread(resource_manager& rm)
   state::init_on_gl_thread(rm);
 }
 
+void obj_state::update(float dt)
+{
+  mat4 rotate;
+  static float f = 0;
+  f += dt;
+  rotate.rotate_y_radians(f);
+  m_root->get_xform() = rotate;
+}
+
 void obj_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
 {
   m_sg.reset(new scene_graph);
 
   auto root = std::make_shared<scene_node>();
   m_sg->add_node(root);
+  m_root = root.get();
 
   std::shared_ptr<material> mat_white(new material);
   mat_white->set_textures({ "textures/test_card.png" }, rm);
 
   auto obj = std::make_shared<obj_scene_node>();
 
-  obj->load("obj/cube_0.5.obj");
-//  obj->load("obj/reduced_head_3b.obj");
+//  obj->load("obj/cube_0.5.obj");
+  obj->load("obj/reduced_head_3b.obj");
 //  obj->load("obj/ball.obj");
 
   mat4 scale_down;

@@ -357,6 +357,7 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\utils\file.cpp" />
     <ClCompile Include="..\..\..\..\source\utils\string_utils.cpp" />
+    <ClCompile Include="..\..\..\..\source\vertex.cpp" />
     <ClCompile Include="..\..\..\..\source\view.cpp" />
     <ClCompile Include="..\..\..\..\source\windows\timer.cpp" />
   </ItemGroup>
