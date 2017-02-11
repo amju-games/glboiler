@@ -12,12 +12,6 @@ public:
   // Not virtual, different resources have different load functions (e.g. shader)
   virtual bool load(const std::string& filename) = 0;
 
-  //virtual void upload_on_gl_thread() override;
-  //virtual void use_on_gl_thread() override;
-  //virtual void destroy_on_gl_thread() override;
-
-  //virtual void reload() override;
-
 private:
 
 };

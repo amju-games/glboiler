@@ -88,11 +88,6 @@ private:
   void BuildGroup(Group& g);
 };
 
-//typedef RCPtr<ObjMesh> PObjMesh;
-
-//gl_resource* TextObjLoader(const std::string& resName);
-//gl_resource* BinaryObjLoader(const std::string& resName);
-
 // Used to load an .obj mesh and other associated files (.mtl and textures)
 ObjMesh* LoadObjMesh(const std::string& pathFile, bool binary = false);
 

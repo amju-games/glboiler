@@ -176,12 +176,6 @@ void ObjMesh::parse_line(const std::string& s, std::string& currentGroup, file& 
 
 bool ObjMesh::load(const std::string& filename)
 {
-  //bool binary = false;
-  //if (binary)
-  //{
-  //  return LoadBinary(filename);
-  //}
-
   if (ShowInfo())
   {
     std::cout << "Loading file " << filename << " - text, not binary\n";
@@ -237,14 +231,6 @@ const aabb& ObjMesh::GetAABB()
 {
   return m_aabb;
 }
-
-//const aabb& ObjMesh::GetAABB(const std::string& groupname)
-//{
-//  Groups::iterator it = m_groups.find(groupname);
-//  gl_boiler_assert(it != m_groups.end());
-//  Group& g = it->second;
-//  return g.m_aabb; 
-//}
 
 void ObjMesh::MungeData()
 {
@@ -368,24 +354,6 @@ void ObjMesh::reload()
 {
   // TODO reload separately from shaders/textures, as could take a long time
 }
-
-//void ObjMesh::GetMaterials(MaterialVec* vec)
-//{
-//  for (Materials::iterator it = m_materials.begin(); it != m_materials.end(); ++it)
-//  {
-//    vec->push_back(it->second);
-//  } 
-//}
-
-//Group* ObjMesh::GetGroup(const std::string& groupName)
-//{
-//  Groups::iterator it = m_groups.find(groupName);
-//  if (it == m_groups.end())
-//  {
-//    return 0;
-//  } 
-//  return &it->second;
-//}
 
 void ObjMesh::BuildGroup(Group& g)
 {
