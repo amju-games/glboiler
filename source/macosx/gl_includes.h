@@ -10,3 +10,7 @@
 #include <OpenGL/gl.h>
 #include <GLUT/glut.h>
 
+#define glGenVertexArrays glGenVertexArraysAPPLE
+#define glBindVertexArray glBindVertexArrayAPPLE
+#define glDeleteVertexArrays glDeleteVertexArraysAPPLE
+

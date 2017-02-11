@@ -17,7 +17,8 @@ INCLUDES=\
   -I../geom \
   -I../macosx \
   -I../utils \
-  -I../md3
+  -I../md3 \
+  -I../obj
 
 CFLAGS=-c $(WARNINGS) $(INCLUDES) -std=c++11 -O0 -g -DMACOSX
 
@@ -35,6 +36,8 @@ SOURCES=glut_main.cpp \
 ../material.cpp \
 ../md3_node.cpp \
 ../md3_state.cpp \
+../obj_scene_node.cpp \
+../obj_state.cpp \
 ../opaque_pass.cpp \
 ../renderer.cpp \
 ../render_pass.cpp \
@@ -47,6 +50,7 @@ SOURCES=glut_main.cpp \
 ../simple_forward_pass.cpp \
 ../state.cpp \
 ../texture.cpp \
+../vertex.cpp \
 ../view.cpp \
 ../macosx/timer.cpp \
 ../md3/md3.cpp \
@@ -58,6 +62,9 @@ SOURCES=glut_main.cpp \
 ../geom/quat.cpp \
 ../light.cpp \
 ../log.cpp \
+../obj/obj_material.cpp \
+../obj/obj_mesh.cpp \
+../obj/obj_util.cpp \
 ../utils/file.cpp \
 ../utils/string_utils.cpp \
 ../thirdparty/lodepng/lodepng.cpp
