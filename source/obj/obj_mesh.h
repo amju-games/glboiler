@@ -8,6 +8,8 @@
 class CollisionMesh;
 class Matrix;
 
+// Loads an obj mesh. Adds non-empty groups to resource manager, to be added
+//  as mesh nodes
 class ObjMesh : public gl_mesh
 {
 public:
@@ -53,7 +55,20 @@ private:
   // Build groups, clean up temp data etc
   void MungeData();
 
-  // TODO Dump this data once loaded ?
+  // Parse given line in file f (passed in for error reporting), which may associate 
+  //  new data with the current group, or change the current group.
+  void parse_line(const std::string& line, std::string& currentGroup, file& f);
+
+  // Parsers for lines beginning "v", "vn", etc.
+  void parse_v(const strings& strs, std::string& currentGroup, file& f);
+  void parse_vn(const strings& strs, std::string& currentGroup, file& f);
+  void parse_vt(const strings& strs, std::string& currentGroup, file& f);
+  void parse_f(const strings& strs, std::string& currentGroup, file& f);
+  void parse_g(const strings& strs, std::string& currentGroup, file& f);
+  void parse_mtllib(const strings& strs, std::string& currentGroup, file& f);
+  void parse_usemtl(const strings& strs, std::string& currentGroup, file& f);
+  
+  // Data loaded as we parse file. Dumped once vertex buffer(s) built.
   Vecs m_points;
   Vecs m_normals;
   UVs m_uvs;

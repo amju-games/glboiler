@@ -1,7 +1,4 @@
 #include <iostream>
-
-#include "gl_includes.h" // TODO TEMP TEST
-
 #include "boiler_assert.h"
 #include "file.h"
 #include "obj_mesh.h"
@@ -17,6 +14,164 @@
 bool ObjMesh::ShowInfo()
 {
   return true;
+}
+
+void ObjMesh::parse_v(const strings& strs, std::string& currentGroup, file& f)
+{
+  m_points.push_back(ToVec3(strs));
+}
+
+void ObjMesh::parse_vn(const strings& strs, std::string& currentGroup, file& f)
+{
+  vec3 n = ToVec3(strs);
+  n = normalise(n);
+  m_normals.push_back(n);
+}
+
+void ObjMesh::parse_vt(const strings& strs, std::string& currentGroup, file& f)
+{
+  m_uvs.push_back(ToVec2(strs));
+}
+
+void ObjMesh::parse_f(const strings& strs, std::string& currentGroup, file& f)
+{
+  Group& g = m_groups[currentGroup];
+  gl_boiler_assert(!g.m_name.empty());
+
+  if (strs.size() > 4)
+  {
+    f.report_error("Non-triangular face, taking first 3 verts only.");
+  }
+
+  Face face = ToFace(strs);
+  m_facemap[g.m_name].push_back(face);
+}
+
+void ObjMesh::parse_g(const strings& strs, std::string& currentGroup, file& f)
+{
+  // Switch current group - create a new group if it doesn't
+  //  already exist in the map.
+  if (strs.size() == 1)
+  {
+    f.report_error("No group name!");
+  }
+  else if (strs.size() == 2)
+  {
+    currentGroup = strs[1];
+    Group& g = m_groups[currentGroup];
+    g.m_name = currentGroup;
+  }
+  else
+  {
+    f.report_error("Info: Unexpected format for group: g " + strs[1] + " " + strs[2] + "...");
+    currentGroup = strs[1];
+    for (unsigned int a = 2; a < strs.size(); a++)
+    {
+      currentGroup += strs[a];
+    }
+    Group& g = m_groups[currentGroup];
+    g.m_name = currentGroup;
+  }
+}
+
+void ObjMesh::parse_mtllib(const strings& strs, std::string& currentGroup, file& f)
+{
+  if (strs.size() != 2)
+  {
+    f.report_error("Unexpected format for mtllib");
+    return;
+  }
+
+  std::string mtlfilename = strs[1];
+  MaterialVec mats;
+  if (!LoadMtlFile(mtlfilename, &mats))
+  {
+    f.report_error("Failed to load mtl file " + mtlfilename);
+    return;
+  }
+
+  for (unsigned int i = 0; i < mats.size(); i++)
+  {
+    std::shared_ptr<obj_material> mat = mats[i];
+
+    gl_boiler_assert(!mat->m_name.empty());
+    // Only add if texture specified 
+    if (!mat->m_texfilename[0].empty())
+    {
+      m_materials[mat->m_name] = mat;
+    }
+    else
+    {
+      if (ShowInfo())
+      {
+        std::cout << "Discarding material " << mat->m_name << " as no texture\n";
+      }
+    }
+  }
+}
+
+void ObjMesh::parse_usemtl(const strings& strs, std::string& currentGroup, file& f)
+{
+  if (strs.size() != 2)
+  {
+    f.report_error("Unexpected format for usemtl");
+    return;
+  }
+
+  std::string matname = strs[1];
+  Group& g = m_groups[currentGroup];
+  if (g.m_materialName.empty())
+  {
+    g.m_materialName = matname;
+  }
+  else
+  {
+    if (ShowInfo())
+    {
+      std::cout << "Changing material within the same group - sigh, making new group.\n";
+    }
+
+    // Make name for group
+    currentGroup = matname + "_group"; // OK if group name exists
+    Group& g = m_groups[currentGroup];
+    g.m_name = currentGroup;
+    g.m_materialName = matname;
+  }
+}
+
+void ObjMesh::parse_line(const std::string& s, std::string& currentGroup, file& f)
+{
+  strings strs = split(s, ' ');
+  gl_boiler_assert(!strs.empty());
+
+  if (strs[0] == "v")
+  {
+    parse_v(strs, currentGroup, f);
+  }
+  else if (strs[0] == "vn")
+  {
+    parse_vn(strs, currentGroup, f);
+  }
+  else if (strs[0] == "vt")
+  {
+    parse_vt(strs, currentGroup, f);
+  }
+  else if (strs[0] == "f")
+  {
+    parse_f(strs, currentGroup, f);
+  }
+  else if (strs[0] == "g")
+  {
+    parse_g(strs, currentGroup, f);
+  }
+  else if (strs[0] == "mtllib")
+  {
+    parse_mtllib(strs, currentGroup, f);
+  }
+  else if (strs[0] == "usemtl")
+  {
+    parse_usemtl(strs, currentGroup, f);
+  }
 }
 
 bool ObjMesh::load(const std::string& filename)
@@ -38,13 +193,8 @@ bool ObjMesh::load(const std::string& filename)
     return false;
   }
 
-  // Start off with a default group name - using the filename makes
-  //  it unique, so we can merge obj files.
+  // Set name for default group. We can end up with empty groups, which we strip later.
   std::string currentGroup = filename;
-
-  // Set name for default group..?
-  // Bad idea, as we can end up with an empty group
-  // TODO Remove any empty groups
   Group& g = m_groups[currentGroup];
   g.m_name = currentGroup;
 
@@ -56,131 +206,8 @@ bool ObjMesh::load(const std::string& filename)
       break;
     }
     s = trim(s);
-    if (s.empty())
-    {
-      continue;
-    }
 
-    strings strs = split(s, ' ');
-    gl_boiler_assert(!strs.empty());
-
-    if (strs[0] == "v")
-    {
-      m_points.push_back(ToVec3(strs));
-    }
-    else if (strs[0] == "vn")
-    {
-      vec3 n = ToVec3(strs);
-      n = normalise(n);
-      m_normals.push_back(n);
-    }
-    else if (strs[0] == "vt")
-    {
-      m_uvs.push_back(ToVec2(strs));
-    }
-    else if (strs[0] == "f")
-    {
-      Group& g = m_groups[currentGroup];
-      gl_boiler_assert(!g.m_name.empty());
-
-      if (strs.size() > 4)
-      {
-        f.report_error("Non-triangular face, taking first 3 verts only.");
-      }
-
-      Face face = ToFace(strs);
-      m_facemap[g.m_name].push_back(face);
-    }
-    else if (strs[0] == "g")
-    {
-      // Switch current group - create a new group if it doesn't
-      //  already exist in the map.
-      if (strs.size() == 1)
-      {
-        f.report_error("No group name!");
-      }
-      else if (strs.size() == 2)
-      {
-        currentGroup = strs[1];
-        Group& g = m_groups[currentGroup];
-        g.m_name = currentGroup;
-      }
-      else
-      {
-        f.report_error("Info: Unexpected format for group: " + s);
-        currentGroup = strs[1];
-        for (unsigned int a = 2; a < strs.size(); a++)
-        {
-          currentGroup += strs[a];
-        }
-        Group& g = m_groups[currentGroup];
-        g.m_name = currentGroup;
-      }
-    }
-    else if (strs[0] == "mtllib")
-    {
-      if (strs.size() != 2)
-      {
-        f.report_error("Unexpected format for mtllib");
-        continue;
-      }
-
-      std::string mtlfilename = strs[1];
-      MaterialVec mats;
-      if (!LoadMtlFile(mtlfilename, &mats))
-      {
-        f.report_error("Failed to load mtl file " + mtlfilename);
-        return false;
-      }
-      //mat.m_filename = mtlfilename;
-
-      for (unsigned int i = 0; i < mats.size(); i++)
-      {
-        std::shared_ptr<obj_material> mat = mats[i];
-
-        gl_boiler_assert(!mat->m_name.empty());
-        // Only add if texture specified 
-        if (!mat->m_texfilename[0].empty())
-        {
-          m_materials[mat->m_name] = mat;
-        }
-        else
-        {
-          if (ShowInfo())
-          {
-            std::cout << "Discarding material " << mat->m_name << " as no texture\n";
-          }
-        }
-      }
-    }
-    else if (strs[0] == "usemtl")
-    {
-      if (strs.size() != 2)
-      {
-        f.report_error("Unexpected format for usemtl");
-        continue;
-      }
-
-      std::string matname = strs[1];
-      Group& g = m_groups[currentGroup];
-      if (g.m_materialName.empty())
-      {
-        g.m_materialName = matname;
-      }
-      else
-      {
-        if (ShowInfo())
-        {
-          std::cout << "Changing material within the same group - sigh, making new group.\n";
-        }
-
-        // Make name for group
-        currentGroup = matname + "_group"; // OK if group name exists
-        Group& g = m_groups[currentGroup];
-        g.m_name = currentGroup;
-        g.m_materialName = matname;
-      }
-    }
+    parse_line(s, currentGroup, f);
   }
 
   if (m_points.empty())
@@ -211,13 +238,13 @@ const aabb& ObjMesh::GetAABB()
   return m_aabb;
 }
 
-const aabb& ObjMesh::GetAABB(const std::string& groupname)
-{
-  Groups::iterator it = m_groups.find(groupname);
-  gl_boiler_assert(it != m_groups.end());
-  Group& g = it->second;
-  return g.m_aabb; 
-}
+//const aabb& ObjMesh::GetAABB(const std::string& groupname)
+//{
+//  Groups::iterator it = m_groups.find(groupname);
+//  gl_boiler_assert(it != m_groups.end());
+//  Group& g = it->second;
+//  return g.m_aabb; 
+//}
 
 void ObjMesh::MungeData()
 {
@@ -342,23 +369,23 @@ void ObjMesh::reload()
   // TODO reload separately from shaders/textures, as could take a long time
 }
 
-void ObjMesh::GetMaterials(MaterialVec* vec)
-{
-  for (Materials::iterator it = m_materials.begin(); it != m_materials.end(); ++it)
-  {
-    vec->push_back(it->second);
-  } 
-}
+//void ObjMesh::GetMaterials(MaterialVec* vec)
+//{
+//  for (Materials::iterator it = m_materials.begin(); it != m_materials.end(); ++it)
+//  {
+//    vec->push_back(it->second);
+//  } 
+//}
 
-Group* ObjMesh::GetGroup(const std::string& groupName)
-{
-  Groups::iterator it = m_groups.find(groupName);
-  if (it == m_groups.end())
-  {
-    return 0;
-  } 
-  return &it->second;
-}
+//Group* ObjMesh::GetGroup(const std::string& groupName)
+//{
+//  Groups::iterator it = m_groups.find(groupName);
+//  if (it == m_groups.end())
+//  {
+//    return 0;
+//  } 
+//  return &it->second;
+//}
 
 void ObjMesh::BuildGroup(Group& g)
 {
@@ -423,56 +450,5 @@ void ObjMesh::BuildGroup(Group& g)
   {
     std::cout << "BuildGroup: " << g.m_tris.size() << " tris in group \"" << g.m_name << "\".\n";
   }
-
-  //g.m_triList = MakeTriList(g.m_tris);
-  //if (g.m_triList)
-  //{
-  //  g.m_triList->CalcTangents(); 
-  //}
-}
-
-//void ObjMesh::DrawGroup(Group& g)
-//{
-//  if (!g.IsVisible())
-//  {
-//    return;
-//  }
-//
-//  // TODO TEMP TEST
-//
-//  glBegin(GL_TRIANGLES);
-//  for (unsigned int i = 0; i < g.m_tris.size(); i++)
-//  {
-//    const Tri& tri = g.m_tris[i];
-//    for (int v = 0; v < 3; v++)
-//    {
-//      const vertex& vert = tri.m_verts[v];
-//      glNormal3fv(&vert.normal.x);
-//      glTexCoord2fv(&vert.uv.x);
-//      glVertex3fv(&vert.pos.x);
-//    }
-//  }
-//  glEnd();
-//
-//  //// Material can set lighting/blending flags
-//  //AmjuGL::PushAttrib(AmjuGL::AMJU_LIGHTING | AmjuGL::AMJU_BLEND);
-//
-//  //// TODO Hash, not string
-//  //Materials::iterator it = m_materials.find(g.m_materialName);
-//  //if (it != m_materials.end())
-//  //{
-//  //  Material& mat = it->second;
-//  //  mat.UseThisMaterial();
-//  //}
-//
-//  //AmjuGL::Draw(g.m_triList);
-//
-//  //AmjuGL::PopAttrib();
-//}
-
-void ObjMesh::Merge(const ObjMesh& om)
-{
-  m_materials.insert(om.m_materials.begin(), om.m_materials.end());
-  m_groups.insert(om.m_groups.begin(), om.m_groups.end());
 }
 
