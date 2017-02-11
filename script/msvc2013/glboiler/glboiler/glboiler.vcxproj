@@ -200,6 +200,7 @@
     <ClInclude Include="..\..\..\..\source\gl_texture.h" />
     <ClInclude Include="..\..\..\..\source\thirdparty\lodepng\lodepng.h" />
     <ClInclude Include="..\..\..\..\source\utils\file.h" />
+    <ClInclude Include="..\..\..\..\source\utils\binary_file.h" />
     <ClInclude Include="..\..\..\..\source\utils\string_utils.h" />
     <ClInclude Include="..\..\..\..\source\vertex.h" />
     <ClInclude Include="..\..\..\..\source\view.h" />
@@ -358,6 +359,7 @@
     <ClCompile Include="..\..\..\..\source\thirdparty\openvr\samples\shared\pathtools.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GlutDebug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\utils\binary_file.cpp" />
     <ClCompile Include="..\..\..\..\source\utils\file.cpp" />
     <ClCompile Include="..\..\..\..\source\utils\string_utils.cpp" />
     <ClCompile Include="..\..\..\..\source\vertex.cpp" />

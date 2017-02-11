@@ -2,6 +2,8 @@
 // glboiler - Jason Colman 2016-2017 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "boiler_assert.h"
 #include "file.h"
 #include "log.h"
@@ -14,7 +16,7 @@ file::~file()
   close();
 }
 
-bool file::open_for_reading(const std::string& filename, std::ios::openmode mode)
+bool file::open(const std::string& filename, std::ios::openmode mode)
 {
   if (m_file.is_open())
   {
@@ -47,12 +49,7 @@ bool file::open_for_reading(const std::string& filename, std::ios::openmode mode
 
 bool text_file::open_for_reading(const std::string& filename)
 {
-  return file::open_for_reading(filename, std::ios::in);
-}
-
-bool binary_file::open_for_reading(const std::string& filename)
-{
-  return file::open_for_reading(filename, std::ios::in | std::ios::binary);
+  return file::open(filename, std::ios::in);
 }
 
 void file::report_error(const std::string& err)
@@ -67,24 +64,6 @@ void file::report_error(const std::string& err)
   }
 }
 
-size_t binary_file::read_binary(size_t num_bytes, void* dest)
-{
-  if (!m_file.is_open())
-  {
-    report_error("File not open");
-    return 0;
-  }
-
-  if (m_file.eof())
-  {
-    report_error("End of file");
-    return 0;
-  }
-
-  m_file.read(reinterpret_cast<char*>(dest), num_bytes);
-  return static_cast<size_t>(m_file.gcount());
-}
-
 bool text_file::read_string(std::string* s)
 {
   if (!m_file.is_open())
@@ -93,14 +72,20 @@ bool text_file::read_string(std::string* s)
     return false;
   }
 
-  if (m_file.eof())
+  // Skip blank lines... right?
+  while (trim(*s).empty())
   {
-    // Not an error if we are looping like this:
-    //  while (f.read_string... 
-    return false;
+    if (m_file.eof())
+    {
+      // Not an error if we are looping like this:
+      //  while (f.read_string... 
+      return false;
+    }
+
+    m_line++;
+    std::getline(m_file, *s);
   }
 
-  std::getline(m_file, *s);
   return true;
 }
   
@@ -112,24 +97,19 @@ void text_file::report_error(const std::string& err)
   }
   else
   {
-    log(msg() << "File: " << m_filename << ": error: " << err);
+    log(msg() << "File: " << m_filename << " line: " << m_line << ": error: " << err);
   }
-}
-
-bool binary_file::seek(size_t file_pos)
-{
-  if (!m_file.is_open() || m_file.eof())
-  {
-    return false;
-  }
-
-  m_file.seekg(file_pos);
-
-  return m_file.good();
 }
 
 void file::close()
 {
   m_file.close();
+}
+
+bool file_exists(const std::string& filename)
+{
+  struct stat buf;
+  bool exists = (stat(filename.c_str(), &buf) != -1);
+  return exists;
 }
 

@@ -231,6 +231,9 @@
     <ClInclude Include="..\..\..\..\source\mesh_scene_node.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\source\utils\binary_file.h">
+      <Filter>source\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\gl_shader.cpp">
@@ -439,6 +442,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\mesh_scene_node.cpp">
       <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\utils\binary_file.cpp">
+      <Filter>source\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "file.h"
+#include "binary_file.h"
 #include "md3_types.h"
 #include "quat.h"
 #include "resource_manager.h"
