@@ -32,6 +32,5 @@ private:
   std::string m_vert_shader_source;
   std::string m_frag_shader_source;
   bool m_compiled_ok = false;
-  bool m_destroy_called = false;
 };
 

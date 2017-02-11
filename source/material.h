@@ -7,21 +7,27 @@
 #include <memory>
 #include <vector>
 #include "gl_shader.h"
-#include "resource_manager.h"
+#include "gl_texture.h"
+#include "object.h"
 #include "string_utils.h"
-#include "texture.h"
 
-class material : public resource
+// * material *
+// Not a resource, but we point to resources.
+class material : public object
 {
 public:
   material() = default;
-  void set_textures(const strings& texture_names, resource_manager& rm);
+  void set_texture(std::shared_ptr<gl_texture> tex);
   void set_shader(std::shared_ptr<gl_shader> shader);
 
+  // Pass on to  the resources to which we point
   void use_on_gl_thread();
 
 private:
-  std::vector<std::shared_ptr<texture>> m_textures;
+  // Materials have zero or more textures, which are interpreted by the shader
+  std::vector<std::shared_ptr<gl_texture>> m_textures;
+
+  // Materials have one shader
   std::shared_ptr<gl_shader> m_shader;
 };
 

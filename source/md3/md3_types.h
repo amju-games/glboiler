@@ -15,7 +15,7 @@
 // The maximum amount of textures to load
 #define MAX_TEXTURES 100								
 
-#include "texture.h"
+#include "gl_texture.h"
 
 // This is our face structure.  This is used for indexing into the vertex 
 // and texture coordinate arrays.  From this information we know which vertices
@@ -34,7 +34,7 @@ struct tMaterialInfo
   char  strName[255];			// The texture name
   char  strFile[255];			// The texture file name (If this is set it's a texture map)
   unsigned char /* BYTE */   color[3];				// The color of the object (R, G, B)
-  texture*   textureId;				// the texture ID
+  gl_texture* textureId;				// the texture ID
   float uTile;				// u tiling of texture  
   float vTile;				// v tiling of texture	
   float uOffset;			    // u offset of texture

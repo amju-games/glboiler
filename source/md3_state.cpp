@@ -19,16 +19,16 @@ void md3_state::init_on_gl_thread(resource_manager& rm)
   shadow_depth_opaque->load("shaders/shadow_depth_opaque.v.txt", "shaders/shadow_depth_opaque.f.txt");
   rm.add_gl_resource("shadow_depth_opaque", shadow_depth_opaque);
 
-  {
-    std::shared_ptr<texture> tex(new texture);
-    tex->load("md3/dragon/deranged_crowley.png");
-    rm.add_gl_resource(tex->get_name(), tex);
-  }
-  {
-    std::shared_ptr<texture> tex(new texture);
-    tex->load("md3/dragon/deranged_sir_bruin.png");
-    rm.add_gl_resource(tex->get_name(), tex);
-  }
+  //{
+  //  std::shared_ptr<texture> tex(new texture);
+  //  tex->load("md3/dragon/deranged_crowley.png");
+  //  rm.add_gl_resource(tex->get_name(), tex);
+  //}
+  //{
+  //  std::shared_ptr<texture> tex(new texture);
+  //  tex->load("md3/dragon/deranged_sir_bruin.png");
+  //  rm.add_gl_resource(tex->get_name(), tex);
+  //}
 
   state::init_on_gl_thread(rm);
 }
@@ -56,8 +56,8 @@ void md3_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
   std::shared_ptr<material> mat_test_card(new material);
   std::shared_ptr<material> mat_white(new material);
 
-  mat_test_card->set_textures({ "textures/test_card.png" }, rm);
-  mat_white->set_textures({ "textures/white.png" }, rm);
+  mat_test_card->set_texture(rm.get_texture("textures/test_card.png"));
+  mat_white->set_texture(rm.get_texture("textures/white.png"));
 
   auto sphere = std::make_shared<gl_1_1_sphere_scene_node>();
   sphere->get_xform().translate(vec3(-5, 0, -5));

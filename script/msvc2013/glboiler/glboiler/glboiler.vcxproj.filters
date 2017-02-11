@@ -162,9 +162,6 @@
     <ClInclude Include="..\..\..\..\source\md3_node.h">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\source\texture.h">
-      <Filter>source</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\source\gl_1_1_renderer.h">
       <Filter>source</Filter>
     </ClInclude>
@@ -222,10 +219,16 @@
     <ClInclude Include="..\..\..\..\source\obj\obj_util.h">
       <Filter>source\obj</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\source\obj_scene_node.h">
+    <ClInclude Include="..\..\..\..\source\obj_state.h">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\source\obj_state.h">
+    <ClInclude Include="..\..\..\..\source\gl_mesh.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\gl_texture.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\mesh_scene_node.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
@@ -341,9 +344,6 @@
     <ClCompile Include="..\..\..\..\source\md3_node.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\texture.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\tests\utils\file_tests.cpp">
       <Filter>tests\utils</Filter>
     </ClCompile>
@@ -422,13 +422,22 @@
     <ClCompile Include="..\..\..\..\source\obj\obj_util.cpp">
       <Filter>source\obj</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\obj_scene_node.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\obj_state.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\vertex.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\gl_mesh.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\gl_texture.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\resource.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\mesh_scene_node.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,12 +4,9 @@
 
 #include "material.h"
 
-void material::set_textures(const strings& texture_names, resource_manager& rm)
+void material::set_texture(std::shared_ptr<gl_texture> tex)
 {
-  for (const std::string& tex_name : texture_names)
-  {
-    m_textures.push_back(rm.get_texture(tex_name));
-  }
+  m_textures.push_back(tex);
 }
 
 void material::set_shader(std::shared_ptr<gl_shader> shader)

@@ -19,8 +19,9 @@ bool ObjMesh::ShowInfo()
   return true;
 }
 
-bool ObjMesh::Load(const std::string& filename, bool binary)
+bool ObjMesh::load(const std::string& filename)
 {
+  //bool binary = false;
   //if (binary)
   //{
   //  return LoadBinary(filename);

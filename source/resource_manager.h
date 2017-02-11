@@ -8,17 +8,22 @@
 #include <memory>
 #include <set>
 #include <string>
+#include "gl_mesh.h"
 #include "gl_shader.h"
+#include "gl_texture.h"
 #include "resource.h"
-#include "texture.h"
 
 class resource_manager
 {
 public:
   // If name is filename, we can load texture on demand, i.e. if not already added to res map.
-  std::shared_ptr<texture> get_texture(const std::string& name, bool load_on_demand = true);
+  std::shared_ptr<gl_texture> get_texture(const std::string& name);
 
+  // We can load shaders on demand if the filename for the two files is made from the
+  //  resource name.
   std::shared_ptr<gl_shader> get_shader(const std::string& name);
+
+  std::shared_ptr<gl_mesh> get_mesh(const std::string& name);
 
   void add_gl_resource(const std::string& name, std::shared_ptr<gl_resource> res);
 

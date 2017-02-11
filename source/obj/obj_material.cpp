@@ -16,7 +16,7 @@ bool LoadMtlFile(const std::string& mtlfilename, MaterialVec* mats)
   while (true)
   {
     std::string s;
-	if (!f.read_string(&s))
+    if (!f.read_string(&s))
     {
       break;
     }

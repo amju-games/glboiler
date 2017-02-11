@@ -32,6 +32,9 @@ void scene_node::add_render_pass(render_pass_type rpt)
 
 bool scene_node::yes_render_in_pass(render_pass_type rpt) const
 {
+  // If zero, the node is never rendered in any pass!
+  gl_boiler_assert(m_render_passes != 0);
+
   return (m_render_passes & (1 << static_cast<int>(rpt))) != 0;
 }
 

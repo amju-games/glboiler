@@ -155,6 +155,7 @@
     <ClInclude Include="..\..\..\..\source\geom\vec2.h" />
     <ClInclude Include="..\..\..\..\source\geom\vec3.h" />
     <ClInclude Include="..\..\..\..\source\gl_2_solid_scene_node.h" />
+    <ClInclude Include="..\..\..\..\source\gl_mesh.h" />
     <ClInclude Include="..\..\..\..\source\gl_shader.h" />
     <ClInclude Include="..\..\..\..\source\gl_system.h" />
     <ClInclude Include="..\..\..\..\source\int_graph.h" />
@@ -170,7 +171,7 @@
     <ClInclude Include="..\..\..\..\source\obj\obj_material.h" />
     <ClInclude Include="..\..\..\..\source\obj\obj_mesh.h" />
     <ClInclude Include="..\..\..\..\source\obj\obj_util.h" />
-    <ClInclude Include="..\..\..\..\source\obj_scene_node.h" />
+    <ClInclude Include="..\..\..\..\source\mesh_scene_node.h" />
     <ClInclude Include="..\..\..\..\source\obj_state.h" />
     <ClInclude Include="..\..\..\..\source\renderer.h" />
     <ClInclude Include="..\..\..\..\source\render_pass.h" />
@@ -196,7 +197,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GlutDebug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\source\texture.h" />
+    <ClInclude Include="..\..\..\..\source\gl_texture.h" />
     <ClInclude Include="..\..\..\..\source\thirdparty\lodepng\lodepng.h" />
     <ClInclude Include="..\..\..\..\source\utils\file.h" />
     <ClInclude Include="..\..\..\..\source\utils\string_utils.h" />
@@ -216,6 +217,7 @@
     <ClCompile Include="..\..\..\..\source\geom\look_at.cpp" />
     <ClCompile Include="..\..\..\..\source\geom\projection.cpp" />
     <ClCompile Include="..\..\..\..\source\gl_2_solid_scene_node.cpp" />
+    <ClCompile Include="..\..\..\..\source\gl_mesh.cpp" />
     <ClCompile Include="..\..\..\..\source\gl_shader.cpp" />
     <ClCompile Include="..\..\..\..\source\gl_system.cpp" />
     <ClCompile Include="..\..\..\..\source\int_graph.cpp" />
@@ -237,11 +239,12 @@
     <ClCompile Include="..\..\..\..\source\obj\obj_material.cpp" />
     <ClCompile Include="..\..\..\..\source\obj\obj_mesh.cpp" />
     <ClCompile Include="..\..\..\..\source\obj\obj_util.cpp" />
-    <ClCompile Include="..\..\..\..\source\obj_scene_node.cpp" />
+    <ClCompile Include="..\..\..\..\source\mesh_scene_node.cpp" />
     <ClCompile Include="..\..\..\..\source\obj_state.cpp" />
     <ClCompile Include="..\..\..\..\source\renderer.cpp" />
     <ClCompile Include="..\..\..\..\source\render_pass.cpp" />
     <ClCompile Include="..\..\..\..\source\render_to_texture.cpp" />
+    <ClCompile Include="..\..\..\..\source\resource.cpp" />
     <ClCompile Include="..\..\..\..\source\resource_manager.cpp" />
     <ClCompile Include="..\..\..\..\source\scene_description.cpp" />
     <ClCompile Include="..\..\..\..\source\scene_graph.cpp" />
@@ -346,7 +349,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='GlutDebug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\texture.cpp" />
+    <ClCompile Include="..\..\..\..\source\gl_texture.cpp" />
     <ClCompile Include="..\..\..\..\source\thirdparty\glew-2.0.0\src\glew.c" />
     <ClCompile Include="..\..\..\..\source\thirdparty\lodepng\lodepng.cpp" />
     <ClCompile Include="..\..\..\..\source\thirdparty\openvr\samples\shared\Matrices.cpp">

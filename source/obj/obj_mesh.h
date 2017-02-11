@@ -1,14 +1,14 @@
 #pragma once
 
 #include <map>
+#include "gl_mesh.h"
 #include "obj_material.h"
 #include "obj_util.h"
-#include "resource.h"
 
 class CollisionMesh;
 class Matrix;
 
-class ObjMesh : public gl_resource
+class ObjMesh : public gl_mesh
 {
 public:
   virtual void upload_on_gl_thread() override;
@@ -18,7 +18,8 @@ public:
   // Reload from disk - but don't upload on GL thread until upload_on_gl_thread() called
   virtual void reload() override;
 
-  bool Load(const std::string& filename, bool binary = false);
+  virtual bool load(const std::string& filename) override;
+
   bool Save(const std::string& filename, bool binary = false);
 
   // Transform all vertices by the given matrix
@@ -74,8 +75,8 @@ private:
 
 //typedef RCPtr<ObjMesh> PObjMesh;
 
-resource* TextObjLoader(const std::string& resName);
-resource* BinaryObjLoader(const std::string& resName);
+//gl_resource* TextObjLoader(const std::string& resName);
+//gl_resource* BinaryObjLoader(const std::string& resName);
 
 // Used to load an .obj mesh and other associated files (.mtl and textures)
 ObjMesh* LoadObjMesh(const std::string& pathFile, bool binary = false);

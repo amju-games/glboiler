@@ -277,10 +277,10 @@ bool CModelMD3::LoadWeapon(const std::string& strPath, const std::string& strMod
   return true;
 }
 
-static texture* CreateTexture(const std::string& file, resource_manager& rm)
+static gl_texture* CreateTexture(const std::string& file, resource_manager& rm)
 {
   std::string f = trim(file);
-  std::shared_ptr<texture> tex = rm.get_texture(f);
+  std::shared_ptr<gl_texture> tex = rm.get_texture(f);
   return tex.get();
 }
 
@@ -296,7 +296,7 @@ bool CModelMD3::LoadModelTextures(t3DModel *pModel, const std::string& strPath, 
       //sprintf(strFullPath, "%s", pModel->pMaterials[i].strFile);
       std::string strFullPath = strPath + pModel->pMaterials[i].strFile;
 
-      texture* pTex = CreateTexture(strFullPath, rm);
+      gl_texture* pTex = CreateTexture(strFullPath, rm);
       if (!pTex)
       {
         std::cout << "Md3: CreateTexture Failed to load texture " << strFullPath << "\n";
@@ -406,7 +406,7 @@ bool CModelMD3::LoadAnimations(const std::string& strConfigFile)
 #endif
 
     // Copy the name of the animation to our animation structure
-    strcpy(animations[currentAnim].strName, name.c_str());
+    strcpy_s(animations[currentAnim].strName, name.c_str());
 
     // If the animation is for both the legs and the torso, add it to their animation list
     if (IsInString(name, "BOTH"))
@@ -722,7 +722,7 @@ void CModelMD3::RenderModel(t3DModel *pModel)
       //AmjuGL::Enable(AmjuGL::AMJU_TEXTURE_2D);
 
       // Grab the texture index from the materialID index into our material list
-      texture* pTex = pModel->pMaterials[pObject->materialID].textureId;
+      gl_texture* pTex = pModel->pMaterials[pObject->materialID].textureId;
       //TODO TEMP TEST
       pTex->use_on_gl_thread();
       //UseThisTexture(); //Bind();
@@ -989,7 +989,7 @@ void CLoadMD3::ConvertDataStructures(t3DModel *pModel, tMd3MeshInfo meshHeader)
   t3DObject currentMesh = { 0 };
 
   // Copy the name of the object to our object structure
-  strcpy(currentMesh.strName, meshHeader.strName);
+  strcpy_s(currentMesh.strName, meshHeader.strName);
 
   // Assign the vertex, texture coord and face count to our new structure
   currentMesh.numOfVerts = meshHeader.numVertices;
@@ -1103,7 +1103,7 @@ bool CLoadMD3::LoadSkin(t3DModel *pModel, const std::string& strSkin)
         tMaterialInfo texture;
 
         // Copy the name of the file into our texture file name variable.
-        strcpy(texture.strFile, &strLine[textureNameStart]);
+        strcpy_s(texture.strFile, &strLine[textureNameStart]);
 #ifdef MD3_DEBUG
         std::cout << "Reading skin file: " << strSkin << ", found texture: " << texture.strFile << "\n";
 #endif
@@ -1157,7 +1157,7 @@ bool CLoadMD3::LoadShader(t3DModel *pModel, const std::string& strShader)
     tMaterialInfo texture;
 
     // Copy the name of the file into our texture file name variable
-    strcpy(texture.strFile, strLine.c_str());
+    strcpy_s(texture.strFile, strLine.c_str());
 
     // The tile or scale for the UV's is 1 to 1 
     texture.uTile = texture.uTile = 1;

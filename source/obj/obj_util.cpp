@@ -107,24 +107,8 @@ void Group::use_on_gl_thread()
     return;
   }
 
-  // TODO TEMP TEST - GL 1.1 stylee
-  /*
-  glBegin(GL_TRIANGLES);
-  for (unsigned int i = 0; i < m_tris.size(); i++)
-  {
-    const Tri& tri = m_tris[i];
-    for (int v = 0; v < 3; v++)
-    {
-      const Vert& vert = tri.m_verts[v];
-      glNormal3fv(&vert.m_nx);
-      glTexCoord2fv(&vert.m_u);
-      glVertex3fv(&vert.m_x);
-    }
-  }
-  glEnd();
-  */
 
-  // Should be:
+
   GL_CHECK(glBindVertexArray(m_vao));
   GL_CHECK(glDrawArrays(GL_TRIANGLES, 0, 3 * m_tris.size()));
   GL_CHECK(glBindVertexArray(0)); // right?

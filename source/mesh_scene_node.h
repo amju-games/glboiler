@@ -4,18 +4,21 @@
 
 #pragma once
 
-#include "obj_mesh.h"
+#include "gl_mesh.h"
 #include "scene_node.h"
 
-class obj_scene_node : public scene_node
+class mesh_scene_node : public scene_node
 {
 public:
   virtual void render_on_gl_thread() const override;
 
-  bool load(const std::string& obj_filename);
+//  bool load(const std::string& obj_filename);
+
+  void set_mesh(std::shared_ptr<gl_mesh> mesh) { m_mesh = mesh; }
 
 private:
-  ObjMesh* m_mesh = nullptr;
+  // Owned by resource manager
+  std::shared_ptr<gl_mesh> m_mesh;
 
 };
 
