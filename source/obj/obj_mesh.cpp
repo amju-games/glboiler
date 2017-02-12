@@ -337,6 +337,27 @@ std::vector<std::shared_ptr<scene_node>> ObjMesh::make_scene_nodes(resource_mana
     n->set_name("Mesh_node_for_" + name);
     auto mesh = rm.get_resource(name);
     n->set_mesh(mesh); 
+
+    if (m_materials[g.m_materialName])
+    {
+      obj_material& om = *m_materials[g.m_materialName].get();
+      std::shared_ptr<material> mat(new material);
+      if (!om.m_shaderName.empty())
+      {
+        auto sh = rm.get_shader(om.m_shaderName);
+        mat->set_shader(sh);
+      }
+      for (int i = 0; i < obj_material::MAX_TEXTURES; i++)
+      {
+        if (!om.m_texfilename[i].empty())
+        {
+          auto tex = rm.get_texture(om.m_texfilename[i]);
+          mat->set_texture(tex);
+        }
+      }
+      n->set_material(mat);
+    }
+
   }
   return ret;
 }
