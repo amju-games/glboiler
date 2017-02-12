@@ -126,8 +126,8 @@ std::shared_ptr<gl_mesh> resource_manager::get_mesh(const std::string& name)
   if (it == m_gl_res_map.end())
   {
     // Load mesh
-    std::shared_ptr<gl_mesh> mesh(new ObjMesh);
-    if (!mesh->load(name))
+    std::shared_ptr<ObjMesh> mesh(new ObjMesh);
+    if (!mesh->load(name, *this))
     {
       log(msg() << "Mesh resource does not exist: " << name);
       gl_boiler_stop;
@@ -146,6 +146,18 @@ std::shared_ptr<gl_mesh> resource_manager::get_mesh(const std::string& name)
   }
 }
 
+std::shared_ptr<gl_resource> resource_manager::get_resource(const std::string& name)
+{
+  auto it = m_gl_res_map.find(name);
 
+  if (it == m_gl_res_map.end())
+  {
+    log(msg() << "Mesh resource does not exist: " << name);
+    gl_boiler_stop;
+    return nullptr;
+  }
+
+  return it->second;
+}
 
 

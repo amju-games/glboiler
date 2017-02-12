@@ -2,6 +2,8 @@
 #include "boiler_assert.h"
 #include "file.h"
 #include "obj_mesh.h"
+#include "resource_manager.h"
+#include "mesh_scene_node.h"
 #include "string_utils.h"
 
 #ifdef _DEBUG
@@ -36,7 +38,7 @@ void ObjMesh::parse_vt(const strings& strs, std::string& currentGroup, file& f)
 void ObjMesh::parse_f(const strings& strs, std::string& currentGroup, file& f)
 {
   Group& g = m_groups[currentGroup];
-  gl_boiler_assert(!g.m_name.empty());
+  gl_boiler_assert(!g.get_name().empty());
 
   if (strs.size() > 4)
   {
@@ -44,7 +46,7 @@ void ObjMesh::parse_f(const strings& strs, std::string& currentGroup, file& f)
   }
 
   Face face = ToFace(strs);
-  m_facemap[g.m_name].push_back(face);
+  m_facemap[g.get_name()].push_back(face);
 }
 
 void ObjMesh::parse_g(const strings& strs, std::string& currentGroup, file& f)
@@ -57,20 +59,20 @@ void ObjMesh::parse_g(const strings& strs, std::string& currentGroup, file& f)
   }
   else if (strs.size() == 2)
   {
-    currentGroup = strs[1];
+    currentGroup = get_name() + strs[1];
     Group& g = m_groups[currentGroup];
-    g.m_name = currentGroup;
+    g.set_name(currentGroup);
   }
   else
   {
     f.report_error("Info: Unexpected format for group: g " + strs[1] + " " + strs[2] + "...");
-    currentGroup = strs[1];
+    currentGroup = get_name() + strs[1];
     for (unsigned int a = 2; a < strs.size(); a++)
     {
       currentGroup += strs[a];
     }
     Group& g = m_groups[currentGroup];
-    g.m_name = currentGroup;
+    g.set_name(currentGroup);
   }
 }
 
@@ -132,9 +134,9 @@ void ObjMesh::parse_usemtl(const strings& strs, std::string& currentGroup, file&
     }
 
     // Make name for group
-    currentGroup = matname + "_group"; // OK if group name exists
+    currentGroup = get_name() + matname + "_group"; // OK if group name exists
     Group& g = m_groups[currentGroup];
-    g.m_name = currentGroup;
+    g.set_name(currentGroup);
     g.m_materialName = matname;
   }
 }
@@ -174,7 +176,7 @@ void ObjMesh::parse_line(const std::string& s, std::string& currentGroup, file& 
   }
 }
 
-bool ObjMesh::load(const std::string& filename)
+bool ObjMesh::load(const std::string& filename, resource_manager& rm)
 {
   if (ShowInfo())
   {
@@ -186,11 +188,13 @@ bool ObjMesh::load(const std::string& filename)
   {
     return false;
   }
+  m_filename = filename;
+  set_name(filename);
 
   // Set name for default group. We can end up with empty groups, which we strip later.
   std::string currentGroup = filename;
   Group& g = m_groups[currentGroup];
-  g.m_name = currentGroup;
+  g.set_name(currentGroup);
 
   while (true)
   {
@@ -223,7 +227,7 @@ bool ObjMesh::load(const std::string& filename)
       << "\n";
   }
 
-  MungeData();
+  MungeData(rm);
   return true;
 }
 
@@ -232,7 +236,7 @@ const aabb& ObjMesh::GetAABB()
   return m_aabb;
 }
 
-void ObjMesh::MungeData()
+void ObjMesh::MungeData(resource_manager& rm)
 {
   if (ShowInfo())
   {
@@ -253,7 +257,7 @@ void ObjMesh::MungeData()
     {
       if (ShowInfo())
       {
-        std::cout << "Removing empty group " << g.m_name << "\n";
+        std::cout << "Removing empty group " << g.get_name() << "\n";
       }
 
 #ifdef WIN32
@@ -267,6 +271,9 @@ void ObjMesh::MungeData()
     }
     else
     {
+      // Add group to resource manager
+      std::string name = g.get_name(); 
+      rm.add_gl_resource(name, std::shared_ptr<Group>(new Group(g)));
       ++it;
     }
   }
@@ -317,38 +324,55 @@ void ObjMesh::MungeData()
   }
 }
 
-void ObjMesh::use_on_gl_thread()
+std::vector<std::shared_ptr<scene_node>> ObjMesh::make_scene_nodes(resource_manager& rm)
 {
-  for (Groups::iterator it = m_groups.begin();
-       it != m_groups.end();
-       ++it)
+  std::vector<std::shared_ptr<scene_node>> ret;
+  for (auto& p : m_groups)
   {
-      Group& g = it->second;
-      g.use_on_gl_thread();
+    std::shared_ptr<mesh_scene_node> n(new mesh_scene_node);
+    ret.push_back(n);
+    // Get group from res manager
+    Group& g = p.second;
+    std::string name = g.get_name();
+    n->set_name("Mesh_node_for_" + name);
+    auto mesh = rm.get_resource(name);
+    n->set_mesh(mesh); 
   }
+  return ret;
 }
 
-void ObjMesh::upload_on_gl_thread()
-{
-  for (Groups::iterator it = m_groups.begin();
-    it != m_groups.end();
-    ++it)
-  {
-    Group& g = it->second;
-    g.upload_on_gl_thread();
-  }
-}
-
-void ObjMesh::destroy_on_gl_thread()
-{
-  for (Groups::iterator it = m_groups.begin();
-    it != m_groups.end();
-    ++it)
-  {
-    Group& g = it->second;
-    g.destroy_on_gl_thread();
-  }
-}
+//void ObjMesh::use_on_gl_thread()
+//{
+//  for (Groups::iterator it = m_groups.begin();
+//       it != m_groups.end();
+//       ++it)
+//  {
+//      Group& g = it->second;
+//      g.use_on_gl_thread();
+//  }
+//}
+//
+//void ObjMesh::upload_on_gl_thread()
+//{
+//  for (Groups::iterator it = m_groups.begin();
+//    it != m_groups.end();
+//    ++it)
+//  {
+//    Group& g = it->second;
+//    g.upload_on_gl_thread();
+//  }
+//}
+//
+//void ObjMesh::destroy_on_gl_thread()
+//{
+//  for (Groups::iterator it = m_groups.begin();
+//    it != m_groups.end();
+//    ++it)
+//  {
+//    Group& g = it->second;
+//    g.destroy_on_gl_thread();
+//  }
+//}
 
 void ObjMesh::reload()
 {
@@ -358,13 +382,13 @@ void ObjMesh::reload()
 void ObjMesh::BuildGroup(Group& g)
 {
   // Only need to build Tris once - this kind of mesh is not animated!
-  Faces& faces = m_facemap[g.m_name];
+  Faces& faces = m_facemap[g.get_name()];
 
   unsigned int numfaces = faces.size();
 
   if (ShowInfo())
   {
-    std::cout << "Group " << g.m_name << " has " << numfaces << " faces.\n";
+    std::cout << "Group " << g.get_name() << " has " << numfaces << " faces.\n";
     if (m_uvs.empty())
     {
       std::cout << "No UVs in this obj mesh!\n";
@@ -416,7 +440,7 @@ void ObjMesh::BuildGroup(Group& g)
 
   if (ShowInfo())
   {
-    std::cout << "BuildGroup: " << g.m_tris.size() << " tris in group \"" << g.m_name << "\".\n";
+    std::cout << "BuildGroup: " << g.m_tris.size() << " tris in group \"" << g.get_name() << "\".\n";
   }
 }
 

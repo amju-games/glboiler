@@ -381,6 +381,7 @@
     <Text Include="..\..\..\..\assets\shaders\opaque.v.txt" />
     <Text Include="..\..\..\..\assets\shaders\gl_2_test_f.txt" />
     <Text Include="..\..\..\..\assets\shaders\gl_2_test_v.txt" />
+    <Text Include="..\..\..\..\obj_todo.txt" />
     <Text Include="..\..\..\..\Push reminder - DO NOT CHECK IN.txt" />
     <Text Include="..\..\..\..\todo.txt" />
     <Text Include="..\..\..\..\TODO2.txt" />

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "gl_mesh.h"
+#include "resource.h"
 #include "scene_node.h"
 
 class mesh_scene_node : public scene_node
@@ -14,11 +14,11 @@ public:
 
 //  bool load(const std::string& obj_filename);
 
-  void set_mesh(std::shared_ptr<gl_mesh> mesh) { m_mesh = mesh; }
+  void set_mesh(std::shared_ptr<gl_resource> mesh) { m_mesh = mesh; }
 
 private:
   // Owned by resource manager
-  std::shared_ptr<gl_mesh> m_mesh;
+  std::shared_ptr<gl_resource> m_mesh;
 
 };
 

@@ -478,5 +478,6 @@
     <Text Include="..\..\..\..\assets\shaders\opaque.v.txt">
       <Filter>assets\shaders</Filter>
     </Text>
+    <Text Include="..\..\..\..\obj_todo.txt" />
   </ItemGroup>
 </Project>

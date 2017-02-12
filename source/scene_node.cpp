@@ -17,24 +17,16 @@ void scene_node::use_material_on_gl_thread() const
   }
 }
 
-void scene_node::add_render_pass(render_pass_type rpt)
+void scene_node::add_render_pass(unsigned int rpt)
 {
-  if (rpt == render_pass_type::ALL)
-  {
-    // Set bit for every pass
-    m_render_passes = 0xffffffff;
-  }
-  else
-  {
-    m_render_passes |= (1 << static_cast<int>(rpt));
-  }
+  m_render_passes |= rpt;
 }
 
-bool scene_node::yes_render_in_pass(render_pass_type rpt) const
+bool scene_node::yes_render_in_pass(unsigned int rpt) const
 {
   // If zero, the node is never rendered in any pass!
   gl_boiler_assert(m_render_passes != 0);
 
-  return (m_render_passes & (1 << static_cast<int>(rpt))) != 0;
+  return (m_render_passes & rpt) != 0;
 }
 

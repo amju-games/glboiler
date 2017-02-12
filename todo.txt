@@ -84,7 +84,7 @@ Each feature separately timed. Have a stack of timers, so we can show % of paren
 GFX features
  - Reflection probes
  - Screen space reflection, vs geometry-based reflection plane
-
+  - Pass prev frame as reflection map into opaque pass
 
 Parallax Occlusion Mapping: POM
 

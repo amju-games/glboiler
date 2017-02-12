@@ -7,3 +7,24 @@ Save/load binary: write group tri vectors to mem. This should load super fast!
 Using materials: create material from obj_material, get from resource manager.
 Then each group has a material with a potential new shader.
 
+
+OK, obj files have multiple groups. Each one is a separate { mesh, material } pair.
+We want to have multiple instances of the same obj file in the scene.
+We only want to load an obj file once, but also want to reload it.
+So obj files are a resource.
+The groups created when we load an obj file are also a resource.
+The materials we load name textures and shaders which are resources.
+But materials are not resources, they just point to resources.
+
+
+So when we add a mesh node to the scene, loaded from obj:
+
+The obj is a resource, loaded on demand. If already loaded, we use it immediately.
+
+
+We iterate over the obj resource, getting the material name and group name.
+Look up group in res manager (already added when we loaded obj file). 
+Create a mesh node pointing to the group resource and containing a material object
+ which points to texture and shader resources. Or material is a resource?
+
+Connect all new nodes to a local root. This needs scene graph access.

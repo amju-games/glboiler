@@ -25,6 +25,8 @@ public:
 
   std::shared_ptr<gl_mesh> get_mesh(const std::string& name);
 
+  std::shared_ptr<gl_resource> get_resource(const std::string& name);
+
   void add_gl_resource(const std::string& name, std::shared_ptr<gl_resource> res);
 
   void report() const;

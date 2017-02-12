@@ -33,7 +33,7 @@ protected:
   // Traverse the scene, rendering the nodes which should be rendered 
   //  for the given pass type.
   void traverse_scene_for_pass(
-    render_pass_type pass,
+    unsigned int pass, // value from render_pass_type
     const frustum&);
 
   virtual void draw_node(

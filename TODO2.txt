@@ -1,16 +1,25 @@
 Draw wireframe should be an option.
 That needs Tweak bar....
+(How to do it? Is polygon mode still a thing?)
 
 
 MD3 rotation of separate model - broken for gl2 renderer
  - it's because of glMultMatrixf in DrawLink() - extract this and subclass for GL 1.1 and 2
 
 
+ System time should be a uniform set for shaders, so we can do proc sky, animated UVs, and anything else
+  that changes over time.
+  Only if required by shader, so would work well with Uniform class.
 
 
+ DONE
  Shaders should always be shared ptrs to resources, so we can rebuild all shaders.
  Same for textures, meshes. All resources can be reloaded at any time.
+
+
+ LOW PRIORITY
  Add Uniform and Attribute types for setting shader inputs at run time.
+ Is there a lot of point to doing this.. depends how convoluted it is to set uniforms/attribs.
 
 
  Shadows: make shadows work with trees/alpha nodes. Second shader within shadow depth pass.

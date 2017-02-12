@@ -4,15 +4,15 @@
 
 #pragma once
 
-// Zero-based number for each pass. We store as bit positions in an 
+// Bit position corresponding to each pass. We store in an 
 //  int, for each node. This tells us which nodes to render in each pass.
-enum class render_pass_type
+struct render_pass_type
 {
-  SHADOW_PASS,
-  SHADOW_ALPHA_PASS,
-  FORWARD_OPAQUE_PASS,
-  FORWARD_BLENDED_PASS,
+  static const unsigned int SHADOW_PASS = 0x0001;
+  static const unsigned int SHADOW_ALPHA_PASS = 0x0002;
+  static const unsigned int FORWARD_OPAQUE_PASS = 0x004;
+  static const unsigned int FORWARD_BLENDED_PASS = 0x008;
 
-  ALL
+  static const unsigned int ALL = 0xffff;
 };
 

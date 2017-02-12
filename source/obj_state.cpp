@@ -34,11 +34,33 @@ void obj_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
   std::shared_ptr<material> mat_white(new material);
   mat_white->set_texture(rm.get_texture("textures/test_card.png"));
 
-  auto obj = std::make_shared<mesh_scene_node>();
-  obj->add_render_pass(render_pass_type::SHADOW_PASS);
-  obj->add_render_pass(render_pass_type::FORWARD_OPAQUE_PASS);
+  auto obj = std::make_shared<scene_node>();
+  m_sg->add_node(obj);
+  m_sg->add_connection(root->get_id(), obj->get_id());
 
-  obj->set_mesh(rm.get_mesh("obj/cube_0.5.obj"));
+  obj->add_render_pass(render_pass_type::SHADOW_PASS | render_pass_type::FORWARD_OPAQUE_PASS);
+
+  // Get obj file resource. Loaded if not already resident.
+  // Stores the meshes (groups) in the resource manager when loading.
+  std::shared_ptr<gl_mesh> mesh = rm.get_mesh("obj/ball.obj");
+
+  // Obj file can have multiple meshes (groups). We want each group in a separate node, for
+  //  sorting etc. This function makes a scene node for each group, getting the group from
+  //  the resource manager.
+  std::vector<std::shared_ptr<scene_node>> nodes = mesh->make_scene_nodes(rm);
+
+  // Add each new node to the scene graph, setting render pass flags and connecting
+  //  the root node to each sub node.
+  for (auto n : nodes)
+  {
+    n->add_render_pass(render_pass_type::SHADOW_PASS | render_pass_type::FORWARD_OPAQUE_PASS);
+    n->set_material(mat_white);
+
+    m_sg->add_node(n);
+    m_sg->add_connection(obj->get_id(), n->get_id());
+  }
+
+//  obj->set_mesh(rm.get_mesh("obj/cube_0.5.obj"));
 
 //  obj->load("obj/reduced_head_3b.obj");
 //  obj->load("obj/ball.obj");
@@ -46,11 +68,6 @@ void obj_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
   mat4 scale_down;
   scale_down.scale(.1f, .1f, .1f); // rather large by default
   obj->get_xform() = scale_down;
-
-  m_sg->add_node(obj);
-  obj->set_material(mat_white);
-
-  m_sg->add_connection(root->get_id(), obj->get_id());
 }
 
 void obj_state::create_renderer_on_gl_thread(resource_manager& rm)

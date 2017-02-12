@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "aabb.h"
+#include "resource.h"
 #include "string_utils.h"
 #include "vec2.h"
 #include "vec3.h"
@@ -29,7 +30,7 @@ typedef std::vector<Face> Faces;
 typedef std::map<std::string, Faces> FaceMap;
 
 // Group - has name, material name and collection of faces.
-struct Group
+struct Group : public gl_resource
 {
   Group() : m_visible(true), m_collidable(true) {}
 
@@ -38,13 +39,15 @@ struct Group
   void SetVisible(bool visible) { m_visible = visible; }
   void SetCollidable(bool collidable) { m_collidable = collidable; }
 
-  void upload_on_gl_thread();
-  void use_on_gl_thread();
-  void destroy_on_gl_thread();
+  virtual void upload_on_gl_thread() override;
+  virtual void use_on_gl_thread() override;
+  virtual void destroy_on_gl_thread() override;
+
+  // Reloaded when obj file is reloaded
+  virtual void reload() {}
 
   bool m_visible;
   bool m_collidable;
-  std::string m_name;
   std::string m_materialName; // TODO int index
   tris m_tris; 
 

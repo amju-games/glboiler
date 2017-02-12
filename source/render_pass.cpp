@@ -18,7 +18,7 @@ struct traversal_node
 };
 
 void render_pass::traverse_scene_for_pass(
-  render_pass_type pass,
+  unsigned int pass,
   const frustum& fr)
 {
   // In this traversal we can visit the same node more than once.

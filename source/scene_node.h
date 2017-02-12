@@ -41,8 +41,9 @@ public:
   void use_material_on_gl_thread() const;
 
   // Set render passes for which we should render this node
-  void add_render_pass(render_pass_type rpt);
-  bool yes_render_in_pass(render_pass_type rpt) const;
+  void add_render_pass(unsigned int rpt);
+  bool yes_render_in_pass(unsigned int rpt) const;
+  unsigned int get_render_passes() const { return m_render_passes; }
 
 protected:
   // Bit field: each bit position corresponds to a render pass
