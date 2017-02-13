@@ -42,7 +42,7 @@ void obj_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
 
   // Get obj file resource. Loaded if not already resident.
   // Stores the meshes (groups) in the resource manager when loading.
-  std::shared_ptr<gl_mesh> mesh = rm.get_mesh("obj/reduced_head_3b.obj");
+  std::shared_ptr<gl_mesh> mesh = rm.get_mesh("obj/head_4.obj");
 
   // Obj file can have multiple meshes (groups). We want each group in a separate node, for
   //  sorting etc. This function makes a scene node for each group, getting the group from
