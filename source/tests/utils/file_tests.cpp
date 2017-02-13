@@ -1,5 +1,9 @@
+// -----------------------------------------------------------------------------
+// glboiler - Jason Colman 2016-2017 - OpenGL experiments
+// -----------------------------------------------------------------------------
 
 #include <gtest/gtest.h>
+#include "binary_file.h"
 #include "file.h"
 
 // These tests have to be run from the assets/ dir

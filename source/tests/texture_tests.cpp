@@ -3,7 +3,7 @@
 // -----------------------------------------------------------------------------
 
 #include <gtest/gtest.h>
-#include "texture.h"
+#include "gl_texture.h"
 
 // Load testing: these tests expect that we are running in the assets/ dir.
 // These values depend on the asset of course.
@@ -14,17 +14,17 @@ static const unsigned int EXPECTED_HEIGHT = 8;
 static const unsigned int EXPECTED_BYTES_PER_PIXEL = 4;
 static const colour EXPECTED_COLOUR(1, 1, 1, 1); // i.e. white
 
-TEST(texture, create)
+TEST(gl_texture, create)
 {
-  texture tex;
+  gl_texture tex;
   ASSERT_FALSE(tex.has_been_uploaded());
   ASSERT_EQ(tex.get_width(), 0);  
   ASSERT_EQ(tex.get_height(), 0);  
 }
 
-TEST(texture, load)
+TEST(gl_texture, load)
 {
-  texture tex;
+  gl_texture tex;
   bool loaded = tex.load(TEX_FILENAME);
   ASSERT_TRUE(loaded);
   ASSERT_EQ(tex.get_width(), EXPECTED_WIDTH);
@@ -32,9 +32,9 @@ TEST(texture, load)
   ASSERT_EQ(tex.get_bytes_per_pixel(), EXPECTED_BYTES_PER_PIXEL);
 }
 
-TEST(texture, get_texel_colour)
+TEST(gl_texture, get_texel_colour)
 {
-  texture tex;
+  gl_texture tex;
   bool loaded = tex.load(TEX_FILENAME);
   ASSERT_TRUE(loaded);
   // Get the colour of a texel. As the entire image is white, any texel 
