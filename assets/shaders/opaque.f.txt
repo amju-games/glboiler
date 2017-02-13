@@ -6,6 +6,9 @@
 // Fragment shader
 // -----------------------------------------------------------------------------
 
+#define VIEW_NORMALS
+
+
 // Just replicating fixed function lighting (one light) + one diffuse map
 // GL 2, so using some built-in uniforms.
 
@@ -66,7 +69,13 @@ void main()
 
   float n = shadow * n_dot_l + 0.5; 
 
-  gl_FragColor = vec4(diffuse_tex_colour.r * n, diffuse_tex_colour.g * n, diffuse_tex_colour.b * n, diffuse_tex_colour.a);
+  vec4 final_colour = vec4(diffuse_tex_colour.r * n, diffuse_tex_colour.g * n, diffuse_tex_colour.b * n, diffuse_tex_colour.a);
+
+#ifdef VIEW_NORMALS
+  final_colour = final_colour * 0.0001 + vec4(v_normal * 0.5 + vec3(0.5), 1.0);
+#endif
+
+  gl_FragColor = final_colour;
 }
 
 
