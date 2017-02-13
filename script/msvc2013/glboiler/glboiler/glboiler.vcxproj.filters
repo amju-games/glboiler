@@ -234,6 +234,9 @@
     <ClInclude Include="..\..\..\..\source\utils\binary_file.h">
       <Filter>source\utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\source\utils\file_string_utils.h">
+      <Filter>source\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\gl_shader.cpp">
@@ -446,6 +449,9 @@
     <ClCompile Include="..\..\..\..\source\utils\binary_file.cpp">
       <Filter>source\utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\utils\file_string_utils.cpp">
+      <Filter>source\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\source\thirdparty\glut\glut32.lib" />
@@ -465,7 +471,6 @@
     <Text Include="..\..\..\..\TODO2.txt" />
     <Text Include="..\..\..\..\todo.txt" />
     <Text Include="..\..\..\..\vao_notes.txt" />
-    <Text Include="..\..\..\..\Push reminder - DO NOT CHECK IN.txt" />
     <Text Include="..\..\..\..\assets\shaders\shadow_depth_opaque.f.txt">
       <Filter>assets\shaders</Filter>
     </Text>

@@ -201,6 +201,7 @@
     <ClInclude Include="..\..\..\..\source\thirdparty\lodepng\lodepng.h" />
     <ClInclude Include="..\..\..\..\source\utils\file.h" />
     <ClInclude Include="..\..\..\..\source\utils\binary_file.h" />
+    <ClInclude Include="..\..\..\..\source\utils\file_string_utils.h" />
     <ClInclude Include="..\..\..\..\source\utils\string_utils.h" />
     <ClInclude Include="..\..\..\..\source\vertex.h" />
     <ClInclude Include="..\..\..\..\source\view.h" />
@@ -361,6 +362,7 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\utils\binary_file.cpp" />
     <ClCompile Include="..\..\..\..\source\utils\file.cpp" />
+    <ClCompile Include="..\..\..\..\source\utils\file_string_utils.cpp" />
     <ClCompile Include="..\..\..\..\source\utils\string_utils.cpp" />
     <ClCompile Include="..\..\..\..\source\vertex.cpp" />
     <ClCompile Include="..\..\..\..\source\view.cpp" />
@@ -382,7 +384,6 @@
     <Text Include="..\..\..\..\assets\shaders\gl_2_test_f.txt" />
     <Text Include="..\..\..\..\assets\shaders\gl_2_test_v.txt" />
     <Text Include="..\..\..\..\obj_todo.txt" />
-    <Text Include="..\..\..\..\Push reminder - DO NOT CHECK IN.txt" />
     <Text Include="..\..\..\..\todo.txt" />
     <Text Include="..\..\..\..\TODO2.txt" />
     <Text Include="..\..\..\..\vao_notes.txt" />
