@@ -45,7 +45,7 @@ void state::set_up_renderer_on_gl_thread(renderer& rend, int x, int y, int w, in
 {
   rend.init_on_gl_thread(rm);
 
-  vec3 eye_pos(0, 1, 30); // TODO TEMP TEST
+  vec3 eye_pos(0, 80, 200); // TODO TEMP TEST
   const vec3 up(0, 1, 0);
 
   perspective p(45.0f, 1.0f, 0.1f, 10000.0f);

@@ -58,15 +58,6 @@ void obj_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
     m_sg->add_node(n);
     m_sg->add_connection(obj->get_id(), n->get_id());
   }
-
-//  obj->set_mesh(rm.get_mesh("obj/cube_0.5.obj"));
-
-//  obj->load("obj/reduced_head_3b.obj");
-//  obj->load("obj/ball.obj");
-
-  mat4 scale_down;
-  scale_down.scale(.1f, .1f, .1f); // rather large by default
-  obj->get_xform() = scale_down;
 }
 
 void obj_state::create_renderer_on_gl_thread(resource_manager& rm)
