@@ -1,6 +1,7 @@
 #include <iostream>
 #include "boiler_assert.h"
 #include "file.h"
+#include "file_string_utils.h"
 #include "obj_mesh.h"
 #include "resource_manager.h"
 #include "mesh_scene_node.h"
@@ -84,7 +85,7 @@ void ObjMesh::parse_mtllib(const strings& strs, std::string& currentGroup, file&
     return;
   }
 
-  std::string mtlfilename = strs[1];
+  std::string mtlfilename = just_path(m_filename) + strs[1];
   MaterialVec mats;
   if (!LoadMtlFile(mtlfilename, &mats))
   {
@@ -361,39 +362,6 @@ std::vector<std::shared_ptr<scene_node>> ObjMesh::make_scene_nodes(resource_mana
   }
   return ret;
 }
-
-//void ObjMesh::use_on_gl_thread()
-//{
-//  for (Groups::iterator it = m_groups.begin();
-//       it != m_groups.end();
-//       ++it)
-//  {
-//      Group& g = it->second;
-//      g.use_on_gl_thread();
-//  }
-//}
-//
-//void ObjMesh::upload_on_gl_thread()
-//{
-//  for (Groups::iterator it = m_groups.begin();
-//    it != m_groups.end();
-//    ++it)
-//  {
-//    Group& g = it->second;
-//    g.upload_on_gl_thread();
-//  }
-//}
-//
-//void ObjMesh::destroy_on_gl_thread()
-//{
-//  for (Groups::iterator it = m_groups.begin();
-//    it != m_groups.end();
-//    ++it)
-//  {
-//    Group& g = it->second;
-//    g.destroy_on_gl_thread();
-//  }
-//}
 
 void ObjMesh::reload()
 {

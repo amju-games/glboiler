@@ -1,4 +1,5 @@
-#include <iostream>
+#include <iostream> // TODO TEMP TEST
+#include "file_string_utils.h"
 #include "obj_material.h"
 #include "resource_manager.h"
 #include "string_utils.h"
@@ -10,6 +11,8 @@ bool LoadMtlFile(const std::string& mtlfilename, MaterialVec* mats)
   {
     return false;
   }
+
+  std::string path = just_path(mtlfilename);
 
   obj_material* current = nullptr;
 
@@ -39,7 +42,7 @@ bool LoadMtlFile(const std::string& mtlfilename, MaterialVec* mats)
       }
 
       gl_boiler_assert(current);
-      current->m_texfilename[0] = strs[1];
+      current->m_texfilename[0] = path + strs[1];
     }
     else if (strs[0].substr(0, 4) == "map_")
     {
@@ -47,10 +50,11 @@ bool LoadMtlFile(const std::string& mtlfilename, MaterialVec* mats)
       int m = to_int(sm);
 
       std::cout << "Material: found '" << s << "', that is texture map " << m <<  ", right?\n"; 
-      current->m_texfilename[m] = strs[1];
+      current->m_texfilename[m] = path + strs[1];
     }
     else if (strs[0] == "shader")
     {
+      // Assume not in same dir so don't prepend path
       std::cout << "Material: found shader " << strs[1] << "\n";
       current->m_shaderName = strs[1];
     }
