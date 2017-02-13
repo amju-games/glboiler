@@ -452,6 +452,9 @@
     <ClCompile Include="..\..\..\..\source\utils\file_string_utils.cpp">
       <Filter>source\utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\tests\utils\file_string_utils_tests.cpp">
+      <Filter>tests\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\source\thirdparty\glut\glut32.lib" />
