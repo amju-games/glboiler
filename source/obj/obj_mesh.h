@@ -26,7 +26,7 @@ public:
 
   bool load(const std::string& filename, resource_manager& rm);
 
-  bool Save(const std::string& filename, bool binary = false);
+////  bool Save(const std::string& filename, bool binary = false);
 
   // Transform all vertices by the given matrix
   //void Transform(const Matrix& m);
@@ -53,8 +53,10 @@ public:
   static bool RequiresTextures();
 
 private:
-  bool LoadBinary(const std::string& filename);
-  bool SaveBinary(const std::string& filename);
+  bool load_text(const std::string& filename, resource_manager& rm);
+  bool load_binary(const std::string& filename, resource_manager& rm);
+
+  bool save_binary(const std::string& filename);
 
   // Build groups, clean up temp data etc
   void MungeData(resource_manager& rm);
@@ -95,4 +97,9 @@ private:
 
 // Used to load an .obj mesh and other associated files (.mtl and textures)
 ObjMesh* LoadObjMesh(const std::string& pathFile, bool binary = false);
+
+// Return true if the binary version of the given filename exists,
+//  and it has a timestamp later (newer) than the text file.
+// The binary version of a filename has ".bin" appended.
+bool use_binary_file(const std::string& filename);
 

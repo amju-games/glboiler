@@ -1,4 +1,6 @@
 #include <iostream>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "boiler_assert.h"
 #include "file.h"
 #include "file_string_utils.h"
@@ -177,7 +179,53 @@ void ObjMesh::parse_line(const std::string& s, std::string& currentGroup, file& 
   }
 }
 
+bool use_binary_file(const std::string& filename)
+{
+  // Use binary file if the file exists and has a timestamp later (newer) than the text file.
+  struct stat text_file_stat_buf;
+  bool text_file_exists = (stat(filename.c_str(), &text_file_stat_buf) != -1);
+  if (text_file_exists)
+  {
+    struct stat binary_file_stat_buf;
+    bool binary_file_exists = (stat((filename + ".bin").c_str(), &binary_file_stat_buf) != -1);
+
+    if (binary_file_exists &&
+        binary_file_stat_buf.st_mtime > text_file_stat_buf.st_mtime)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
 bool ObjMesh::load(const std::string& filename, resource_manager& rm)
+{
+  if (use_binary_file(filename))
+  {
+    return load_binary(filename, rm);
+  }
+  else
+  {
+    if (load_text(filename, rm))
+    {
+      save_binary(filename);
+      return true;
+    }
+  }
+  return false;
+}
+
+bool ObjMesh::load_binary(const std::string& filename, resource_manager& rm)
+{
+  return false;
+}
+
+bool ObjMesh::save_binary(const std::string& filename)
+{
+  return false;
+}
+
+bool ObjMesh::load_text(const std::string& filename, resource_manager& rm)
 {
   if (ShowInfo())
   {
