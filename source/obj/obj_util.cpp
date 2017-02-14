@@ -1,10 +1,14 @@
+// -----------------------------------------------------------------------------
+// glboiler - Jason Colman 2016-2017 - OpenGL experiments
+// -----------------------------------------------------------------------------
+
 #include <iostream>
+#include "binary_file.h"
 #include "boiler_assert.h"
 #include "file.h"
 #include "gl_includes.h"
 #include "obj_util.h"
 #include "string_utils.h"
-//?#include "ResourceManager.h"
 
 // Convert a vector of four strings to a Vec3. 
 // The zeroth string is ignored. Strings 1, 2 & 3 are
@@ -102,13 +106,6 @@ void Group::upload_on_gl_thread()
 
 void Group::use_on_gl_thread()
 {
-  if (!IsVisible())
-  {
-    return;
-  }
-
-
-
   GL_CHECK(glBindVertexArray(m_vao));
   GL_CHECK(glDrawArrays(GL_TRIANGLES, 0, 3 * m_tris.size()));
   GL_CHECK(glBindVertexArray(0)); // right?
@@ -118,4 +115,43 @@ void Group::destroy_on_gl_thread()
 {
   GL_CHECK(glDeleteBuffers(1, &m_vbo));
   GL_CHECK(glDeleteVertexArrays(1, &m_vao));
+  m_destroy_called = true;
 }
+
+bool Group::load_binary(binary_file& f)
+{
+  if (!f.read_string(m_materialName))
+  {
+    return false;
+  }
+  int num_tris = 0;
+  if (!f.read_int(num_tris))
+  {
+    return false;
+  }
+  m_tris.resize(num_tris);
+  if (!f.read_binary(num_tris * sizeof(tri), m_tris.data()))
+  {
+    return false;
+  }
+  return true;
+}
+
+bool Group::save_binary(binary_file& f)
+{
+  if (!f.write_string(m_materialName))
+  {
+    return false;
+  }
+  int n = static_cast<int>(m_tris.size());
+  if (!f.write_int(n))
+  {
+    return false;
+  }
+  if (!f.write_binary(n * sizeof(tri), m_tris.data()))
+  {
+    return false;
+  }
+  return true;
+}
+

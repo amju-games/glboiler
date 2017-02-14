@@ -1,6 +1,5 @@
 #include <iostream>
-#include <sys/types.h>
-#include <sys/stat.h>
+#include "binary_file.h"
 #include "boiler_assert.h"
 #include "file.h"
 #include "file_string_utils.h"
@@ -179,36 +178,18 @@ void ObjMesh::parse_line(const std::string& s, std::string& currentGroup, file& 
   }
 }
 
-bool use_binary_file(const std::string& filename)
-{
-  // Use binary file if the file exists and has a timestamp later (newer) than the text file.
-  struct stat text_file_stat_buf;
-  bool text_file_exists = (stat(filename.c_str(), &text_file_stat_buf) != -1);
-  if (text_file_exists)
-  {
-    struct stat binary_file_stat_buf;
-    bool binary_file_exists = (stat((filename + ".bin").c_str(), &binary_file_stat_buf) != -1);
-
-    if (binary_file_exists &&
-        binary_file_stat_buf.st_mtime > text_file_stat_buf.st_mtime)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
 bool ObjMesh::load(const std::string& filename, resource_manager& rm)
 {
+  std::string bin_filename = filename + ".bin";
   if (use_binary_file(filename))
   {
-    return load_binary(filename, rm);
+    return load_binary(bin_filename, rm);
   }
   else
   {
     if (load_text(filename, rm))
     {
-      save_binary(filename);
+      save_binary(bin_filename);
       return true;
     }
   }
@@ -217,12 +198,49 @@ bool ObjMesh::load(const std::string& filename, resource_manager& rm)
 
 bool ObjMesh::load_binary(const std::string& filename, resource_manager& rm)
 {
-  return false;
+  binary_file f;
+  if (!f.open_for_reading(filename))
+  {
+    return false;
+  }
+  int num_groups = 0;
+  if (!f.read_int(num_groups))
+  {
+    return false;
+  }
+  for (int i = 0; i < num_groups; i++)
+  {
+    Group g;
+    if (!g.load_binary(f))
+    {
+      return false;
+    }
+    m_groups[g.get_name()] = g; // hmm
+    rm.add_gl_resource(g.get_name(), std::shared_ptr<Group>(new Group(g)));
+  }
+  return true;
 }
 
 bool ObjMesh::save_binary(const std::string& filename)
 {
-  return false;
+  binary_file f;
+  if (!f.open_for_writing(filename))
+  {
+    return false;
+  }
+  if (!f.write_int(m_groups.size()))
+  {
+    return false;
+  }
+  for (auto& g : m_groups)
+  {
+    if (!g.second.save_binary(f))
+    {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 bool ObjMesh::load_text(const std::string& filename, resource_manager& rm)
@@ -280,11 +298,6 @@ bool ObjMesh::load_text(const std::string& filename, resource_manager& rm)
   return true;
 }
 
-const aabb& ObjMesh::GetAABB()
-{
-  return m_aabb;
-}
-
 void ObjMesh::MungeData(resource_manager& rm)
 {
   if (ShowInfo())
@@ -298,8 +311,6 @@ void ObjMesh::MungeData(resource_manager& rm)
   {
     Group& g = it->second;
     BuildGroup(g);
-
-    m_aabb = m_aabb.union_with(g.m_aabb);
 
     // Erase empty groups
     if (g.m_tris.empty())
@@ -469,7 +480,6 @@ void ObjMesh::BuildGroup(Group& g)
       const vec3 vP = m_points[p];
 
       t.m_verts[2 - j].pos = vP;
-      m_aabb.set_if(vP);
     }
     t.calc_tangents();
     g.m_tris.push_back(t);

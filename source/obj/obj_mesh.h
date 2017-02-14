@@ -7,9 +7,6 @@
 
 class resource_manager;
 
-//class CollisionMesh;
-//class Matrix;
-
 // Loads an obj mesh. Adds non-empty groups to resource manager, to be added
 //  as mesh nodes
 class ObjMesh : public gl_mesh
@@ -26,31 +23,7 @@ public:
 
   bool load(const std::string& filename, resource_manager& rm);
 
-////  bool Save(const std::string& filename, bool binary = false);
-
-  // Transform all vertices by the given matrix
-  //void Transform(const Matrix& m);
-
-  //void CalcCollisionMesh(CollisionMesh* pCollMesh) const;
-
-  // Add groups in om to collection of groups in this mesh
-  void Merge(const ObjMesh& om);
-
-  // Get group - so special group names can be used for game-related data.
-  // (Do we need to get vec of group names ?)
-  Group* GetGroup(const std::string& groupName);
-
-  void GetMaterials(MaterialVec* vec);
-
-  const aabb& GetAABB(); // for entire mesh
-  const aabb& GetAABB(const std::string& groupname); // for one group
-
-  static void SetShowInfo(bool);
   static bool ShowInfo();
-
-  // Set flag to fail if we can't load textures specified in materials
-  static void SetRequireTextures(bool);
-  static bool RequiresTextures();
 
 private:
   bool load_text(const std::string& filename, resource_manager& rm);
@@ -86,20 +59,13 @@ private:
   typedef std::map<std::string, std::shared_ptr<obj_material>> Materials;
   Materials m_materials;
 
-  aabb m_aabb; // union of all group AABBs
-
   std::string m_filename;
 
 private:
-  void DrawGroup(Group& g);
+  //void DrawGroup(Group& g);
   void BuildGroup(Group& g);
 };
 
 // Used to load an .obj mesh and other associated files (.mtl and textures)
 ObjMesh* LoadObjMesh(const std::string& pathFile, bool binary = false);
-
-// Return true if the binary version of the given filename exists,
-//  and it has a timestamp later (newer) than the text file.
-// The binary version of a filename has ".bin" appended.
-bool use_binary_file(const std::string& filename);
 

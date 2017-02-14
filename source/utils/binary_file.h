@@ -17,7 +17,15 @@ public:
 
   virtual size_t read_binary(size_t num_bytes, void* dest);
 
-  virtual size_t write_binary(size_t num_bytes, void* src);
+  virtual size_t write_binary(size_t num_bytes, const void* src);
+
+  virtual bool write_int(int i);
+
+  virtual bool read_int(int& i);
+
+  virtual bool write_string(const std::string& s);
+
+  virtual bool read_string(std::string& s);
 
   // Only valid in read mode.
   virtual bool seek(size_t file_pos);
@@ -25,5 +33,10 @@ public:
 private:
   size_t m_size = 0;
 };
+
+// Return true if the binary version of the given filename exists,
+//  and it has a timestamp later (newer) than the text file.
+// The binary version of a filename has ".bin" appended.
+bool use_binary_file(const std::string& filename);
 
 

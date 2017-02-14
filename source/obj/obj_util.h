@@ -1,5 +1,8 @@
-#ifndef OBJ_USEFUL_FUNCTIONS_H
-#define OBJ_USEFUL_FUNCTIONS_H
+// -----------------------------------------------------------------------------
+// glboiler - Jason Colman 2016-2017 - OpenGL experiments
+// -----------------------------------------------------------------------------
+
+#pragma once
 
 #include <map>
 #include <string>
@@ -10,6 +13,8 @@
 #include "vec2.h"
 #include "vec3.h"
 #include "vertex.h"
+
+class binary_file;
 
 // Useful types
 // ------------
@@ -32,13 +37,6 @@ typedef std::map<std::string, Faces> FaceMap;
 // Group - has name, material name and collection of faces.
 struct Group : public gl_resource
 {
-  Group() : m_visible(true), m_collidable(true) {}
-
-  bool IsVisible() const { return m_visible; }
-  bool IsCollidable() const { return m_collidable; }
-  void SetVisible(bool visible) { m_visible = visible; }
-  void SetCollidable(bool collidable) { m_collidable = collidable; }
-
   virtual void upload_on_gl_thread() override;
   virtual void use_on_gl_thread() override;
   virtual void destroy_on_gl_thread() override;
@@ -46,12 +44,11 @@ struct Group : public gl_resource
   // Reloaded when obj file is reloaded
   virtual void reload() {}
 
-  bool m_visible;
-  bool m_collidable;
+  bool load_binary(binary_file& f);
+  bool save_binary(binary_file& f);
+
   std::string m_materialName; // TODO int index
   tris m_tris; 
-
-  aabb m_aabb;
 
   // VAO
   unsigned int m_vao = 0;
@@ -89,6 +86,4 @@ vec2 ToVec2(const strings& strs);
 // The zeroth string is ignored. We only use the first 
 //  three vertices.
 Face ToFace(const strings& fstrs);
-
-#endif
 
