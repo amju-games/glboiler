@@ -7,13 +7,16 @@
 // TODO Cubemaps
 //#include <Cubemap.h>
 
-#include "file.h"
+#include "binary_file.h"
 
 // * obj_material *
 // Describes a material loaded from a .mtl file, as part of loading an .obj mesh.
 // This is used to set up a * material * object.
 struct obj_material 
 {
+  bool save_binary(binary_file& f);
+  bool load_binary(binary_file& f);
+
   std::string m_name;
   std::string m_filename;
 
@@ -22,7 +25,6 @@ struct obj_material
   // Other textures use map_<n>, where n is [1..MAX_TEXTURES)
   enum { MAX_TEXTURES = 8 };
   std::string m_texfilename[MAX_TEXTURES];
-//  texture* m_texture[MAX_TEXTURES];
 
   // Cubemap: 6 texture names, using "cube_<n>" n=[0..6) in the .mtl file.
   // Same order as in Cubemap.h, 
@@ -33,7 +35,6 @@ struct obj_material
   // +y (top)
   // -y (bottom)
   std::string m_cubefilename[6];
-//  RCPtr<Cubemap> m_cubemap;
 
   // Name of shader, passed to AmjuGL::LoadShader
   // In .mtl file, use "shader"

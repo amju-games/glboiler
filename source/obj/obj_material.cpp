@@ -87,3 +87,75 @@ bool LoadMtlFile(const std::string& mtlfilename, MaterialVec* mats)
   return true;
 }
 
+bool obj_material::save_binary(binary_file& f)
+{
+  if (!f.write_string(m_name))
+  {
+    return false;
+  }
+  if (!f.write_string(m_filename))
+  {
+    return false;
+  }
+  if (!f.write_string(m_shaderName))
+  {
+    return false;
+  }
+  if (!f.write_int(m_flags))
+  {
+    return false;
+  }
+  for (int i = 0; i < MAX_TEXTURES; i++)
+  {
+    if (!f.write_string(m_texfilename[i]))
+    {
+      return false;
+    }
+  }
+  for (int i = 0; i < 6; i++)
+  {
+    if (!f.write_string(m_cubefilename[i]))
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool obj_material::load_binary(binary_file& f)
+{
+  if (!f.read_string(m_name))
+  {
+    return false;
+  }
+  if (!f.read_string(m_filename))
+  {
+    return false;
+  }
+  if (!f.read_string(m_shaderName))
+  {
+    return false;
+  }
+  int flags = 0;
+  if (!f.read_int(flags))
+  {
+    return false;
+  }
+  m_flags = static_cast<int>(flags);
+  for (int i = 0; i < MAX_TEXTURES; i++)
+  {
+    if (!f.read_string(m_texfilename[i]))
+    {
+      return false;
+    }
+  }
+  for (int i = 0; i < 6; i++)
+  {
+    if (!f.read_string(m_cubefilename[i]))
+    {
+      return false;
+    }
+  }
+  return true;
+}
+

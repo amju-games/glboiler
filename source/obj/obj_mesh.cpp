@@ -218,6 +218,25 @@ bool ObjMesh::load_binary(const std::string& filename, resource_manager& rm)
     m_groups[g.get_name()] = g; // hmm
     rm.add_gl_resource(g.get_name(), std::shared_ptr<Group>(new Group(g)));
   }
+  int num_materials = 0;
+  if (!f.read_int(num_materials))
+  {
+    return false;
+  }
+  for (int i = 0; i < num_materials; i++)
+  {
+    std::string mat_name;
+    if (!f.read_string(mat_name))
+    {
+      return false;
+    }
+    std::shared_ptr<obj_material> mat(new obj_material);
+    if (!mat->load_binary(f))
+    {
+      return false;
+    }
+    m_materials[mat_name] = mat;
+  }
   return true;
 }
 
@@ -235,6 +254,21 @@ bool ObjMesh::save_binary(const std::string& filename)
   for (auto& g : m_groups)
   {
     if (!g.second.save_binary(f))
+    {
+      return false;
+    }
+  }
+  if (!f.write_int(m_materials.size()))
+  {
+    return false; 
+  }
+  for (auto& m : m_materials)
+  {
+    if (!f.write_string(m.first))
+    {
+      return false;
+    }
+    if (!m.second->save_binary(f))
     {
       return false;
     }

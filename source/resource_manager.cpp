@@ -74,7 +74,7 @@ std::shared_ptr<gl_texture> resource_manager::get_texture(const std::string& nam
     std::shared_ptr<gl_texture> tex(new gl_texture);
     if (!tex->load(name)) // name is filename for textures, we assume
     {
-      log(msg() << "Texture resource does not exist: " << name);
+      log(msg() << "Failed to load texture: " << name);
       gl_boiler_stop;
       return nullptr;
     }
@@ -102,7 +102,7 @@ std::shared_ptr<gl_shader> resource_manager::get_shader(const std::string& name)
     std::shared_ptr<gl_shader> sh(new gl_shader);
     if (!sh->load("shaders/" + name + ".v.txt", "shaders/" + name + ".f.txt"))
     {
-      log(msg() << "Shader resource does not exist: " << name);
+      log(msg() << "Failed to load shader: " << name);
       gl_boiler_stop;
       return nullptr;
     }
@@ -129,7 +129,7 @@ std::shared_ptr<gl_mesh> resource_manager::get_mesh(const std::string& name)
     std::shared_ptr<ObjMesh> mesh(new ObjMesh);
     if (!mesh->load(name, *this))
     {
-      log(msg() << "Mesh resource does not exist: " << name);
+      log(msg() << "Failed to load mesh: " << name);
       gl_boiler_stop;
       return nullptr;
     }

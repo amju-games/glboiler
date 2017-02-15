@@ -6,7 +6,7 @@
 // Fragment shader
 // -----------------------------------------------------------------------------
 
-#define VIEW_NORMALS
+//#define VIEW_NORMALS
 
 
 // Just replicating fixed function lighting (one light) + one diffuse map
