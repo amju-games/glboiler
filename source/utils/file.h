@@ -31,9 +31,10 @@ public:
   bool open_for_reading(const std::string& filename);
   bool read_string(std::string*);
   virtual void report_error(const std::string&) override;
+  int get_line() const { return m_line; }
 
 private:
-  int m_line;
+  int m_line = 0;
 };
 
 bool file_exists(const std::string& filename);

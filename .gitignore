@@ -25,3 +25,4 @@ source/utils/*.o
 *.o
 *.opensdf
 Push.txt
+assets/test/binary_file_created_by_tests.txt

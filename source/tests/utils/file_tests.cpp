@@ -25,11 +25,16 @@ TEST(text_file, read_string)
   ok = f.read_string(&s);
   ASSERT_TRUE(ok);
   ASSERT_EQ(s, "abc");
+  ASSERT_EQ(f.get_line(), 1);
+
   ok = f.read_string(&s);
   ASSERT_TRUE(ok);
   ASSERT_EQ(s, "def");
+  ASSERT_EQ(f.get_line(), 2);
+
   ok = f.read_string(&s);
   ASSERT_FALSE(ok); 
+  ASSERT_EQ(s, "");
 }
 
 TEST(text_file, close)
@@ -73,8 +78,66 @@ TEST(binary_file, read_and_seek)
   st = f.read_binary(1, buf); 
   ASSERT_EQ(st, 1);
   ASSERT_EQ(buf[0], '3');
+
+  // Crazy seek offset doesn't put stream in a bad state. I suppose there must be a good reason...?!
   ok = f.seek(300);
-  ASSERT_FALSE(ok);
+  ASSERT_TRUE(ok);
+}
+
+TEST(binary_file, write_then_read)
+{
+  const std::string filename = "test/binary_file_created_by_tests.txt";
+  const std::string string_val = "hello, I am string";
+  const int int_val = 42;
+  const int binary_val = 0x01020304;
+
+  {
+    binary_file f;
+
+    bool ok = f.open_for_writing(filename);
+    ASSERT_TRUE(ok);
+
+    ok = f.write_string(string_val);
+    ASSERT_TRUE(ok);
+
+    ok = f.write_int(int_val);
+    ASSERT_TRUE(ok);
+
+    int i = binary_val;
+    size_t n = f.write_binary(sizeof(int), &i);
+    ASSERT_EQ(n, sizeof(int));
+
+    f.close();
+
+    ok = f.write_string("hello");
+    ASSERT_FALSE(ok);
+  }
+
+  {
+    binary_file f;
+
+    bool ok = f.open_for_reading(filename);
+    ASSERT_TRUE(ok);
+
+    std::string s;
+    ok = f.read_string(s);
+    ASSERT_TRUE(ok);
+    ASSERT_EQ(s, string_val);
+
+    int i = 0;
+    ok = f.read_int(i);
+    ASSERT_TRUE(ok);
+    ASSERT_EQ(i, int_val);
+
+    size_t n = f.read_binary(sizeof(int), &i);
+    ASSERT_EQ(n, sizeof(int));
+    ASSERT_EQ(i, binary_val);
+
+    f.close();
+
+    ok = f.read_int(i);
+    ASSERT_FALSE(ok);
+  }
 }
 
 

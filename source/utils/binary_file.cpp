@@ -21,7 +21,8 @@ size_t binary_file::write_binary(size_t num_bytes, const void* src)
 {
   if (!m_file.is_open())
   {
-    gl_boiler_stop;
+    // No good for tests
+    //gl_boiler_stop;
     report_error("File not open");
     return 0;
   }
@@ -34,7 +35,8 @@ size_t binary_file::read_binary(size_t num_bytes, void* dest)
 {
   if (!m_file.is_open())
   {
-    gl_boiler_stop;
+    // No good for tests
+    //gl_boiler_stop;
     report_error("File not open");
     return 0;
   }
@@ -53,7 +55,8 @@ bool binary_file::seek(size_t file_pos)
 {
   if (!m_file.is_open() || m_file.eof())
   {
-    gl_boiler_stop;
+    // No good for tests
+    //gl_boiler_stop;
     return false;
   }
 

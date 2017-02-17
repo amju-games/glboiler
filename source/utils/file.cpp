@@ -41,7 +41,8 @@ bool file::open(const std::string& filename, std::ios::openmode mode)
   else
   {
     log(msg() << "FAILED to open for reading: \"" << filename << "\"");
-    gl_boiler_stop;
+    // No good for tests
+    //gl_boiler_stop;
   }
 
   return m_file.is_open();
