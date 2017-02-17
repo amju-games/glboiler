@@ -28,10 +28,23 @@ std::string just_filename(const std::string& path_and_filename)
 
 std::string just_extension(const std::string& path_and_filename)
 {
-  return "";
+  std::string ret;
+  size_t f = path_and_filename.find_last_of('.');
+  if (f != std::string::npos)
+  {
+    ret = path_and_filename.substr(f + 1);
+  }
+  return ret;
 }
 
 std::string without_extension(const std::string& path_and_filename)
 {
-  return "";
+  std::string ret = path_and_filename;
+  size_t f = ret.find_last_of('.');
+  if (f != std::string::npos)
+  {
+    ret = ret.substr(0, f);
+  }
+  return ret;
+
 }

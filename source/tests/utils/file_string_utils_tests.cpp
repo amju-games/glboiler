@@ -35,7 +35,7 @@ TEST(file_string_utils, without_extension)
 {
   ASSERT_EQ(without_extension(""), "");
   ASSERT_EQ(without_extension("a"), "a");
-  ASSERT_EQ(without_extension("a/b"), "b");
+  ASSERT_EQ(without_extension("a/b"), "a/b");
   ASSERT_EQ(without_extension("a/b/c.ext"), "a/b/c");
   ASSERT_EQ(without_extension("a/b/c.fgh.ijk"), "a/b/c.fgh");
 }
