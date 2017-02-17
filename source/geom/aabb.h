@@ -7,6 +7,8 @@
 #include "bounding_vol.h"
 #include "vec3.h"
 
+// * aabb *
+// Axis-aligned bounding box, represented by two opposite corners, min and max.
 class aabb : public bounding_vol
 {
 public:
@@ -15,17 +17,21 @@ public:
 
   virtual cull_result calc_cull_result(const frustum& fr) const override; 
 
-  vec3 get_min() const;
-  vec3 get_max() const;
+  const vec3& get_min() const;
+  const vec3& get_max() const;
 
   // Calc union of this aabb and the other, i.e. a new box which encloses both.
-  aabb union_with(const aabb& other);
+  aabb union_with(const aabb& other) const;
 
   // Set extents if required to enclose p
-  void set_if(const vec3& p);
+  void include(const vec3& p);
 
 private:
   vec3 m_min;
   vec3 m_max;
 };
+
+// * debug_render_on_gl_thread *
+// Draws an aabb, intended for debugging
+void debug_render_on_gl_thread(const aabb&);
 
