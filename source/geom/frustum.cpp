@@ -7,11 +7,23 @@
 
 frustum::frustum()
 {
-  //float m_planes[6][4];
+}
+
+plane frustum::get_plane(frustum_plane fpl)
+{
+  return m_planes[fpl];
 }
 
 void frustum::set_from_matrix(mat4 m)
 {
+  m_planes[FRUSTUM_PLANE_RIGHT]  = plane(m[3] - m[0], m[7] - m[4], m[11] - m[8],  m[15] - m[12]).normalise();
+  m_planes[FRUSTUM_PLANE_LEFT]   = plane(m[3] + m[0], m[7] + m[4], m[11] + m[8],  m[15] + m[12]).normalise();
+  m_planes[FRUSTUM_PLANE_TOP]    = plane(m[3] - m[1], m[7] - m[5], m[11] - m[9],  m[15] - m[13]).normalise();
+  m_planes[FRUSTUM_PLANE_BOTTOM] = plane(m[3] + m[1], m[7] + m[5], m[11] + m[9],  m[15] + m[13]).normalise();
+  m_planes[FRUSTUM_PLANE_FAR]    = plane(m[3] - m[2], m[7] - m[6], m[11] - m[10], m[15] - m[14]).normalise();
+  m_planes[FRUSTUM_PLANE_NEAR]   = plane(m[3] + m[2], m[7] + m[6], m[11] + m[10], m[15] + m[14]).normalise();
+
+  /*
   // Extract the RIGHT mping plane
   m_planes[0][0] = m[ 3] - m[ 0];
   m_planes[0][1] = m[ 7] - m[ 4];
@@ -89,5 +101,6 @@ void frustum::set_from_matrix(mat4 m)
   m_planes[5][1] /= t;
   m_planes[5][2] /= t;
   m_planes[5][3] /= t;
+  */
 }
 
