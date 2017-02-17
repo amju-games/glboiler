@@ -67,6 +67,7 @@ void file::report_error(const std::string& err)
 
 bool text_file::read_string(std::string* s)
 {
+  s->clear();
   if (!m_file.is_open())
   {
     report_error("File not open");
