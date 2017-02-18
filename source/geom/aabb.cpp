@@ -6,6 +6,13 @@
 #include "gl_includes.h"
 #include "aabb.h"
 
+aabb::aabb(const vec3& min, const vec3& max)
+{
+  // Ensure min < max
+  m_min = vec3(std::min(min.x, max.x), std::min(min.y, max.y), std::min(min.z, max.z));
+  m_max = vec3(std::max(min.x, max.x), std::max(min.y, max.y), std::max(min.z, max.z));
+}
+
 cull_result aabb::calc_cull_result(const frustum& fr) const
 {
   return cull_result::FRUSTUM_INSIDE;
@@ -39,38 +46,42 @@ void aabb::include(const vec3& p)
   m_max.z = std::max(m_max.z, p.z);
 }
 
-void debug_render_on_gl_thread(const aabb& aabb)
+void aabb::debug_render_on_gl_thread() const
 {
   // Compatibility mode time
-  const vec3& min = aabb.get_min();
-  const vec3& max = aabb.get_max();
-
   glBegin(GL_LINE_LOOP);
-  glVertex3f(min.x, min.y, min.z);
-  glVertex3f(max.x, min.y, min.z);
-  glVertex3f(max.x, min.y, max.z);
-  glVertex3f(min.x, min.y, max.z);
+  glVertex3f(m_min.x, m_min.y, m_min.z);
+  glVertex3f(m_max.x, m_min.y, m_min.z);
+  glVertex3f(m_max.x, m_min.y, m_max.z);
+  glVertex3f(m_min.x, m_min.y, m_max.z);
   glEnd();
 
   glBegin(GL_LINE_LOOP);
-  glVertex3f(min.x, max.y, min.z);
-  glVertex3f(max.x, max.y, min.z);
-  glVertex3f(max.x, max.y, max.z);
-  glVertex3f(min.x, max.y, max.z);
+  glVertex3f(m_min.x, m_max.y, m_min.z);
+  glVertex3f(m_max.x, m_max.y, m_min.z);
+  glVertex3f(m_max.x, m_max.y, m_max.z);
+  glVertex3f(m_min.x, m_max.y, m_max.z);
   glEnd();
 
   glBegin(GL_LINES);
-  glVertex3f(min.x, min.y, min.z);
-  glVertex3f(min.x, max.y, min.z);
+  glVertex3f(m_min.x, m_min.y, m_min.z);
+  glVertex3f(m_min.x, m_max.y, m_min.z);
 
-  glVertex3f(max.x, min.y, min.z);
-  glVertex3f(max.x, max.y, min.z);
+  glVertex3f(m_max.x, m_min.y, m_min.z);
+  glVertex3f(m_max.x, m_max.y, m_min.z);
 
-  glVertex3f(max.x, min.y, max.z);
-  glVertex3f(max.x, max.y, max.z);
+  glVertex3f(m_max.x, m_min.y, m_max.z);
+  glVertex3f(m_max.x, m_max.y, m_max.z);
 
-  glVertex3f(min.x, min.y, max.z);
-  glVertex3f(min.x, max.y, max.z);
+  glVertex3f(m_min.x, m_min.y, m_max.z);
+  glVertex3f(m_min.x, m_max.y, m_max.z);
   glEnd();
-
 }
+
+aabb* aabb::transform_by(const mat4& m) const
+{
+  // Transform min and max by matrix m
+  aabb* a(new aabb(mult(m, m_min), mult(m, m_max)));
+  return a;
+}
+

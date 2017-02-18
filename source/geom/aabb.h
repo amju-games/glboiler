@@ -13,9 +13,15 @@ class aabb : public bounding_vol
 {
 public:
   aabb() = default;
-  aabb(const vec3& min, const vec3& max) : m_min(min), m_max(max) {}
+  aabb(const vec3& min, const vec3& max);
 
   virtual cull_result calc_cull_result(const frustum& fr) const override; 
+
+  // * debug_render_on_gl_thread *
+  // Draws an aabb, intended for debugging
+  virtual void debug_render_on_gl_thread() const override;
+
+  virtual aabb* transform_by(const mat4& m) const override;
 
   const vec3& get_min() const;
   const vec3& get_max() const;
@@ -31,7 +37,4 @@ private:
   vec3 m_max;
 };
 
-// * debug_render_on_gl_thread *
-// Draws an aabb, intended for debugging
-void debug_render_on_gl_thread(const aabb&);
 
