@@ -66,6 +66,7 @@ public:
   const mat4& rotate_z_radians(float radians);
 
   const mat4& scale(float x, float y, float z);
+  const mat4& scale(float s); // uniform scale
 
 private:
   float m[16];
@@ -167,6 +168,11 @@ inline const mat4& mat4::rotate_z_radians(float radians)
   return *this;
 }
 
+inline const mat4& mat4::scale(float s)
+{
+  return scale(s, s, s);
+}
+
 inline const mat4& mat4::scale(float x, float y, float z)
 {
   m[0] = x;
@@ -190,6 +196,19 @@ inline const mat4& mat4::scale(float x, float y, float z)
   m[15] = 1;
 
   return *this;
+}
+
+inline vec3 mult(const mat4& m, const vec3& v)
+{
+  float res[4] = 
+  {
+    m[0] * v.x + m[4] * v.y + m[8] * v.z  + m[12] * 1.f, 
+    m[1] * v.x + m[5] * v.y + m[9] * v.z  + m[13] * 1.f,
+    m[2] * v.x + m[6] * v.y + m[10] * v.z + m[14] * 1.f,
+    m[3] * v.x + m[7] * v.y + m[11] * v.z + m[15] * 1.f,
+  };
+  float w = 1.f / res[3];
+  return vec3(res[0] * w, res[1] * w, res[2] * w);
 }
 
 inline mat4 mult(const mat4& m1, const mat4& m2)

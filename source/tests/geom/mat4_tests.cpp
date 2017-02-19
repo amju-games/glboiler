@@ -61,7 +61,7 @@ static mat4 m2 = {
   109, 110, 111, 112,  
   113, 114, 115, 116 };
 
-TEST(mat4, mult)
+TEST(mat4, mult_mat4)
 {
   mat4 result = mult(m1, m2);
   mat4 expected = {
@@ -303,5 +303,110 @@ TEST(ortho, same_as_gl_ortho)
 #endif
 
   assert_equal(ortho_result, ogl_result);
+}
+
+TEST(mat4, mult_vec3_scale_translate)
+{
+  {
+    // Scale then translate
+    mat4 m = mult(mat4().scale(2), mat4().translate(vec3(4, 5, 6)));
+    vec3 v(1, 2, 3);
+    vec3 product = mult(m, v);
+    // Scale * 2 then add (4, 5, 6) translation
+    // (2, 4, 6) + (4, 5, 6)
+    assert_equal(product, vec3(6, 9, 12));
+  }
+
+  {
+    // Translate then scale 
+    mat4 m = mult(mat4().translate(vec3(4, 5, 6)), mat4().scale(2));
+    vec3 v(1, 2, 3);
+    // Add translation (4, 5, 6), then scale sum
+    // (1, 2, 3) + (4, 5, 6) = (5, 7, 9). Scaled = (10, 14, 18)
+    vec3 product = mult(m, v);
+    assert_equal(product, vec3(10, 14, 18));
+  }
+}
+
+TEST(mat4, mult_vec3_rotate_translate)
+{
+  {
+    // Rotate 90 deg then translate
+    mat4 m = mult(mat4().rotate_x_radians(M_PI_2), mat4().translate(vec3(4, 5, 6)));
+    vec3 v(1, 2, 3);
+    vec3 product = mult(m, v);
+    // Rotate (1, 2, 3) then add (4, 5, 6) translation
+    // (1, -3, 2) + (4, 5, 6)
+    assert_equal(product, vec3(5, 2, 8));
+  }
+
+  {
+    // Translate then rotate 90 deg 
+    mat4 m = mult(mat4().translate(vec3(4, 5, 6)), mat4().rotate_x_radians(M_PI_2));
+    vec3 v(1, 2, 3);
+    // Add translation (4, 5, 6), then rotate sum
+    // (1, 2, 3) + (4, 5, 6) = (5, 7, 9). Rotated = (5, -9, 7)
+    vec3 product = mult(m, v);
+    assert_equal(product, vec3(5, -9, 7));
+  }
+}
+
+TEST(mat4, mult_vec3)
+{
+  {
+    mat4 i;
+    vec3 v(1, 2, 3);
+    vec3 product = mult(i, v);
+    ASSERT_EQ(product, vec3(1, 2, 3));
+  }
+
+  {
+    mat4 m;
+    m.translate(vec3(4, 5, 6));
+    vec3 v(1, 2, 3);
+    vec3 product = mult(m, v);
+    ASSERT_EQ(product, vec3(5, 7, 9));
+  }
+
+  {
+    mat4 m;
+    m.rotate_x_radians(M_PI);
+    vec3 v(1, 2, 3);
+    vec3 product = mult(m, v);
+    // Use assert_equal() when trig involved, to allow for imprecision
+    assert_equal(product, vec3(1, -2, -3));
+  }
+
+  {
+    mat4 m;
+    m.rotate_y_radians(M_PI);
+    vec3 v(1, 2, 3);
+    vec3 product = mult(m, v);
+    assert_equal(product, vec3(-1, 2, -3));
+  }
+
+  {
+    mat4 m;
+    m.rotate_z_radians(M_PI);
+    vec3 v(1, 2, 3);
+    vec3 product = mult(m, v);
+    assert_equal(product, vec3(-1, -2, 3));
+  }
+
+  {
+    mat4 m;
+    m.scale(10, 20, 30);
+    vec3 v(1, 2, 3);
+    vec3 product = mult(m, v);
+    ASSERT_EQ(product, vec3(10, 40, 90));
+  }
+
+  {
+    mat4 m;
+    m.scale(5);
+    vec3 v(1, 2, 3);
+    vec3 product = mult(m, v);
+    ASSERT_EQ(product, vec3(5, 10, 15));
+  }
 }
 
