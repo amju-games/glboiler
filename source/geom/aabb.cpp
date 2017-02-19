@@ -80,8 +80,30 @@ void aabb::debug_render_on_gl_thread() const
 
 aabb* aabb::transform_by(const mat4& m) const
 {
-  // Transform min and max by matrix m
-  aabb* a(new aabb(mult(m, m_min), mult(m, m_max)));
+  // Transform the 8 corners. Make a new aabb which encloses them.
+  vec3 corners[8] = 
+  {
+    vec3(m_min.x, m_min.y, m_min.z),
+    vec3(m_min.x, m_min.y, m_max.z),
+    vec3(m_min.x, m_max.y, m_min.z),
+    vec3(m_min.x, m_max.y, m_max.z),
+    vec3(m_max.x, m_min.y, m_min.z),
+    vec3(m_max.x, m_min.y, m_max.z),
+    vec3(m_max.x, m_max.y, m_min.z),
+    vec3(m_max.x, m_max.y, m_max.z),
+  };
+
+  vec3 xformed_corners[8];
+  for (int i = 0; i < 8; i++) 
+  {
+    xformed_corners[i] = mult(m, corners[i]);
+  };
+
+  aabb* a(new aabb(xformed_corners[0], xformed_corners[1]));
+  for (int i = 2; i < 8; i++)
+  {
+    a->include(xformed_corners[i]);
+  }
   return a;
 }
 

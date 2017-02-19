@@ -4,6 +4,7 @@
 
 #include <gtest/gtest.h>
 #include "aabb.h"
+#include "mat4_test_utils.h"
 
 TEST(aabb, create_default)
 {
@@ -95,8 +96,8 @@ TEST(aabb, transform)
     m.rotate_y_radians(static_cast<float>(M_PI)); 
     std::unique_ptr<aabb> b(a.transform_by(m));
 
-    ASSERT_EQ(b->get_min(), vec3(-4, 2, -6));
-    ASSERT_EQ(b->get_max(), vec3(-1, 5, -3));
+    assert_equal(b->get_min(), vec3(-4, 2, -6));
+    assert_equal(b->get_max(), vec3(-1, 5, -3));
   }
 }
 
