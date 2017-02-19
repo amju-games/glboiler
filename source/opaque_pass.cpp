@@ -7,6 +7,7 @@
 #include "light.h"
 #include "log.h"
 #include "look_at.h"
+#include "mat3.h"
 #include "opaque_pass.h"
 #include "projection.h"
 #include "renderer.h"
@@ -60,5 +61,9 @@ void opaque_pass::draw_node(const scene_node& node, const frustum& fr, const mat
   node.use_material_on_gl_thread(); 
 
   m_opaque_pass_shader->set_mat4_on_gl_thread("world_matrix", xform);
+  mat3 norm(xform);
+  norm = norm.inverse_transpose();
+  m_opaque_pass_shader->set_mat3_on_gl_thread("normal_matrix", norm);
+
   node.render_on_gl_thread();
 }

@@ -8,6 +8,8 @@
 #include "gl_includes.h"
 #include "gl_shader.h"
 #include "log.h"
+#include "mat3.h"
+#include "mat4.h"
 
 gl_shader::~gl_shader()
 {
@@ -15,6 +17,18 @@ gl_shader::~gl_shader()
   {
     gl_boiler_assert(m_destroy_called);
   }
+}
+
+void gl_shader::set_mat3_on_gl_thread(const std::string& name, const mat3& m)
+{
+  GL_CHECK(GLint loc = glGetUniformLocation(m_program_id, name.c_str()));
+  if (loc == -1)
+  {
+    log(msg() << m_frag_shader_filename << ": no uniform: " << name);
+    return;
+  }
+
+  GL_CHECK(glUniformMatrix3fv(loc, 1, false, m.data()));
 }
 
 void gl_shader::set_mat4_on_gl_thread(const std::string& name, const mat4& m)

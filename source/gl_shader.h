@@ -5,8 +5,10 @@
 #pragma once
 
 #include <string>
-#include "mat4.h"
 #include "resource.h"
+
+class mat3;
+class mat4;
 
 class gl_shader : public gl_resource
 {
@@ -24,6 +26,7 @@ public:
   void set_float_on_gl_thread(const std::string& name, float f);
   void set_int_on_gl_thread(const std::string& name, int i);
   void set_mat4_on_gl_thread(const std::string& name, const mat4& m);
+  void set_mat3_on_gl_thread(const std::string& name, const mat3& m);
 
 private:
   unsigned int m_program_id = 0;

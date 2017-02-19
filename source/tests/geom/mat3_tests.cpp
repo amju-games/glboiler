@@ -48,6 +48,15 @@ TEST(mat3, inverse_transpose)
     assert_equal(m3, expected);
   }
 
+  {
+    // Create a mat3 rotation matrix. Compare with the inverse transpose - should be the same.
+    mat4 mat4_rotation;
+    mat4_rotation.rotate_x_radians(static_cast<float>(M_PI_2));
+    mat3 expected(mat4_rotation);
+    mat3 after_inverse_transpose(mat4_rotation);
+    after_inverse_transpose.inverse_transpose();
+    assert_equal(after_inverse_transpose, expected);
+  }
 }
 
 
