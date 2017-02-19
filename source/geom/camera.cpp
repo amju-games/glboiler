@@ -6,23 +6,9 @@
 
 frustum camera::calc_frustum() const
 {
-  return frustum();
+  frustum fr;
+  mat4 m = mult(proj_matrix, look_at_matrix);
+  fr.set_from_matrix(m);
+  return fr;
 }
-
-
-/*          
-struct stereo_camera_setup
-{       
-  look_at look;
-  float viewport_aspect_ratio = 1;
-  float focal_length = 1; 
-  float eye_separation_distance = 1;
-};
-
-void set_stereo_cameras(
-  camera& left, camera& right, const stereo_camera_setup& setup)
-{
-  
-}
-*/
 
