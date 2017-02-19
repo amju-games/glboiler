@@ -67,3 +67,19 @@ void opaque_pass::draw_node(const scene_node& node, const frustum& fr, const mat
 
   node.render_on_gl_thread();
 }
+
+void opaque_pass::draw_bounding_vol(
+  const scene_node& node,
+  const frustum& fr,
+  const mat4& xform)
+{
+  // TODO debug material/shader?
+
+  // World xform is identity for bounding volumes, because we want to faithfully draw 
+  //  their member values.
+  m_opaque_pass_shader->set_mat4_on_gl_thread("world_matrix", mat4());
+
+  std::unique_ptr<bounding_vol> bv(node.get_bounding_vol().transform_by(xform));
+
+  bv->debug_render_on_gl_thread();
+}

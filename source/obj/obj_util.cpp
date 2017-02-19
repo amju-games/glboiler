@@ -134,6 +134,13 @@ bool Group::load_binary(binary_file& f)
   {
     return false;
   }
+  vec3 aabb_minmax[2];
+  if (!f.read_binary(2 * sizeof(vec3), &aabb_minmax))
+  {
+    f.report_error("Failed to load AABB");
+    return false;
+  }
+  m_aabb = aabb(aabb_minmax[0], aabb_minmax[1]);
   return true;
 }
 
@@ -141,15 +148,25 @@ bool Group::save_binary(binary_file& f)
 {
   if (!f.write_string(m_materialName))
   {
+    f.report_error("Failed to write material name");
     return false;
   }
   int n = static_cast<int>(m_tris.size());
   if (!f.write_int(n))
   {
+    f.report_error("Failed to write number of tris");
     return false;
   }
   if (!f.write_binary(n * sizeof(tri), m_tris.data()))
   {
+    f.report_error("Failed to write tris");
+    return false;
+  }
+  // Save aabb
+  if (!f.write_binary(sizeof(vec3), &m_aabb.get_min()) ||
+      !f.write_binary(sizeof(vec3), &m_aabb.get_max()))
+  {
+    f.report_error("Failed to write aabb");
     return false;
   }
   return true;

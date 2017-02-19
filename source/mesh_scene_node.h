@@ -10,11 +10,11 @@
 class mesh_scene_node : public scene_node
 {
 public:
+  mesh_scene_node();
+
   virtual void render_on_gl_thread() const override;
 
-//  bool load(const std::string& obj_filename);
-
-  void set_mesh(std::shared_ptr<gl_resource> mesh) { m_mesh = mesh; }
+  void set_mesh(std::shared_ptr<gl_resource> mesh);
 
 private:
   // Owned by resource manager

@@ -47,12 +47,17 @@ struct Group : public gl_resource
   bool load_binary(binary_file& f);
   bool save_binary(binary_file& f);
 
+  const aabb& get_aabb() const { return m_aabb; }
+
   std::string m_materialName; // TODO int index
   tris m_tris; 
 
   // VAO
   unsigned int m_vao = 0;
   unsigned int m_vbo = 0;
+
+  // Bounding vol
+  aabb m_aabb;
 };
 
 // Group with extra info for saving

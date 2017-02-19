@@ -29,6 +29,11 @@ private:
     const frustum& fr, 
     const mat4& xform) override;
 
+  virtual void draw_bounding_vol(
+    const scene_node& node,
+    const frustum& fr,
+    const mat4& xform) override;
+
 private:
   render_to_texture* m_shadow_map = nullptr;
   std::shared_ptr<gl_shader> m_opaque_pass_shader;

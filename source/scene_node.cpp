@@ -2,7 +2,15 @@
 // glboiler - Jason Colman 2016-2017 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
+#include "boiler_assert.h"
 #include "scene_node.h"
+
+scene_node::scene_node()
+{
+  // By default, use volume that always reports as being partially inside 
+  //  the frustum
+  m_bounding_vol.reset(new bounding_vol);
+}
 
 void scene_node::set_material(std::shared_ptr<material> material)
 {
@@ -28,5 +36,11 @@ bool scene_node::yes_render_in_pass(unsigned int rpt) const
   gl_boiler_assert(m_render_passes != 0);
 
   return (m_render_passes & rpt) != 0;
+}
+
+const bounding_vol& scene_node::get_bounding_vol() const
+{
+  gl_boiler_assert(m_bounding_vol.get());
+  return *m_bounding_vol;
 }
 

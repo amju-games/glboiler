@@ -41,6 +41,11 @@ protected:
     const frustum& fr,
     const mat4& combined_ancestor_xform) = 0;
 
+  virtual void draw_bounding_vol(
+    const scene_node& node,
+    const frustum& fr,
+    const mat4& combined_ancestor_xform) {}
+
 protected:
   renderer* m_renderer = nullptr; // weak ptr
 };

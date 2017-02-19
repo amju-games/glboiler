@@ -1,6 +1,7 @@
 #include <iostream>
 #include "binary_file.h"
 #include "boiler_assert.h"
+#include "bounding_sphere.h"
 #include "file.h"
 #include "file_string_utils.h"
 #include "obj_mesh.h"
@@ -426,11 +427,16 @@ std::vector<std::shared_ptr<scene_node>> ObjMesh::make_scene_nodes(resource_mana
     std::shared_ptr<mesh_scene_node> n(new mesh_scene_node);
     ret.push_back(n);
     // Get group from res manager
+    // This is just confusing. This ObjMesh is a resource, so there is just one instance
+    //  in memory. The individual groups don't need to be owned by the resource manager, 
+    //  they can be owned by this ObjMesh.
     Group& g = p.second;
     std::string name = g.get_name();
     n->set_name("Mesh_node_for_" + name);
     auto mesh = rm.get_resource(name);
     n->set_mesh(mesh); 
+
+    n->set_bounding_vol(new aabb(g.get_aabb()));
 
     if (m_materials[g.m_materialName])
     {
@@ -514,6 +520,7 @@ void ObjMesh::BuildGroup(Group& g)
       const vec3 vP = m_points[p];
 
       t.m_verts[2 - j].pos = vP;
+      g.m_aabb.include(vP);
     }
     t.calc_tangents();
     g.m_tris.push_back(t);
