@@ -31,6 +31,16 @@ std::vector<int> scene_graph::get_connections(int from_node) const
   return m_int_graph.get_connections(from_node);
 }
 
+struct update_traversal_node
+{
+  update_traversal_node() = default;
+  update_traversal_node(int id_) : id(id_) {}
+  update_traversal_node(int id_, const mat4& m) : id(id_), combined_matrix(m) {}
+
+  int id = -1;
+  mat4 combined_matrix;
+};
+
 void scene_graph::update(float dt)
 {
   // TODO factor out traversal if we need to do it for anything else
@@ -39,21 +49,24 @@ void scene_graph::update(float dt)
     return;
   }
 
-  // In this traversal, visit each node once.
-  std::stack<int> to_visit;
+  // In this traversal, we assume we visit each node once.
+  std::stack<update_traversal_node> to_visit;
   std::set<int> visited;
   int root = 0;
   to_visit.push(root);
 
   while (!to_visit.empty())
   {
-    int id = to_visit.top();
+    const auto tn = to_visit.top();
     to_visit.pop();
 
+    int id = tn.id;
     visited.insert(id);
 
     scene_node& node = *m_nodes[id]; 
     node.update();
+
+    mat4 m = mult(tn.combined_matrix, node.get_xform());
 
     auto child_ids = get_connections(id);
     for (int ch_id : child_ids)
