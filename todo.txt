@@ -1,3 +1,7 @@
+Frustum tests
+Add Culling
+Report culled nodes
+
 Sort nodes before drawing!
 Use insertion sort, exploit coherence.
 Sort by shader, then z-dist?
@@ -9,7 +13,7 @@ compare with opacity, discard if less, say.
 Use same dither for shadows, so translucent meshes write to fewer texels in
  shadow map. Very similar to meshes with an alpha channel, which we also use
  to discard shadow map fragments.
-
+Probably won't look good, Maybe write colours to shadow map for coloured shadows.
 
 Have mesh class, obj_mesh populates mesh (subclass?)
  - mesh has vao, saves/loads binary. 

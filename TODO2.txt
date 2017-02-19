@@ -1,3 +1,12 @@
+Mii-style avatars? :)
+
+
+Train set, like Wii Fit running 
+Terrain, water, sky, tunnel, grass, trees, bridge
+Procedural, or scene description in reloadable text file
+
+
+
 Draw wireframe should be an option.
 That needs Tweak bar....
 (How to do it? Is polygon mode still a thing?)
