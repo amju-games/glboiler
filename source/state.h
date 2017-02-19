@@ -36,9 +36,6 @@ protected:
 
   virtual void create_renderer_on_gl_thread(resource_manager& rm) = 0;
 
-  // Convenience function for setting up renderer.
-  static void set_up_renderer_on_gl_thread(renderer& rend, int x, int y, int w, int h, resource_manager& rm);
-
 protected:
   int m_window_w = 1;
   int m_window_h = 1;

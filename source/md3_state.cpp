@@ -2,34 +2,16 @@
 // glboiler - Jason Colman 2016-2017 - OpenGL experiments
 // -----------------------------------------------------------------------------
 
+#include "look_at.h"
 #include "md3_state.h"
 #include "md3_node.h"
 #include "gl_1_1_solid_scene_node.h"
 #include "gl_2_renderer.h"
 #include "gl_1_1_renderer.h"
+#include "projection.h"
 
 void md3_state::init_on_gl_thread(resource_manager& rm)
 {
-  // Add resources
-  std::shared_ptr<gl_shader> opaque(new gl_shader);
-  opaque->load("shaders/opaque.v.txt", "shaders/opaque.f.txt");
-  rm.add_gl_resource("opaque", opaque);
-
-  std::shared_ptr<gl_shader> shadow_depth_opaque(new gl_shader);
-  shadow_depth_opaque->load("shaders/shadow_depth_opaque.v.txt", "shaders/shadow_depth_opaque.f.txt");
-  rm.add_gl_resource("shadow_depth_opaque", shadow_depth_opaque);
-
-  //{
-  //  std::shared_ptr<texture> tex(new texture);
-  //  tex->load("md3/dragon/deranged_crowley.png");
-  //  rm.add_gl_resource(tex->get_name(), tex);
-  //}
-  //{
-  //  std::shared_ptr<texture> tex(new texture);
-  //  tex->load("md3/dragon/deranged_sir_bruin.png");
-  //  rm.add_gl_resource(tex->get_name(), tex);
-  //}
-
   state::init_on_gl_thread(rm);
 }
 
@@ -91,6 +73,17 @@ void md3_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
 void md3_state::create_renderer_on_gl_thread(resource_manager& rm)
 {
   m_renderer.reset(new gl_2_renderer);
-  set_up_renderer_on_gl_thread(*m_renderer, 0, 0, m_window_w, m_window_h, rm);
+  
+  m_renderer->init_on_gl_thread(rm);
+
+  vec3 eye_pos(0, 10, 30); 
+
+  vec3 look = -normalise(eye_pos);
+  const vec3 up(0, 1, 0);
+  perspective p(45.0f, 1.0f, 0.1f, 10000.0f);
+  camera cam;
+  p.set_matrix(cam.proj_matrix);
+  look_at(eye_pos, look, up).set_matrix(cam.look_at_matrix);
+  m_renderer->set_view(view(viewport(0, 0, m_window_w, m_window_h), cam));
 }
 
