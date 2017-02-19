@@ -59,6 +59,20 @@ void assert_equal(const mat4& m1, const mat4& m2)
   ASSERT_NEAR(m1[15], m2[15], e);
 }
 
+void assert_equal(const mat3& m1, const mat3& m2)
+{
+  float e = 0.00001f;
+  ASSERT_NEAR(m1[0], m2[0], e);
+  ASSERT_NEAR(m1[1], m2[1], e);
+  ASSERT_NEAR(m1[2], m2[2], e);
+  ASSERT_NEAR(m1[3], m2[3], e);
+  ASSERT_NEAR(m1[4], m2[4], e);
+  ASSERT_NEAR(m1[5], m2[5], e);
+  ASSERT_NEAR(m1[6], m2[6], e);
+  ASSERT_NEAR(m1[7], m2[7], e);
+  ASSERT_NEAR(m1[8], m2[8], e);
+}
+
 void assert_equal(const vec3& v1, const vec3& v2)
 {
   float e = 0.00001f;
