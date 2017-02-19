@@ -6,7 +6,7 @@
 // Fragment shader
 // -----------------------------------------------------------------------------
 
-//#define VIEW_NORMALS
+#define VIEW_NORMALS
 
 
 // Just replicating fixed function lighting (one light) + one diffuse map
@@ -29,6 +29,8 @@ varying vec4 v_shadow_coord;
 
 void main()
 {
+  vec3 normal = normalize(v_normal);
+
   vec4 shadow_coords = v_shadow_coord / v_shadow_coord.w; 
 
   // Bias: TODO adjust based on normal
@@ -63,7 +65,7 @@ void main()
 #endif // YES_PCF
 
   vec3 light_dir = normalize(vec3(1, 1, 1));
-  float n_dot_l = max(0.0, dot(light_dir, normalize(v_normal)));
+  float n_dot_l = max(0.0, dot(light_dir, normal));
 
   vec4 diffuse_tex_colour = texture2D(diffuse_map, v_uv);
 
@@ -72,7 +74,7 @@ void main()
   vec4 final_colour = vec4(diffuse_tex_colour.r * n, diffuse_tex_colour.g * n, diffuse_tex_colour.b * n, diffuse_tex_colour.a);
 
 #ifdef VIEW_NORMALS
-  final_colour = final_colour * 0.0001 + vec4(v_normal * 0.5 + vec3(0.5), 1.0);
+  final_colour = final_colour * 0.0001 + vec4(normal * 0.5 + vec3(0.5), 1.0);
 #endif
 
   gl_FragColor = final_colour;
