@@ -9,11 +9,11 @@
 #include "scene_graph.h"
 #include "view.h"
 
-////class gl_shader;
-
 struct render_stats
 {
-  int num_nodes_rendered = 0;
+  void reset();
+  void inc_num_nodes_rendered_for_pass(unsigned int pass) {}
+  void inc_num_nodes_culled_for_pass(unsigned int pass) {}
 };
 
 class renderer 
