@@ -87,41 +87,25 @@ inline const mat3& mat3::inverse_transpose()
 {
   // http://stackoverflow.com/questions/983999/simple-3x3-matrix-inverse-code-c
 
-  // (i, j) === i*3 + j
-//#define A(i, j) m[i * 3 + j]
-
-  //float determinant = +A(0, 0)*(A(1, 1)*A(2, 2) - A(2, 1)*A(1, 2))
-  //  - A(0, 1)*(A(1, 0)*A(2, 2) - A(1, 2)*A(2, 0))
-  //  + A(0, 2)*(A(1, 0)*A(2, 1) - A(1, 1)*A(2, 0));
-
-  float determinant = 
-    + m[0]*(m[4]*m[8] - m[7]*m[5])
-    - m[1]*(m[3]*m[8] - m[5]*m[6])
-    + m[2]*(m[3]*m[7] - m[4]*m[6]);
+  float determinant =
+    + m[0] * (m[4] * m[8] - m[7] * m[5])
+    - m[1] * (m[3] * m[8] - m[5] * m[6])
+    + m[2] * (m[3] * m[7] - m[4] * m[6]);
 
   if (determinant != 0)
   {
     float invdet = 1.f / determinant;
 
     mat3 result;
-    //  result.A(0, 0) = (A(1, 1)*A(2, 2) - A(2, 1)*A(1, 2))*invdet;
-    result.m[0] = (m[4] * m[8] - m[7] * m[5])*invdet;
-    //  result.A(1, 0) = -(A(0, 1)*A(2, 2) - A(0, 2)*A(2, 1))*invdet;
-    result.m[3] = -(m[1] * m[8] - m[2] * m[7])*invdet;
-    //  result.m[6] = (A(0, 1)*A(1, 2) - A(0, 2)*A(1, 1))*invdet;
-    result.m[6] = (m[1] * m[5] - m[2] * m[4])*invdet;
-    //  result.m[1] = -(A(1, 0)*A(2, 2) - A(1, 2)*A(2, 0))*invdet;
-    result.m[1] = -(m[3] * m[8] - m[5] * m[6])*invdet;
-    //  result.m[4] = (A(0, 0)*A(2, 2) - A(0, 2)*A(2, 0))*invdet;
-    result.m[4] = (m[0] * m[8] - m[2] * m[6])*invdet;
-    //  result.m[7] = -(A(0, 0)*A(1, 2) - A(1, 0)*A(0, 2))*invdet;
-    result.m[7] = -(m[0] * m[5] - m[3] * m[2])*invdet;
-    //  result.m[2] = (A(1, 0)*A(2, 1) - A(2, 0)*A(1, 1))*invdet;
-    result.m[2] = (m[3] * m[7] - m[6] * m[4])*invdet;
-    //  result.m[5] = -(A(0, 0)*A(2, 1) - A(2, 0)*A(0, 1))*invdet;
-    result.m[5] = -(m[0] * m[7] - m[6] * m[1])*invdet;
-    //  result.m[8] = (A(0, 0)*A(1, 1) - A(1, 0)*A(0, 1))*invdet;
-    result.m[8] = (m[0] * m[4] - m[3] * m[1])*invdet;
+    result.m[0] =  (m[4] * m[8] - m[7] * m[5]) * invdet;
+    result.m[3] = -(m[1] * m[8] - m[2] * m[7]) * invdet;
+    result.m[6] =  (m[1] * m[5] - m[2] * m[4]) * invdet;
+    result.m[1] = -(m[3] * m[8] - m[5] * m[6]) * invdet;
+    result.m[4] =  (m[0] * m[8] - m[2] * m[6]) * invdet;
+    result.m[7] = -(m[0] * m[5] - m[3] * m[2]) * invdet;
+    result.m[2] =  (m[3] * m[7] - m[6] * m[4]) * invdet;
+    result.m[5] = -(m[0] * m[7] - m[6] * m[1]) * invdet;
+    result.m[8] =  (m[0] * m[4] - m[3] * m[1]) * invdet;
 
     *this = result;
   }
