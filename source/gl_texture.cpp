@@ -156,12 +156,12 @@ void gl_texture::free_data()
   }
 }
 
-void gl_texture::use_on_gl_thread()
+void gl_texture::use_on_gl_thread(int active_texture_id)
 {
   gl_boiler_assert(m_has_been_uploaded);
 
   GL_CHECK(glEnable(GL_TEXTURE_2D));
-  GL_CHECK(glActiveTexture(GL_TEXTURE0 + m_active_texture_id));
+  GL_CHECK(glActiveTexture(GL_TEXTURE0 + active_texture_id));
   GL_CHECK(glBindTexture(GL_TEXTURE_2D, m_bind_texture_id));
 }
 

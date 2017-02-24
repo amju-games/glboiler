@@ -16,15 +16,16 @@
 class material : public object
 {
 public:
-  material() = default;
-  void set_texture(std::shared_ptr<gl_texture> tex);
+  material();
+  void set_texture(std::shared_ptr<gl_texture> tex, int active_texture_id);
   void set_shader(std::shared_ptr<gl_shader> shader);
 
   // Pass on to  the resources to which we point
   void use_on_gl_thread();
 
 private:
-  // Materials have zero or more textures, which are interpreted by the shader
+  // Materials have zero or more textures, which are interpreted by the shader.
+  // The position in the vector is the active texture ID.
   std::vector<std::shared_ptr<gl_texture>> m_textures;
 
   // Materials have one shader

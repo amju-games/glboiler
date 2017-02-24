@@ -4,9 +4,15 @@
 
 #include "material.h"
 
-void material::set_texture(std::shared_ptr<gl_texture> tex)
+material::material()
 {
-  m_textures.push_back(tex);
+  const int MAX_NUM_TEXTURES = 8;
+  m_textures.resize(MAX_NUM_TEXTURES);
+}
+
+void material::set_texture(std::shared_ptr<gl_texture> tex, int active_texture_id)
+{
+  m_textures[active_texture_id] = tex;
 }
 
 void material::set_shader(std::shared_ptr<gl_shader> shader)
@@ -21,9 +27,14 @@ void material::use_on_gl_thread()
     m_shader->use_on_gl_thread();
   }
 
-  for (auto tex : m_textures)
+  int num_textures = static_cast<int>(m_textures.size());
+  for (int i = 0; i < num_textures; i++)
   {
-    tex->use_on_gl_thread();
+    auto tex = m_textures[i];
+    if (tex)
+    {
+      tex->use_on_gl_thread(i);
+    }
   }
 }
 

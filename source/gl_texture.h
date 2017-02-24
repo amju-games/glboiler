@@ -16,7 +16,6 @@ public:
   ~gl_texture();
 
   bool load(const std::string& filename);
-  void set_active_texture_id(int i) { m_active_texture_id = i; }
 
   unsigned int get_width() const { return m_w; }
   unsigned int get_height() const { return m_h; }
@@ -27,7 +26,11 @@ public:
   colour get_texel_colour(const vec2& uv) const;
 
   virtual void upload_on_gl_thread() override;
-  virtual void use_on_gl_thread() override;
+
+  // Use special use_on_gl_thread to set the active texture ID
+  virtual void use_on_gl_thread() override { use_on_gl_thread(0); }
+  void use_on_gl_thread(int active_texture_id);
+
   virtual void destroy_on_gl_thread() override;
 
   virtual void reload() override;
@@ -39,7 +42,6 @@ private:
   std::string m_filename;
   std::vector<unsigned char> m_data;
   unsigned int m_bind_texture_id = 0;
-  int m_active_texture_id = 0;
   unsigned int m_w = 0;
   unsigned int m_h = 0;
   unsigned int m_bytes_per_pixel = 0;
