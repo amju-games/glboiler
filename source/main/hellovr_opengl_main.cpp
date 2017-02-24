@@ -14,8 +14,9 @@
 #include "shared/Matrices.h"
 #include "shared/pathtools.h"
 
+// j.c.
 #include "gl_system.h"
-//#include "md3_state.h"
+#include "md3_state.h"
 #include "obj_state.h"
 
 state* the_state = new obj_state;
@@ -338,7 +339,7 @@ bool CMainApplication::BInit()
 {
   // Sets this thread as the GL render thread, so we can check all GL calls 
   //  are on this same thread.
-  set_gl_thread();
+  set_gl_thread(); // j.c.
 
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0)
   {
@@ -358,7 +359,6 @@ bool CMainApplication::BInit()
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "VR_Init Failed", buf, NULL);
     return false;
   }
-
 
   m_pRenderModels = (vr::IVRRenderModels *)vr::VR_GetGenericInterface(vr::IVRRenderModels_Version, &eError);
   if (!m_pRenderModels)
@@ -380,6 +380,8 @@ bool CMainApplication::BInit()
 
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+
+  // j.c.
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
   //SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
 
@@ -652,10 +654,12 @@ void CMainApplication::RunMainLoop()
   {
     bQuit = HandleInput();
 
+    // j.c.
     rm.update_on_gl_thread();
 
     RenderFrame();
 
+    // j.c.
     the_state->update(0.01f);
   }
 
@@ -1505,6 +1509,7 @@ void CMainApplication::RenderScene(vr::Hmd_Eye nEye)
 
   if (m_bShowCubes)
   {
+    // j.c.
     the_state->get_view()->get_camera().proj_matrix = GetCurrentViewProjectionMatrix(nEye).get();
     the_state->render_on_gl_thread();
 
