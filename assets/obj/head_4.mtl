@@ -4,5 +4,7 @@ Kd 0.50 0.50 0.50
 Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
 Ni 1.00
-map_Kd head_0.png
+map_0 head_0.png
+map_2 donut_normal.png
+
 

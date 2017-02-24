@@ -3,5 +3,7 @@ illum 4
 Kd 0.00 0.00 0.00
 Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd white.png
+map_0 donut_diffuse.png
+map_2 donut_normal.png
+map_3 donut_specular.png
 Ni 1.00
