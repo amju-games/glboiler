@@ -41,7 +41,9 @@ void obj_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
 
   // Get obj file resource. Loaded if not already resident.
   // Stores the meshes (groups) in the resource manager when loading.
-  std::shared_ptr<gl_mesh> mesh = rm.get_mesh("obj/head_4.obj");
+//  std::shared_ptr<gl_mesh> mesh = rm.get_mesh("obj/head_4.obj");
+//  std::shared_ptr<gl_mesh> mesh = rm.get_mesh("obj/donut.obj");
+  std::shared_ptr<gl_mesh> mesh = rm.get_mesh("obj/cube_0.5.obj");
 
 //  std::shared_ptr<gl_mesh> mesh = rm.get_mesh("360/360.obj");
 
@@ -56,7 +58,8 @@ void obj_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
   {
     n->add_render_pass(render_pass_type::SHADOW_PASS | render_pass_type::FORWARD_OPAQUE_PASS);
 
-    n->get_xform() = mult(mat4().scale(1.0, 1.0, 1.0), mat4().translate(vec3(0, 1.0, 0)));
+    n->get_xform() = mat4().scale(0.5);
+    //mult(mat4().scale(1.0, 1.0, 1.0), mat4().translate(vec3(0, 1.0, 0)));
 
     m_sg->add_node(n);
     m_sg->add_connection(obj->get_id(), n->get_id());
@@ -69,12 +72,13 @@ void obj_state::create_renderer_on_gl_thread(resource_manager& rm)
   m_renderer->init_on_gl_thread(rm);
 
   // OK for centre of sky dome etc
-  //  vec3 eye_pos(0, 0, 0); // TODO TEMP TEST
+//  vec3 eye_pos(0, 0, 0); // TODO TEMP TEST
+//  vec3 look(0, 0, 1);
 
   // Good for head obj
   vec3 eye_pos(0, 70, 100); // TODO TEMP TEST
-
   vec3 look = -normalise(eye_pos);
+
   const vec3 up(0, 1, 0);
   perspective p(45.0f, 1.0f, 0.1f, 10000.0f);
   camera cam;

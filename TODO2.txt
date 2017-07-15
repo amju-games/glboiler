@@ -58,9 +58,4 @@ Cube/sphere mapping
 Shut down gracefully - prove no mem or GL leaks
 Tests with mock types to show scene graph, res manager etc clean up
 
-OpenVR
-
-===
-DONE - Specialised assert
-
 

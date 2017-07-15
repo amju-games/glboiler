@@ -724,7 +724,7 @@ void CModelMD3::RenderModel(t3DModel *pModel)
       // Grab the texture index from the materialID index into our material list
       gl_texture* pTex = pModel->pMaterials[pObject->materialID].textureId;
       //TODO TEMP TEST
-      pTex->use_on_gl_thread();
+      pTex->use_on_gl_thread(0);
       //UseThisTexture(); //Bind();
       // Bind the texture index that we got from the material textureID
       //glBindTexture(GL_TEXTURE_2D, m_Textures[textureID]);

@@ -30,6 +30,8 @@ void opaque_pass::render_on_gl_thread()
 
   m_opaque_pass_shader->set_int_on_gl_thread("diffuse_map", 0);
   m_opaque_pass_shader->set_int_on_gl_thread("shadow_map", 1);
+//  m_opaque_pass_shader->set_int_on_gl_thread("normal_map", 2);
+//  m_opaque_pass_shader->set_int_on_gl_thread("specular_map", 3);
 
   int w, h;
   m_shadow_map->get_size(&w, &h);

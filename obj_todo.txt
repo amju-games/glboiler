@@ -1,8 +1,4 @@
-Use existing vert type
 
- - Add calc tangent
-
-Save/load binary: write group tri vectors to mem. This should load super fast!
 
 Using materials: create material from obj_material, get from resource manager.
 Then each group has a material with a potential new shader.

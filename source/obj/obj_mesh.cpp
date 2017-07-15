@@ -452,7 +452,7 @@ std::vector<std::shared_ptr<scene_node>> ObjMesh::make_scene_nodes(resource_mana
         if (!om.m_texfilename[i].empty())
         {
           auto tex = rm.get_texture(om.m_texfilename[i]);
-          mat->set_texture(tex);
+          mat->set_texture(tex, i);
         }
       }
       n->set_material(mat);

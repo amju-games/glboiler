@@ -38,8 +38,8 @@ void md3_state::set_up_scene_graph_on_gl_thread(resource_manager& rm)
   std::shared_ptr<material> mat_test_card(new material);
   std::shared_ptr<material> mat_white(new material);
 
-  mat_test_card->set_texture(rm.get_texture("textures/test_card.png"));
-  mat_white->set_texture(rm.get_texture("textures/white.png"));
+  mat_test_card->set_texture(rm.get_texture("textures/test_card.png"), 0);
+  mat_white->set_texture(rm.get_texture("textures/white.png"), 0);
 
   auto sphere = std::make_shared<gl_1_1_sphere_scene_node>();
   sphere->get_xform().translate(vec3(-5, 0, -5));

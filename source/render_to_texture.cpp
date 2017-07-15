@@ -81,6 +81,7 @@ void render_to_texture::use_texture_on_gl_thread()
 bool render_to_texture::init_depth()
 {
   // Render depth buffer to texture
+  GL_CHECK(glActiveTexture(GL_TEXTURE1));
   GL_CHECK(glBindTexture(GL_TEXTURE_2D, m_tex[1]));
 
   GL_CHECK(glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,
@@ -165,7 +166,6 @@ bool render_to_texture::init_colour()
 
 bool render_to_texture::init_on_gl_thread()
 {
-  // This line gives GL errors!!
   GL_CHECK(glGetIntegerv(GL_FRAMEBUFFER_BINDING, &m_old_fbo));
   
   GL_CHECK(glGenFramebuffers(1, &m_framebuffer));
@@ -226,26 +226,34 @@ void render_to_texture::debug_draw_on_gl_thread()
 {
   // TODO TEMP TEST - use quad type?
 
-  glUseProgram(0); // back to fixed function
-  glDisable(GL_LIGHTING);
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
-  glColor4f(1,1,1,1);
-  glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, m_tex[1]);
-  glTranslated(0,0,-1);
-  glBegin(GL_QUADS);
+  GL_CHECK(glUseProgram(0)); // back to fixed function
+
+////  use_texture_on_gl_thread();
+
+  GL_CHECK(glDisable(GL_LIGHTING));
+  GL_CHECK(glMatrixMode(GL_PROJECTION));
+  GL_CHECK(glLoadIdentity());
+  GL_CHECK(glMatrixMode(GL_MODELVIEW));
+  GL_CHECK(glLoadIdentity());
+  GL_CHECK(glColor4f(1, 1, 1, 1));
+  GL_CHECK(glEnable(GL_TEXTURE_2D));
+  GL_CHECK(glActiveTexture(GL_TEXTURE0));
+  GL_CHECK(glBindTexture(GL_TEXTURE_2D, m_tex[1]));
+  GL_CHECK(glTranslated(0, 0, -1));
+  GL_CHECK(glBegin(GL_QUADS));
   float x1 = 0.5f;
   float x2 = 1.0f;
   float y1 = 0.5f;
   float y2 = 1.0f;
-  glTexCoord2d(0,0);glVertex2f(x1, y1);
-  glTexCoord2d(0, 1); glVertex2f(x1, y2);
-  glTexCoord2d(1,1);glVertex2f(x2, y2);
-  glTexCoord2d(1, 0); glVertex2f(x2, y1);
-  glEnd();
+  GL_CHECK(glTexCoord2d(0, 0)); 
+  GL_CHECK(glVertex2f(x1, y1));
+  GL_CHECK(glTexCoord2d(0, 1)); 
+  GL_CHECK(glVertex2f(x1, y2));
+  GL_CHECK(glTexCoord2d(1, 1)); 
+  GL_CHECK(glVertex2f(x2, y2));
+  GL_CHECK(glTexCoord2d(1, 0)); 
+  GL_CHECK(glVertex2f(x2, y1));
+  GL_CHECK(glEnd());
 }
 
 

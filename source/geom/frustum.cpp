@@ -16,6 +16,24 @@ plane frustum::get_plane(frustum_plane fpl)
 
 void frustum::set_from_matrix(mat4 m)
 {
+  // Wait. This is treating matrix as row major, shurrely
+  /*
+Row major
+
+0	1	2	3
+4	5	6	7
+8	9	10	11
+12	13	14	15
+
+Column major
+
+0	4	8	12
+1	5	9	13
+2	6	10	14
+3	7	11	15
+
+  */
+
   m_planes[FRUSTUM_PLANE_RIGHT]  = plane(m[3] - m[0], m[7] - m[4], m[11] - m[8],  m[15] - m[12]).normalise();
   m_planes[FRUSTUM_PLANE_LEFT]   = plane(m[3] + m[0], m[7] + m[4], m[11] + m[8],  m[15] + m[12]).normalise();
   m_planes[FRUSTUM_PLANE_TOP]    = plane(m[3] - m[1], m[7] - m[5], m[11] - m[9],  m[15] - m[13]).normalise();

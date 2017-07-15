@@ -1,6 +1,25 @@
+MD3 and gl 1.1 solids all black: this is because of attrib vars in shader I think.
+Using gl 1.1, the vert positions are being set, but not other attribs?
+Could fix by having a legacy shader.
+
+Not seeing shadow map in obj_state - black
+ - It's when we set normal and or spec map, i.e. active tex 2 or 3.
+ - Having these set in the material does it, not setting the sampler uniforms
+
+
+Also shadow map gets darker/flickers
+
+
+
+SYSTEMATICALLY Test all combos of VR/non VR, meshes, etc. Too much whack a mole shit going on.
+
+
 Frustum tests
 Add Culling
-Report culled nodes
+Report culled nodes: draw bounding vol in different colours.
+Draw them at the end, not while rendering scene.
+Update matrixes and boxes in update, not in render
+
 
 Sort nodes before drawing!
 Use insertion sort, exploit coherence.
@@ -27,12 +46,6 @@ Cartoony/paper cut out 'grass' - big terrain with all effects but non-realistic 
 
 
 
-Try dither transparency
-
-
-Set bit field on each node to set passes in which it is rendered
-DONE
-
 Split rendering into "only once" and "once or more" - so we only render shadow
  maps once, then render the scene twice, once for each eye.
  Could use the begin/render/end 3 funcs
@@ -44,6 +57,9 @@ water - like screen space refls?
 reflections
 
 My Heads - with different materials
+
+Recursive (looking - cheat) heads with small heads growing out
+
 
 Deferred renderer
  - Show any of the G buffer layers in main view? Or just as mini views.

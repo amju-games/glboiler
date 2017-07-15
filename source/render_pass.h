@@ -22,12 +22,11 @@ class render_pass
 public:
   // When we construct, point back to the owning renderer (i.e. weak ptr)
   void set_renderer(renderer* r) { m_renderer = r; }
+  renderer* get_renderer() { return m_renderer; }
 
   virtual void init_on_gl_thread(resource_manager& rm) = 0;
   virtual void destroy_on_gl_thread() = 0;
   virtual void render_on_gl_thread() = 0;
-
-  renderer* get_renderer() { return m_renderer; }
 
 protected:
   // Traverse the scene, rendering the nodes which should be rendered 
